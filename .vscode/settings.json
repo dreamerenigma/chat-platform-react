@@ -1,8 +1,0 @@
-{
-	"emmet.includeLanguages": {
-		"javascript": "javascriptreact",
-		"vue-html": "html",
-		"typescript": "typescriptreact"
-	},
-	"emmet.optimizeStylesheetParsing": true
-}
