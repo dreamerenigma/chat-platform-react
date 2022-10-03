@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@nestjs/cli": "^9.1.4",
     "@redux-devtools/extension": "^3.2.3",
     "@reduxjs/toolkit": "^1.8.5",
     "@testing-library/jest-dom": "^5.14.1",
@@ -15,6 +16,7 @@
     "akar-icons": "^1.9.20",
     "axios": "^0.27.2",
     "date-fns": "^2.29.2",
+    "global": "^4.4.0",
     "peerjs": "^1.4.7",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
