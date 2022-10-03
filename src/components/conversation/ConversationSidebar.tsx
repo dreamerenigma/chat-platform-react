@@ -2,7 +2,6 @@ import { ConversationSidebarContainer, ConversationSidebarHeader, ConversationSi
 import { TbEdit } from 'react-icons/tb';
 import { ConversationType } from "../../utils/types";
 import { FC } from "react";
-import conversations from "../../__mocks__/conversations";
 import styles from './index.module.scss';
 import { useNavigate } from "react-router-dom";
 

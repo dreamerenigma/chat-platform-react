@@ -42,8 +42,8 @@ export const Button = styled.button`
 	border-radius: 10px;
 	padding: 25px 0;
 	font-weight: 500;
-	transition; 250ms background-color ease;
-	transition; 500ms border ease;
+	transition: 250ms background-color ease;
+	transition: 500ms border ease;
 	border: 2px solid #2b09ff;
 	box-sizing: border-box;
 	&:hover {
@@ -78,7 +78,7 @@ export const ConversationSidebarStyle = styled.aside`
 `;
 
 export const ConversationSidebarHeader = styled.header`
-	position: fixed;
+	position: absolute;
 	width: 100%;
 	top: 0;
 	left: 0;
@@ -97,7 +97,7 @@ export const ConversationSidebarHeader = styled.header`
 
 export const ConversationChannelPageStyle = styled.div`
 	height: 100%;
-	margin-left: {SIDEBAR_WIDTH}px;
+	margin-left: ${SIDEBAR_WIDTH}px;
 `;
 
 export const ConversationSidebarContainer = styled.div`
