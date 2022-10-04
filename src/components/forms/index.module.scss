@@ -1,6 +1,6 @@
 form {
 	width: 800px;
-}
+};
 
 .nameFieldRow {
 	width: 100%;
@@ -8,7 +8,7 @@ form {
 	justify-content: space-between;
 	margin: 8px 0;
 	gap: 8px;
-}
+};
 
 .footerText {
 	& :last-child {
@@ -17,12 +17,20 @@ form {
 	}
 	margin: 10px 0;
 	text-align: center;
-}
+};
 
 .button {
 	margin: 8px 0;
-}
+};
 
 .loginFormPassword {
+	margin: 8px 0;
+};
+
+.createConversationForm {
+	width: 100%;
+};
+
+.message {
 	margin: 8px 0;
 }
