@@ -135,6 +135,7 @@ export const ModalContainerStyle = styled.div`
 export const ModalHeaderStyle = styled.header`
 	width: 100%;
 	padding: 0 24px;
+	box-sizing: border-box;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
@@ -146,7 +147,7 @@ export const ModalHeaderStyle = styled.header`
 `;
 
 export const ModalContentBodyStyle = styled.div`
-	padding-top: 24px;
+	padding: 24px;
 `;
 
 export const TextField= styled.textarea`
