@@ -72,14 +72,14 @@ export const ConversationSidebarStyle = styled.aside`
 	background-color: #1a1a1a;
 	border-right: 1px solid #5454543d;
 	overflow-y: scroll;
-	&::-webkit-scrollbar {
-		display: none;
-	}
+	/* &::-webkit-scrollbar-thumb {
+		background-color: #2d2d2d;
+	} */
 `;
 
 export const ConversationSidebarHeader = styled.header`
-	position: absolute;
-	width: 100%;
+	position: fixed;
+	width: ${SIDEBAR_WIDTH}px;
 	top: 0;
 	left: 0;
 	display: flex;
@@ -101,7 +101,7 @@ export const ConversationChannelPageStyle = styled.div`
 `;
 
 export const ConversationSidebarContainer = styled.div`
-
+	margin-top: 100px;
 `;
 
 export const ConversationSidebarItem = styled.div`
