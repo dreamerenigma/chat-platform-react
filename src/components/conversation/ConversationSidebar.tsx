@@ -1,10 +1,11 @@
 import { ConversationSidebarContainer, ConversationSidebarHeader, ConversationSidebarItem, ConversationSidebarStyle } from "../../utils/styles";
 import { TbEdit } from 'react-icons/tb';
 import { ConversationType } from "../../utils/types";
-import { FC, useState } from "react";
+import { FC, useContext, useState } from "react";
 import styles from './index.module.scss';
 import { useNavigate } from "react-router-dom";
 import { CreateCoversationModal } from "../modals/CreateConversationModal";
+import { AuthContext } from "../../utils/context/AuthContext";
 
 type Props = {
 	conversations: ConversationType[];
@@ -12,6 +13,7 @@ type Props = {
 
 export const ConversationSidebar: FC<Props> = ({ conversations }) => {
 	const navigate = useNavigate();
+	const { user } = useContext(AuthContext);
 	const [showModal, setShowModal] = useState(false);
 
 	return (
@@ -28,14 +30,15 @@ export const ConversationSidebar: FC<Props> = ({ conversations }) => {
 					{conversations.map((conversation) => (
 						<ConversationSidebarItem onClick={() => navigate(`/conversations/${conversation.id}`)}>
 							<div className={styles.conversationAvatar}></div>
-							<div>
+							{user?.email}
+							{/* <div>
 								<span className={styles.conversationName}>
 									{conversation.name}
 								</span>
 								<span className={styles.conversationLastMessage}>
 									{conversation.lastMessage}
 								</span>
-							</div>
+							</div> */}
 						</ConversationSidebarItem>
 					))}
 				</ConversationSidebarContainer>
