@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components';
-import { InputContainerProps, PageProps } from './styleTypes';
+import { InputContainerProps, MessageItemContentProps, PageProps } from './styleTypes';
 
 export const SIDEBAR_WIDTH = 400;
 
@@ -43,9 +43,6 @@ export const Button = styled.button`
 	padding: 25px 0;
 	font-weight: 500;
 	transition: 250ms background-color ease;
-	transition: 500ms border ease;
-	border: 2px solid #2b09ff;
-	box-sizing: border-box;
 	&:hover {
 		cursor: pointer;
 		background-color: #3415ff;
@@ -72,6 +69,11 @@ export const ConversationSidebarStyle = styled.aside`
 	background-color: #1a1a1a;
 	border-right: 1px solid #5454543d;
 	overflow-y: scroll;
+	&::-webkit-scrollbar {
+		display: none;
+		/* width: 10px;
+		height: 5px; */
+	}
 	/* &::-webkit-scrollbar-thumb {
 		background-color: #2d2d2d;
 	} */
@@ -165,4 +167,103 @@ export const TextField= styled.textarea`
 	::-webkit-scrollbar {
 		display: none;
 	}
+`;
+
+export const MessagePanelStyle = styled.div`
+	background: inherit;
+	height: 100%;
+	box-sizing: border-box;
+	position: relative;
+`;
+
+export const MessagePanelBody = styled.div`
+	height: 100%;
+	display: flex;
+   flex-direction: column;
+	padding: 32px;
+	box-sizing: border-box;
+`;
+
+export const MessageContainerStyle = styled.div`
+	height: 100%;
+	box-sizing: border-box;
+	padding: 10px 0;
+	display: flex;
+	flex-direction: column-reverse;
+	overflow-y: scroll;
+	&::-webkit-scrollbar {
+		display: none;
+	}
+`;
+
+export const MessageInputContainer = styled.div`
+	box-sizing: border-box;
+	background-color: #101010;
+	border-radius: 10px;
+	width: 100%;
+	padding: 24px 32px;
+`;
+
+export const MessageInput = styled.input`
+	background-color: inherit;
+	outline: none;
+	border: none;
+	color: #454545;
+	font-family: 'Roboto';
+	box-sizing: border-box;
+	font-size: 18px;
+	width: 100%;
+	padding: 0;
+	margin: 4px 0;
+	resize: none;
+`;
+
+export const MessageItemContainer = styled.div`
+	display: flex;
+	gap: 20px;
+	align-items: center;
+	padding: 5px 0;
+`;
+
+export const MessageItemAvatar = styled.div`
+	width: 50px;
+	height: 50px;
+	border-radius: 50%;
+   background-color: #ee4343;
+`;
+
+export const MessageItemDetails = styled.div`
+
+`;
+
+export const MessageItemHeader = styled.div`
+	.time {
+		color: #6d6d6d;
+		font-size: 14px;
+		font-weight: bold;
+	}
+
+	.authorName {
+		font-size: 16px;
+      font-weight: 600;
+	}
+`;
+
+export const MessageItemContent = styled.div <MessageItemContentProps>`
+	padding: ${({ padding })  => padding};
+`;
+
+export const MessagePanelHeaderStyle = styled.div`
+	background-color: #151515;
+	border-bottom: 1px solid #5454543d;
+	height: 100px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 0 32px;
+	box-sizing: border-box;
+	position: fixed;
+	top: 0;
+   left: 0;
+   width: 100%;
 `;
