@@ -1,4 +1,9 @@
-import { ConversationSidebarContainer, ConversationSidebarHeader, ConversationSidebarItem, ConversationSidebarStyle } from "../../utils/styles";
+import { 
+	ConversationSidebarContainer, 
+	ConversationSidebarHeader, 
+	ConversationSidebarItem, 
+	ConversationSidebarStyle 
+} from "../../utils/styles";
 import { TbEdit } from 'react-icons/tb';
 import { ConversationType } from "../../utils/types";
 import { FC, useContext, useState } from "react";
@@ -16,6 +21,11 @@ export const ConversationSidebar: FC<Props> = ({ conversations }) => {
 	const { user } = useContext(AuthContext);
 	const [showModal, setShowModal] = useState(false);
 
+	const getDisplayUser = (conversation: ConversationType) => {
+		return conversation.creator.id === user?.id
+		? conversation.recipient
+		: conversation.creator;
+	};
 	return (
 		<>
 			{showModal && <CreateCoversationModal setShowModal={setShowModal} />}
@@ -28,17 +38,20 @@ export const ConversationSidebar: FC<Props> = ({ conversations }) => {
 				</ConversationSidebarHeader>
 				<ConversationSidebarContainer>
 					{conversations.map((conversation) => (
-						<ConversationSidebarItem onClick={() => navigate(`/conversations/${conversation.id}`)}>
+						<ConversationSidebarItem 
+							onClick={() => navigate(`/conversations/${conversation.id}`)}
+						>
 							<div className={styles.conversationAvatar}></div>
-							{user?.email}
-							{/* <div>
+							<div>
 								<span className={styles.conversationName}>
-									{conversation.name}
+									{`${getDisplayUser(conversation).firstName} ${
+										getDisplayUser(conversation).lastName
+									}`}
 								</span>
 								<span className={styles.conversationLastMessage}>
-									{conversation.lastMessage}
+									Sample Text
 								</span>
-							</div> */}
+							</div>
 						</ConversationSidebarItem>
 					))}
 				</ConversationSidebarContainer>

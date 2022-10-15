@@ -6,12 +6,14 @@ import { ConversationPage } from './pages/ConversationPage';
 import { LoginPage } from './pages/LoginPage';
 import { RegisterPage } from './pages/RegisterPage';
 import { AuthContext } from './utils/context/AuthContext';
+import { socket, SocketContext } from './utils/context/SocketContent';
 import { User } from './utils/types';
 
 function App() {
 	const [user, setUser] = useState<User>();
 	return (
 		<AuthContext.Provider value={{ user, updateAuthUser: setUser }}>
+			<SocketContext.Provider value={socket}>
 			<Routes>
 				<Route path="/register" element={<RegisterPage />} />
 				<Route path="/login" element={<LoginPage />} />
@@ -24,6 +26,7 @@ function App() {
 					<Route path=":id" element={<ConversationChannelPage />} />
 				</Route>
 			</Routes>
+			</SocketContext.Provider>
 		</AuthContext.Provider>
 	);
 }
