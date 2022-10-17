@@ -1,5 +1,6 @@
-import { configureStore } from '@reduxjs/toolkit';
+import { applyMiddleware, configureStore } from '@reduxjs/toolkit';
 import  conversationReducer from './conversationSlice';
+import { composeWithDevTools } from '@redux-devtools/extension';
 
 export const store = configureStore({
 	reducer: {

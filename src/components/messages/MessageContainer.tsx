@@ -10,6 +10,9 @@ import {
 } from "../../utils/styles"
 import { MessageType, User } from "../../utils/types";
 import { AuthContext } from "../../utils/context/AuthContext";
+import { useSelector } from 'react-redux';
+import { RootState } from '../../store';
+import { useParams } from 'react-router-dom';
 
 type Props = {
 	messages: MessageType[];
@@ -50,6 +53,15 @@ export const FormattedMessage: FC<FormattedMessageProps> = ({
 
 export const MessageContainer: FC<Props> = ({ messages }) => {
 	const { user } = useContext(AuthContext);
+	const { id } = useParams();
+	const conversations = useSelector((state: RootState) => state.conversation);
+
+	useEffect(() => {
+		const conversation = conversations.conversations.find(
+			(c) => c.id === parseInt(id!)
+		);
+		console.log(conversation);
+	}, []);
 
 	const formatMessages = () => {
 		return messages.map((m, index, arr) => {
