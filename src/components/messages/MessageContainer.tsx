@@ -45,7 +45,9 @@ export const FormattedMessage: FC<FormattedMessageProps> = ({
 						{formatRelative(new Date(message.createdAt), new Date())}
 					</span>
 				</MessageItemHeader>
-				<MessageItemContent padding="8px 0 0 0">{message.content}</MessageItemContent>
+				<MessageItemContent padding="8px 0 0 0">
+					{message.content}
+				</MessageItemContent>
 			</MessageItemDetails>
 		</MessageItemContainer>
 	);
@@ -54,17 +56,18 @@ export const FormattedMessage: FC<FormattedMessageProps> = ({
 export const MessageContainer: FC<Props> = ({ messages }) => {
 	const { user } = useContext(AuthContext);
 	const { id } = useParams();
-	const conversations = useSelector((state: RootState) => state.conversation);
-
+	const conversationMessages = useSelector(
+		(state: RootState) => state.messages.messages
+	);
+	
 	useEffect(() => {
-		const conversation = conversations.conversations.find(
-			(c) => c.id === parseInt(id!)
-		);
-		console.log(conversation);
+		console.log(id);
 	}, []);
 
 	const formatMessages = () => {
-		return messages.map((m, index, arr) => {
+		const msgs = conversationMessages.find((cm) => cm.id === parseInt(id!));
+		if (!msgs) return [];	
+		return msgs?.messages?.map((m, index, arr) => {
 			const nextIndex = index + 1;
 			const currentMessage = arr[index];
 			const nextMessage = arr[nextIndex];
@@ -72,7 +75,7 @@ export const MessageContainer: FC<Props> = ({ messages }) => {
 				return <FormattedMessage key={m.id} user={user} message={m} />;
 			if (currentMessage.author.id === nextMessage.author.id) {
 				return (
-					<MessageItemContainer key={m.id} >
+					<MessageItemContainer key={m.id}>
 						<MessageItemContent padding='0 0 0 70px'>
 							{m.content}
 						</MessageItemContent>

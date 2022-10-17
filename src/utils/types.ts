@@ -25,6 +25,11 @@ export type ConversationType = {
 	messages: MessageType[];
 };
 
+export type ConversationMessage = {
+	id: number;
+	messages: MessageType[];
+};
+
 export type CreateConversationParams = {
 	recipient: string;
 };

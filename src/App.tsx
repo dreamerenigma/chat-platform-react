@@ -24,7 +24,7 @@ type Props = {
 function AppWithProviders({ 
 	children, 
 	user, 
-	setUser 
+	setUser,
 }: PropsWithChildren & Props) {
 	return (
 		<ReduxProvider store={store}>

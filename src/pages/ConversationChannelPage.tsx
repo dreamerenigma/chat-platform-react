@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { MessagePanel } from "../components/messages/MessagePanel";
 import { AppDispatch, RootState } from "../store";
-import { fetchMessagesThunk } from "../store/conversationSlice";
+import { fetchMessagesThunk } from "../store/messageSlice";
 import { AuthContext } from "../utils/context/AuthContext";
 import { SocketContext } from "../utils/context/SocketContent";
 import { ConversationChannelPageStyle } from "../utils/styles";
