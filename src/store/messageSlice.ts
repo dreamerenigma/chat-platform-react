@@ -1,6 +1,6 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { getConversationMessages } from "../utils/api";
-import { ConversationMessage } from "../utils/types";
+import { ConversationMessage, MessageEventPayload } from "../utils/types";
 
 export interface MessagesState {
 	messages: ConversationMessage[];
@@ -17,25 +17,33 @@ export const fetchMessagesThunk = createAsyncThunk(
 	(id: number) => {
 		return getConversationMessages(id);
 	}
-)
+);
 
 export const messagesSlice = createSlice({
 	name: 'messages',
 	initialState,
    reducers: {
-		addMessage: (state) => {},
+		addMessage: (state, action: PayloadAction<MessageEventPayload>) => {
+			console.log(state);
+			console.log(action);
+			const { conversation, ...message } =action.payload;
+			const conversationMessage = state.messages.find(
+				(cm) => cm.id === conversation.id
+			);
+			conversationMessage?.messages.unshift(message);
+		},
 	},
 	extraReducers: (builder) => {
 		builder.addCase(fetchMessagesThunk.fulfilled, (state, action) => {
 			const { id, messages } = action.payload.data;
-				const index = state.messages.findIndex((cm) => cm.id === id);
-				const exist = state.messages.find((cm) => cm.id === id);
-				if (exist) {
-					console.log('exists');
-					state.messages[index] = action.payload.data;
-				} else {
-					state.messages.push(action.payload.data);
-				}
+			const index = state.messages.findIndex((cm) => cm.id === id);
+			const exist = state.messages.find((cm) => cm.id === id);
+			if (exist) {
+				console.log('exists');
+				state.messages[index] = action.payload.data;
+			} else {
+				state.messages.push(action.payload.data);
+			}
 		});
 	}
 });

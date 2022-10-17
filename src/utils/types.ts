@@ -25,11 +25,6 @@ export type ConversationType = {
 	messages: MessageType[];
 };
 
-export type ConversationMessage = {
-	id: number;
-	messages: MessageType[];
-};
-
 export type CreateConversationParams = {
 	recipient: string;
 };
@@ -57,4 +52,9 @@ export type MessageEventPayload = {
 export type CreateMessageParams = {
 	content: string;
 	conversationId: number;
+};
+
+export type ConversationMessage = {
+	id: number;
+	messages: MessageType[];
 };
