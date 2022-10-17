@@ -39,7 +39,3 @@ export const CreateCoversationModal: FC<Props> = ({ setShowModal }) => {
 		</OverlayStyle>
 	);
 };
-
-function hadlekeydown(this: Window, ev: KeyboardEvent) {
-	throw new Error("Function not implemented.");
-}
