@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { MessagePanel } from "../components/messages/MessagePanel";
 import { AppDispatch, RootState } from "../store";
+import { updateConversation } from "../store/conversationSlice";
 import { addMessage, fetchMessagesThunk } from "../store/messageSlice";
 import { AuthContext } from "../utils/context/AuthContext";
 import { SocketContext } from "../utils/context/SocketContent";
@@ -26,7 +27,9 @@ export const ConversationChannelPage = () => {
 		socket.on('onMessage', (payload: MessageEventPayload) => {
 			console.log('Message Received');
 			const { conversation, ...message } = payload;
-			dispatch(addMessage(payload))
+			console.log(conversation, message);
+			dispatch(addMessage(payload));
+			dispatch(updateConversation(conversation));
 		});
 		return () => {
 			socket.off('connected');

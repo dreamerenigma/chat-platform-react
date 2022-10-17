@@ -26,7 +26,7 @@ export const messagesSlice = createSlice({
 		addMessage: (state, action: PayloadAction<MessageEventPayload>) => {
 			console.log(state);
 			console.log(action);
-			const { conversation, ...message } =action.payload;
+			const { conversation, message } = action.payload;
 			const conversationMessage = state.messages.find(
 				(cm) => cm.id === conversation.id
 			);
@@ -37,8 +37,8 @@ export const messagesSlice = createSlice({
 		builder.addCase(fetchMessagesThunk.fulfilled, (state, action) => {
 			const { id, messages } = action.payload.data;
 			const index = state.messages.findIndex((cm) => cm.id === id);
-			const exist = state.messages.find((cm) => cm.id === id);
-			if (exist) {
+			const exists = state.messages.find((cm) => cm.id === id);
+			if (exists) {
 				console.log('exists');
 				state.messages[index] = action.payload.data;
 			} else {

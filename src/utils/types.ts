@@ -1,3 +1,5 @@
+import { Message } from "react-hook-form";
+
 export type CreateUserParams = { 
 	email: string;
 	firstName: string;
@@ -22,7 +24,7 @@ export type ConversationType = {
 	creator: User;
 	recipient: User;
 	createdAt: string;
-	messages: MessageType[];
+	lastMessageSent: MessageType;
 };
 
 export type CreateConversationParams = {
@@ -42,11 +44,8 @@ export type FetchMessagePayload = {
 };
 
 export type MessageEventPayload = {
-	id: number;
-   createdAt: string;
+	message: MessageType;
 	conversation: ConversationType;
-	author: User;
-	content: string;
 };
 
 export type CreateMessageParams = {
