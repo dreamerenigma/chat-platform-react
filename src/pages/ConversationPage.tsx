@@ -5,7 +5,7 @@ import { ConversationPanel } from "../components/conversation/ConversationPanel"
 import { ConversationSidebar } from "../components/conversation/ConversationSidebar";
 import { AppDispatch, RootState } from "../store";
 import { addConversation, fetchConversationsThunk, updateConversation } from "../store/conversationSlice";
-import { addMessage } from "../store/messageSlice";
+import { addMessage, deleteMessage } from "../store/messageSlice";
 import { SocketContext } from "../utils/context/SocketContent";
 import { Page } from "../utils/styles";
 import { ConversationType, MessageEventPayload } from "../utils/types";
@@ -46,10 +46,16 @@ export const ConversationPage = () => {
 			console.log(payload);
 			dispatch(addConversation(payload));
 		});
+		socket.on('onMessageDelete', (payload) => {
+			console.log('Message Deleted');
+			console.log(payload);
+			dispatch(deleteMessage(payload));
+		});
 		return () => {
 			socket.off('connected');
 			socket.off('onMessage');
-			socket.off('onOnversation');
+			socket.off('onConversation');
+			socket.off('onMessageDelete');
 		};
 	}, [id]);
 
