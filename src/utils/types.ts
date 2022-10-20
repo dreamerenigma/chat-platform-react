@@ -28,7 +28,8 @@ export type ConversationType = {
 };
 
 export type CreateConversationParams = {
-	recipient: string;
+	email: string;
+	message: string;
 };
 
 export type MessageType = {
@@ -36,6 +37,7 @@ export type MessageType = {
    content: string;
    createdAt: string;
 	author: User;
+	conversation: ConversationType
 };
 
 export type FetchMessagePayload = {

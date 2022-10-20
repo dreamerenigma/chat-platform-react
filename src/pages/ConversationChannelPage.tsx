@@ -16,17 +16,18 @@ export const ConversationChannelPage = () => {
 	const { id } = useParams();
 	const dispatch = useDispatch<AppDispatch>();
 
-
 	useEffect(() => {
 		const conversationId = parseInt(id!);
 		dispatch(fetchMessagesThunk(conversationId));
 	}, [id]);
 
 	useEffect(() => {
-		socket.on('connected', () => console.log('Connected'));
+		socket.emit('onClientConnect', {
+			conversationId: parseInt(id!), 
+		});
 		socket.on('onMessage', (payload: MessageEventPayload) => {
 			console.log('Message Received');
-			const { conversation, ...message } = payload;
+			const { conversation, message } = payload;
 			console.log(conversation, message);
 			dispatch(addMessage(payload));
 			dispatch(updateConversation(conversation));
@@ -35,11 +36,16 @@ export const ConversationChannelPage = () => {
 			socket.off('connected');
 			socket.off('onMessage');
 		}
-	}, []);
+	}, [id]);
+
+	const sendTypingStatus = () => {
+		console.log('You are typing');
+		socket.emit('onUserTyping', { conversationId: id});
+	};
 
 	return (
 		<ConversationChannelPageStyle>
-			<MessagePanel></MessagePanel>
+			<MessagePanel sendTypingStatus={sendTypingStatus}></MessagePanel>
 		</ConversationChannelPageStyle>
 	);
 };

@@ -12,12 +12,15 @@ export const CreateCoversationModal: FC<Props> = ({ setShowModal }) => {
 	const ref = createRef<HTMLDivElement>();
 
 	useEffect(() => {
-		const handleKeydown = (e: KeyboardEvent) => e.key === 'Escape' && setShowModal(false);
+		const handleKeydown = (e: KeyboardEvent) => 
+			e.key === 'Escape' && setShowModal(false);
 		window.addEventListener('keydown', handleKeydown)
 		return () => window.removeEventListener('keydown', handleKeydown);
 	}, []);
 
-	const handleOverlayClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+	const handleOverlayClick = (
+		e: React.MouseEvent<HTMLDivElement, MouseEvent>
+	) => {
 		const { current } = ref;
 		if (current === e.target) {
 			console.log('Close Modal');
@@ -33,7 +36,7 @@ export const CreateCoversationModal: FC<Props> = ({ setShowModal }) => {
 					<MdClose size={32} onClick={() => setShowModal(false)} />
 				</ModalHeader>
 				<ModalContentBody>
-					<CreateConversationForm />
+					<CreateConversationForm setShowModal={setShowModal} />
 				</ModalContentBody>
 			</ModalContainer>
 		</OverlayStyle>

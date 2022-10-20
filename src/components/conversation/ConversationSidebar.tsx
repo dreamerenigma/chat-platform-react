@@ -41,24 +41,23 @@ export const ConversationSidebar: FC<Props> = () => {
 				</ConversationSidebarHeader>
 				<ConversationSidebarContainer>
 					{conversations.map((conversation) => (
-							<ConversationSidebarItem 
-								key={conversation.id}
-								onClick={() => navigate(`/conversations/${conversation.id}`)}
-							>
-								<div className={styles.conversationAvatar}></div>
-								<div>
-									<span className={styles.conversationName}>
-										{`${getDisplayUser(conversation).firstName} ${
-											getDisplayUser(conversation).lastName
-										}`}
-									</span>
-									<span className={styles.conversationLastMessage}>
-										{conversation.lastMessageSent?.content}
-									</span>
-								</div>
-							</ConversationSidebarItem>
-						)
-					)}
+						<ConversationSidebarItem 
+							key={conversation.id}
+							onClick={() => navigate(`/conversations/${conversation.id}`)}
+						>
+							<div className={styles.conversationAvatar}></div>
+							<div>
+								<span className={styles.conversationName}>
+									{`${getDisplayUser(conversation).firstName} ${
+										getDisplayUser(conversation).lastName
+									}`}
+								</span>
+								<span className={styles.conversationLastMessage}>
+									{conversation.lastMessageSent?.content}
+								</span>
+							</div>
+						</ConversationSidebarItem>
+					))}
 				</ConversationSidebarContainer>
 			</ConversationSidebarStyle>
 		</>
