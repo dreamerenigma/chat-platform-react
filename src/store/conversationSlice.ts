@@ -1,12 +1,13 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
+import { createAsyncThunk, createSelector, createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
 import { ConversationType, CreateConversationParams } from '../utils/types';
 import { getConversations, postNewConversation } from '../utils/api';
+import { RootState } from '.';
 
 export interface ConversationState {
 	conversations: ConversationType[];
 	loading: boolean;
-}
+};
 
 const initialState: ConversationState = {
 	conversations: [],
@@ -25,7 +26,7 @@ export const createConversationThunk = createAsyncThunk(
 	async (data: CreateConversationParams) => {
 		return postNewConversation(data);
 	}
-)
+);
 
 export const conversationsSlice = createSlice({
 	name: 'conversations',
@@ -62,7 +63,18 @@ export const conversationsSlice = createSlice({
 	},
 });
 
+const selectConversations = (state: RootState) => 
+	state.conversation.conversations;
+const selectConversationId = (state: RootState, id: number) => id;
+
+export const selectConversationById = createSelector(
+	[selectConversations, selectConversationId],
+	(conversation, conversationId) => 
+		conversation.find((c) => c.id === conversationId)
+);
+
 // Action creators are generated for each case reducer function
-export const { addConversation, updateConversation } = conversationsSlice.actions;
+export const { addConversation, updateConversation } = 
+	conversationsSlice.actions;
 
 export default conversationsSlice.reducer;
