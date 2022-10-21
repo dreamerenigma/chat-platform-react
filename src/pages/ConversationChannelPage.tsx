@@ -5,7 +5,7 @@ import { MessagePanel } from "../components/messages/MessagePanel";
 import { SocketContext } from "../utils/context/SocketContent";
 import { ConversationChannelPageStyle } from "../utils/styles";
 import { AppDispatch } from "../store";
-import { fetchMessagesThunk } from "../store/messageSlice";
+import { editMessage, fetchMessagesThunk } from "../store/messageSlice";
 
 export const ConversationChannelPage = () => {
 	const { id } = useParams();
@@ -38,6 +38,12 @@ export const ConversationChannelPage = () => {
 			console.log('onTypingStop: User has stopped typing...');
 			setIsRecipientTyping(false);
 		});
+		
+		socket.on('onMessageUpdate', (message) => {
+			console.log('onMessageUpdate received');
+			console.log(message);
+			dispatch(editMessage(message));
+		});
 
 		return () => {
 			socket.emit('onConversationLeave', { conversationId });
@@ -45,6 +51,7 @@ export const ConversationChannelPage = () => {
 			socket.off('userLeave');
 			socket.off('onTypingStart');
 			socket.off('onTypingStop');
+			socket.off('onMessageUpdate');
 		};
 	}, [id]);
 
