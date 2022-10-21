@@ -15,7 +15,7 @@ export const MessageInputField: FC<Props> = ({
 	sendMessage,
 	sendTypingStatus,
 }) => {
-	const updateContent = (e: React.ChangeEvent<HTMLInputElement>) => setContent(e.target.value)
+	const updateContent = (e: React.ChangeEvent<HTMLInputElement>) => setContent(e.target.value);
 	return (
 		<>
 			<MessageInputContainer>

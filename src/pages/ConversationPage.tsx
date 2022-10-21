@@ -14,11 +14,10 @@ export const ConversationPage = () => {
 	const { id } = useParams();
 	const [conversations, setConversations] = useState<ConversationType[]>([]);
 	const dispatch = useDispatch<AppDispatch>();
+	const socket = useContext(SocketContext);
 	const conversationsState = useSelector(
 		(state: RootState) => state.conversation.conversations
 	);
-
-	const socket = useContext(SocketContext);
 
 	useEffect(() => {
 		console.log('Fetching Conversations in ConversationPage');
@@ -27,13 +26,6 @@ export const ConversationPage = () => {
 	}, []);
 
 	useEffect(() => {
-		socket.emit('onClientConnect', {
-			conversationId: parseInt(id!),
-		});
-		socket.on('connected', (data) => {
-			console.log('Connected to Websocket');
-			console.log(data);
-		});
 		socket.on('onMessage', (payload: MessageEventPayload) => {
 			console.log('Message Received');
 			const { conversation, message } = payload;

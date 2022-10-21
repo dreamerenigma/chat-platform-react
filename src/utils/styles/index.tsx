@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components';
+import { MessagePanelBodyProps } from '../types';
 import { ContextMenuProps, InputContainerProps, MessageItemContentProps, PageProps } from './styleTypes';
 
 export const SIDEBAR_WIDTH = 400;
@@ -169,7 +170,7 @@ export const TextField= styled.textarea`
 	}
 `;
 
-export const MessagePanelHeaderStyle = styled.div`
+export const MessagePanelHeaderStyle = styled.header`
 	background-color: #151515;
 	border-bottom: 1px solid #5454543d;
 	height: 100px;
@@ -194,7 +195,7 @@ export const MessagePanelBody = styled.div`
 	height: calc(100%);
 	display: flex;
    flex-direction: column;
-	padding: 32px;
+	padding: 32px 32px 10px 32px;
 	padding-top: 0;
 	box-sizing: border-box;
 `;
@@ -215,7 +216,7 @@ export const MessageContainerStyle = styled.div`
 export const MessageInputContainer = styled.div`
 	box-sizing: border-box;
 	background-color: #101010;
-	border-radius: 10px;
+	border-radius: 5px;
 	width: 100%;
 	padding: 24px 32px;
 `;
@@ -299,4 +300,14 @@ export const ContextMenuStyle = styled.div<ContextMenuProps>`
 		cursor: pointer;
 		background-color: #1f1f1f;
 	}
+`;
+
+export const MessageTypingStatus = styled.div`
+	width: 100%;
+	font-size: 14px;
+	font-style: italic;
+	color: #a2a2a2;
+	box-sizing: border-box;
+	margin-top: 10px;
+	height: 20px;
 `;

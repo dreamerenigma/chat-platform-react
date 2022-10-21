@@ -37,7 +37,7 @@ export type MessageType = {
    content: string;
    createdAt: string;
 	author: User;
-	conversation: ConversationType
+	conversation: ConversationType;
 };
 
 export type FetchMessagePayload = {
@@ -67,4 +67,8 @@ export type DeleteMessageParams = {
 export type DeleteMessageResponse = {
 	conversationId: number;
 	messageId: number;
+};
+
+export type MessagePanelBodyProps = {
+	isTyping: boolean;
 };
