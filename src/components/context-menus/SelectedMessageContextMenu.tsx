@@ -36,8 +36,7 @@ export const SelectedMessageContextMenu: FC<Props> = ({ points, setIsEditing }) 
 				{message?.author.id === user?.id && (
 					<li onClick={deleteMessage}>Delete</li>
 				)}
-				{message?.author.id === user?.id && <li onClick={editMessage}
-					>Edit</li>}
+				{message?.author.id === user?.id && <li onClick={editMessage}>Edit</li>}
 			</ul>
 		</ContextMenuStyle>
 	);

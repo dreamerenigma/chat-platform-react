@@ -41,4 +41,4 @@ export const deleteMessage = ({conversationId, messageId}: DeleteMessageParams) 
 	axios.delete<DeleteMessageResponse>(`${API_URL}/conversations/${conversationId}/messages/${messageId}`, config);
 
 export const editMessage = ({content, conversationId, messageId}: EditMessagePayload) => 
-	axios.patch(`${API_URL}/conversations/${conversationId}/messages/${messageId}`, { content }, config);
+	axios.patch<MessageType>(`${API_URL}/conversations/${conversationId}/messages/${messageId}`, { content }, config);
