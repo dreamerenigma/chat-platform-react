@@ -12,4 +12,3 @@ export const AuthenticateRoute: FC<React.PropsWithChildren> = ({ children }) => 
 	if (user) return <>{children}</>; 
 	return <Navigate to="/login" state={{ from: location }} replace />;
 };
-

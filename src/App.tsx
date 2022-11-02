@@ -12,6 +12,8 @@ import { User } from './utils/types';
 import { Provider as ReduxProvider } from 'react-redux';
 import { store } from './store';
 import { enableMapSet } from 'immer';
+import { GroupChannelPage } from './pages/group/GroupChannelPage';
+import { GroupPage } from './pages/group/GroupPage';
 
 enableMapSet();
 
@@ -54,11 +56,11 @@ function App() {
 				</Route>
 				<Route path="groups" element={
 						<AuthenticateRoute>
-							<ConversationPage />
+							<GroupPage />
 						</AuthenticateRoute>
 					}
 				>
-					<Route path=":id" element={<ConversationChannelPage />} />
+					<Route path=":id" element={<GroupChannelPage />} />
 				</Route>
 			</Routes>
 		</AppWithProviders>

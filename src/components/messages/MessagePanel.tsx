@@ -57,8 +57,7 @@ export const MessagePanel: FC<Props> = ({
 							sendTypingStatus={sendTypingStatus}
 						/>
 						<MessageTypingStatus>
-							{isRecipientTyping ? `${recipient?.firstName} is typing...` : 
-							''}
+							{isRecipientTyping ? `${recipient?.firstName} is typing...` : ''}
 						</MessageTypingStatus>
 					</div>
 				</MessagePanelBody>

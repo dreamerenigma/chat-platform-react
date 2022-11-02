@@ -18,6 +18,8 @@ export const ConversationSelected = () => {
 	const onSelectType = (chat: ConversationTypeData) => {
 		dispatch(updateType(chat.type));
 		navigate('/groups');
+		if (chat.type === 'group') navigate('/groups');
+		else navigate('/conversations');
 	};
 	return (
 		<ConversationSelectedStyle>

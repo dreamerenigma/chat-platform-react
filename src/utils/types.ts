@@ -1,5 +1,3 @@
-import { Message } from "react-hook-form";
-
 export type CreateUserParams = { 
 	email: string;
 	firstName: string;
@@ -92,7 +90,7 @@ export type Group = {
 	users: User[];
 	creator: User;
 	messages: MessageType[];
-	creatAt: number;
+	createdAt: number;
 	lastMessageSent: MessageType;
 	lastMessageSentAt: Date;
 };
