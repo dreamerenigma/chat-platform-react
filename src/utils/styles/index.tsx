@@ -24,7 +24,7 @@ export const InputField = styled.input`
 
 export const InputContainer = styled.div<InputContainerProps>`
 	background-color: ${(prop) => prop.backgroundColor || '#131313'};
-	padding: 12px;
+	padding: 12px 16px;
 	border-radius: 10px;
 	width: 100%;
 	box-sizing: border-box;
@@ -59,10 +59,10 @@ export const Button = styled.button`
 `;
 
 export const Page = styled.div<PageProps>`
+	background-color: #1a1a1a;
 	height: 100%;
 	display: ${(props) => props.display};
 	justify-content: ${(props) => props.justifyContent};
-	background-color: #1a1a1a;
 	align-items: ${(props) => props.alignItems};
 `;
 
@@ -105,7 +105,7 @@ export const ConversationSidebarHeader = styled.header`
 
 export const ConversationChannelPageStyle = styled.div`
 	height: 100%;
-	margin-left: ${SIDEBAR_WIDTH}px;
+	margin-left: ${SIDEBAR_WIDTH + 90}px;
 `;
 
 export const ConversationSidebarContainer = styled.div`
@@ -116,9 +116,8 @@ export const ConversationSidebarItemStyle = styled.div`
 	display: flex;
 	align-items: center;
 	gap: 20px;
-	padding: 18px 32px;
+	padding: 10px 32px;
 	box-sizing: border-box;
-	border-bottom: 1px solid #5454543d;
 	background-color: #131313;
 `;
 

@@ -16,12 +16,17 @@ export const GroupChannelPage = () => {
 	const [isRecipientTyping, setIsRecipientTyping] = useState(false);
 
 	useEffect(() => {
-		const conversationId = parseInt(id!);
-		dispatch(fetchMessagesThunk(conversationId));
+		const groupId = parseInt(id!);
+		dispatch(fetchMessagesThunk(groupId));
 	}, [id]);
 
 	useEffect(() => {
-		const conversationId = id!;
+		const groupId = id!;
+		console.log(groupId);
+		socket.emit('onGroupJoin', { groupId });
+		return () => {
+			socket.emit('onGroupLeave', { groupId });
+		};
 	}, [id]);
 
 	const sendTypingStatus = () => {};

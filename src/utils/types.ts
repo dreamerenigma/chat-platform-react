@@ -43,9 +43,22 @@ export type FetchMessagePayload = {
 	messages: MessageType[];
 };
 
+export type GroupMessageType = {
+	id: number;
+	content?: string;
+	createdAt: string;
+	author: User;
+	group: Group;
+};
+
 export type MessageEventPayload = {
 	message: MessageType;
 	conversation: Conversation;
+};
+
+export type GroupMessageEventPayload = {
+	message: GroupMessageType;
+	group: Group;
 };
 
 export type CreateMessageParams = {

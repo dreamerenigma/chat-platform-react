@@ -67,7 +67,7 @@ export const ConversationChannelPage = () => {
 				}, 2000)
 			);
 		} else {
-			console.log('idTyping = false');
+			console.log('isTyping = false');
 			setIsTyping(true);
 			socket.emit('onTypingStart', { conversationId: id });
 		}
