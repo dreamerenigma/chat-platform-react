@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { 
-	EditMessageInputField,
+import {
 	MessageContainerStyle,
 	MessageItemContainer,
 	MessageItemContent,
@@ -14,6 +13,7 @@ import { MessageMenuContext } from '../../utils/context/MessageMenuContext';
 import { SelectedMessageContextMenu } from '../context-menus/SelectedMessageContextMenu';
 import { FormattedMessage } from "./FormattedMessage";
 import { EditMessageContainer } from "./EditMessageContainer";
+import { selectConversationMessage } from "../../store/messageSlice";
 
 export const MessageContainer = () => {
 	const [showMenu, setShowMenu] = useState(false);
@@ -25,7 +25,7 @@ export const MessageContainer = () => {
 	const [originalEditMessage, setOriginalEditMessage] = useState(selectedEditMessage);
 	const [isEditing, setIsEditing] = useState(false);
 	const conversationMessages = useSelector(
-		(state: RootState) => state.messages.messages
+		(state: RootState) => selectConversationMessage(state, parseInt(id!))
 	);
 
 	const onContextMenu = (
@@ -67,10 +67,14 @@ export const MessageContainer = () => {
 		};
 	}, [id]);
 
+	const formatChatMessages = ()	=> {
+
+	};
+
 	const formatMessages = () => {
-		const msgs = conversationMessages.find((cm) => cm.id === parseInt(id!));
-		if (!msgs) return [];	
-		return msgs?.messages?.map((m, index, arr) => {
+		if (!conversationMessages) return [];	
+		console.log(conversationMessages);
+		return conversationMessages.messages.map((m, index, arr) => {
 			const nextIndex = index + 1;
 			const currentMessage = arr[index];
 			const nextMessage = arr[nextIndex];
@@ -89,7 +93,10 @@ export const MessageContainer = () => {
 				);
 			if (currentMessage.author.id === nextMessage.author.id) {
 				return (
-					<MessageItemContainer key={m.id} onContextMenu={(e) => onContextMenu(e, m)} >
+					<MessageItemContainer 
+						key={m.id} 
+						onContextMenu={(e) => onContextMenu(e, m)} 
+					>
 						{isEditing && m.id === selectedEditMessage?.id ? (
 							<MessageItemContent padding="0 0 0 70px">
 								<EditMessageContainer 
@@ -99,7 +106,7 @@ export const MessageContainer = () => {
 								/>
 							</MessageItemContent>
 						) : (
-							<MessageItemContent padding='0 0 0 70px'>
+							<MessageItemContent padding="0 0 0 70px">
 								{m.content}
 							</MessageItemContent>
 						)}
