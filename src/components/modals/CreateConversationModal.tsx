@@ -3,12 +3,14 @@ import { ModalContainer, ModalContentBody, ModalHeader } from ".";
 import { OverlayStyle } from "../../utils/styles";
 import { CreateConversationForm } from "../forms/CreateConversationForm";
 import { MdClose } from 'react-icons/md';
+import styles from './index.module.scss';
+import { ConversationTypeForm } from "../forms/ConversationTypeForm";
 
 type Props = {
 	setShowModal: Dispatch<React.SetStateAction<boolean>>;
 };
 
-export const CreateCoversationModal: FC<Props> = ({ setShowModal }) => {
+export const CreateConversationModal: FC<Props> = ({ setShowModal }) => {
 	const ref = createRef<HTMLDivElement>();
 
 	useEffect(() => {
@@ -32,10 +34,11 @@ export const CreateCoversationModal: FC<Props> = ({ setShowModal }) => {
 		<OverlayStyle ref={ref} onClick={handleOverlayClick}>
 			<ModalContainer>
 				<ModalHeader>
-					<h1>Create a conversation</h1>
+					<h2>Create a conversation</h2>
 					<MdClose size={32} onClick={() => setShowModal(false)} />
 				</ModalHeader>
 				<ModalContentBody>
+					<ConversationTypeForm />
 					<CreateConversationForm setShowModal={setShowModal} />
 				</ModalContentBody>
 			</ModalContainer>

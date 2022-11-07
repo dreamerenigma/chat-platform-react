@@ -4,7 +4,7 @@ import {
 	ConversationSidebarStyle,
 } from "../../utils/styles";
 import { TbEdit } from 'react-icons/tb';
-import { CreateCoversationModal } from "../modals/CreateConversationModal";
+import { CreateConversationModal } from "../modals/CreateConversationModal";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store";
 import { ConversationSelected } from "./ConversationSelected";
@@ -24,7 +24,7 @@ export const ConversationSidebar = () => {
 
 	return (
 		<>
-			{showModal && <CreateCoversationModal setShowModal={setShowModal} />}
+			{showModal && <CreateConversationModal setShowModal={setShowModal} />}
 			<ConversationSidebarStyle>
 				<ConversationSidebarHeader>
 					<h1>Conversations</h1>

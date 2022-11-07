@@ -118,7 +118,7 @@ export const ConversationSidebarItemStyle = styled.div`
 	gap: 20px;
 	padding: 10px 32px;
 	box-sizing: border-box;
-	background-color: #131313;
+	width: 100%;
 `;
 
 export const OverlayStyle = styled.div`
@@ -129,7 +129,7 @@ export const OverlayStyle = styled.div`
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	z-index: 10;
+	z-index: 9999;
 `;
 
 export const ModalContainerStyle = styled.div`
@@ -359,4 +359,97 @@ export const ConversationSelectedItem = styled.div<ConversationSelectedProps>`
 		css`
 			background-color: #b1b1b1;
 		`};
+`;
+
+export const UserAvatar = styled.img`
+	width: 55px;
+	height: 55px;
+	border-radius: 55px;
+	margin: 10px 0;
+`;
+
+export const UserSidebarTop = styled.div`
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	box-sizing: border-box;
+	margin: 20px 0;
+`;
+
+export const UserSidebarTopIcons = styled.div`
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin-top: 18px;
+	gap: 40px;
+`;
+
+export const UserSidebarBottom = styled.div`
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+`;
+
+export const UserSidebarStyle = styled.div`
+	height: 100%;
+	display: flex;
+	flex: 0 0 80px;
+	align-items: center;
+	flex-direction: column;
+	overflow-y: scroll;
+	&::-webkit-scrollbar {
+		display: none;
+	}
+`;
+
+export const ConversationSidebarStyles = styled.div`
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 100%;
+	margin-left: 90px;
+	width: ${SIDEBAR_WIDTH}px;
+	background-color: #111111;
+	border-right: 1px solid #5454543d;
+	overflow-y: scroll;
+	&::-webkit-scrollbar {
+		display: none;
+		/* width: 10px;
+    	height: 5px; */
+	}
+`;
+
+export const ConversationSidebarHeaderStyle = styled.header`
+	padding: 24px 32px;
+	box-sizing: border-box;
+	position: fixed;
+	width: ${SIDEBAR_WIDTH}px;
+	top: 0;
+	left: 90px;
+	z-index: 9;
+	background-color: inherit;
+`;
+
+export const ConversationSearchbar = styled.input`
+	box-sizing: border-box;
+	background-color: #202020;
+	border: none;
+	outline: none;
+	font-size: 14px;
+	font-family: 'Roboto';
+	font-weight: 500;
+	padding: 12px 18px;
+	color: #6b6b6b;
+	border-radius: 5px;
+	width: 100%;
+`;
+
+export const ConversationTabStyle = styled.section`
+	display: flex;
+	justify-content: center;
+	gap: 20px;
+	border-top: 2px solid #2727275f;
+	margin-top: 20px;
+	padding-top: 20px;
 `;
