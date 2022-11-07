@@ -7,6 +7,7 @@ import {
 	DeleteMessageParams, 
 	DeleteMessageResponse, 
 	EditMessagePayload, 
+	FetchGroupMessagePayload, 
 	FetchMessagePayload, 
 	Group, 
 	MessageType, 
@@ -45,3 +46,5 @@ export const editMessage = ({content, conversationId, messageId}: EditMessagePay
 	axios.patch<MessageType>(`${API_URL}/conversations/${conversationId}/messages/${messageId}`, { content }, config);
 
 export const fetchGroups = () => axios.get<Group[]>(`${API_URL}/groups`, config);
+
+export const fetchGroupMessages = (id: number) => axios.get<FetchGroupMessagePayload>(`/groups/${id}/messages`, config);
