@@ -1,4 +1,4 @@
-import { Conversation, User } from "./types";
+import { Conversation, ConversationMessage, User } from "./types";
 
 export const getRecipientFromConversation = (
 	conversation?: Conversation,

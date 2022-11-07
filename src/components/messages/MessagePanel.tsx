@@ -32,8 +32,6 @@ export const MessagePanel: FC<Props> = ({
 
 	const sendMessage = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		console.log(id);
-		console.log('Sending Message', content);
 		if (!id || !content) return;
 		const conversationId = parseInt(id);
 		try {
