@@ -9,16 +9,17 @@ import {
 	InputContainer, 
 	InputField, 
 	InputLabel, 
-	TextField 
+	TextField,
 } from "../../utils/styles";
-import { CreateConversationParams } from "../../utils/types";
+import { ConversationType, CreateConversationParams } from "../../utils/types";
 import styles from './index.module.scss';
 
 type Props = {
 	setShowModal: Dispatch<React.SetStateAction<boolean>>;
-}
+	type: ConversationType;
+};
 
-export const CreateConversationForm: FC<Props> = ({setShowModal}) => {
+export const CreateConversationForm: FC<Props> = ({ setShowModal, type }) => {
 	const { 
 		register, 
 		handleSubmit, 
@@ -40,27 +41,31 @@ export const CreateConversationForm: FC<Props> = ({setShowModal}) => {
 			.catch((err) => console.log(err));
 	};
 
+	const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		if (type === 'group') {
+			console.log(e.target.value);
+		}
+	};
+
 	return (
 		<form 
 			className={styles.createConversationForm}
 			onSubmit={handleSubmit(onSubmit)}
 		>
 			<section>
-			<InputContainer backgroundColor='#161616'>
-				<InputLabel>Recipient</InputLabel>
-				<InputField 
-					{ ...register('email', { required: 'Email is required' })} 
-				/>
-			</InputContainer>
-			</section>
-			<section className={styles.message}>
 				<InputContainer backgroundColor='#161616'>
-					<InputLabel>Message (optional)</InputLabel>
-					<TextField 
-						{ ...register('message', { required: 'Message is required' })}
-					/>
+					<InputLabel>Recipient</InputLabel>
+					<InputField onChange={onChange}/>
 				</InputContainer>
-			</section>
+				</section>
+				<section className={styles.message}>
+					<InputContainer backgroundColor='#161616'>
+						<InputLabel>Message (optional)</InputLabel>
+						<TextField 
+							{...register('message', { required: 'Message is required' })}
+						/>
+					</InputContainer>
+				</section>
 			<Button>Create Conversation</Button>
 		</form>
 	);
