@@ -54,8 +54,11 @@ export const fetchGroups = () =>
 export const fetchGroupMessages = (id: number) => 
 	axiosClient.get<FetchGroupMessagePayload>(`/groups/${id}/messages`, config);
 
-export const postGroupMessage = ({id, content}: CreateMessageParams) => 
+export const postGroupMessage = ({ id, content }: CreateMessageParams) => 
 	axiosClient.post(`${API_URL}/groups/${id}/messages`, { content }, config);
 
 export const searchUsers = (query: string) => 
 	axiosClient.get<User[]>(`/users/search?query=${query}`, config);
+
+export const createGroup = (users: string[]) => 
+	axiosClient.post(`/groups`, { users }, config);
