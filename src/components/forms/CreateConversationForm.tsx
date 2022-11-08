@@ -12,6 +12,7 @@ import {
 	InputField, 
 	InputLabel, 
 	RecipientResultContainer, 
+	RecipientResultItem, 
 	TextField,
 } from "../../utils/styles";
 import { ConversationType, CreateConversationParams, User } from "../../utils/types";
@@ -29,6 +30,7 @@ export const CreateConversationForm: FC<Props> = ({ setShowModal, type }) => {
 	} = useForm<CreateConversationParams>({});
 
 	const [query, setQuery] = useState('');
+	const [email, setEmail] = useState('');
 	const [userResults, setUserResults] = useState<User[]>([]);
 	const [message, setMessage] = useState('');
 	const [searching, setSearching] = useState(false);
@@ -73,8 +75,16 @@ export const CreateConversationForm: FC<Props> = ({ setShowModal, type }) => {
 					<InputLabel>Recipient</InputLabel>
 					<InputField onChange={(e) => setQuery(e.target.value)} />
 				</InputContainer>
-				<RecipientResultContainer></RecipientResultContainer>
 			</section>
+			{!searching && userResults.length > 0 && query && (
+				<RecipientResultContainer>
+					{userResults.map((user) => (
+						<RecipientResultItem>
+							<span>{user.email}</span>
+						</RecipientResultItem>
+					))}
+				</RecipientResultContainer>
+			)}
 			<section className={styles.message}>
 				<InputContainer backgroundColor='#161616'>
 					<InputLabel>Message (optional)</InputLabel>
