@@ -133,6 +133,7 @@ export const OverlayStyle = styled.div`
 `;
 
 export const ModalContainerStyle = styled.div`
+	position: relative;
 	background-color: #121212;
 	width: 650px;
 	box-sizing: border-box;
@@ -155,6 +156,7 @@ export const ModalHeaderStyle = styled.header`
 
 export const ModalContentBodyStyle = styled.div`
 	padding: 24px;
+	position: relative;
 `;
 
 export const TextField= styled.textarea`
@@ -452,4 +454,53 @@ export const ConversationTabStyle = styled.section`
 	border-top: 2px solid #2727275f;
 	margin-top: 20px;
 	padding-top: 20px;
+`;
+
+export const ConversationTabItemnStyle = styled.section<ConversationSelectedProps>`
+	background-color: #212121;
+	padding: 10px 32px;
+	font-size: 14px;
+	border-radius: 5px;
+	${(props) => 
+		props.selected && css`
+			background-color: #303030;
+		`};
+`;
+
+export const SidebarContainerStyle = styled.div``;
+
+export const sidebarContainerItem = styled.div`
+	display: flex;
+	align-items: center;
+	gap: 20px;
+	padding: 8px 32px;
+	margin: 18px 0;
+`;
+
+export const SidebarContainerItemContent = styled.div`
+	& .name {
+		display: block;
+		font-size: 18px;
+		font-weight: 600;
+	}
+
+	& .lastMessage {
+		display: block;
+		font-size: 16px;
+		color: #797979;
+		font-weight: 500;
+	}
+`;
+
+export const RecipientResultContainer = styled.div`
+	position: absolute;
+	background-color: #161616;
+	right: 0;
+	left: 0;
+	margin: 4px 24px;
+	height: 190px;
+	overflow: scroll;
+	&::-webkit-scrollbar {
+		display: none;
+	}
 `;
