@@ -19,7 +19,6 @@ export const MessagePanelHeader = () => {
 	const group = useSelector((state: RootState) => 
 		selectGroupById(state, parseInt(id!))
 	);
-
 	const displayName = 
 		user?.id === conversation?.creator.id 
 			? `${conversation?.recipient.firstName} ${conversation?.recipient.lastName}`

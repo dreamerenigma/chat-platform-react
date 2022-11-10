@@ -14,6 +14,7 @@ import { store } from './store';
 import { enableMapSet } from 'immer';
 import { GroupChannelPage } from './pages/group/GroupChannelPage';
 import { GroupPage } from './pages/group/GroupPage';
+import { AppPage } from './pages/AppPage';
 
 enableMapSet();
 
@@ -36,31 +37,30 @@ function AppWithProviders({
 				</SocketContext.Provider>
 			</AuthContext.Provider>
 		</ReduxProvider>
-	)
-};
+	);
+}
 
 function App() {
 	const [user, setUser] = useState<User>();
+
 	return (
 		<AppWithProviders user={user} setUser={setUser} socket={socket}>
 			<Routes>
 				<Route path="/register" element={<RegisterPage />} />
 				<Route path="/login" element={<LoginPage />} />
-				<Route path="conversations" element={
+				<Route 
+					element={
 						<AuthenticateRoute>
-							<ConversationPage />
+							<AppPage />
 						</AuthenticateRoute>
 					}
 				>
-					<Route path=":id" element={<ConversationChannelPage />} />
-				</Route>
-				<Route path="groups" element={
-						<AuthenticateRoute>
-							<GroupPage />
-						</AuthenticateRoute>
-					}
-				>
-					<Route path=":id" element={<GroupChannelPage />} />
+					<Route path="conversations" element={<ConversationPage />}>
+						<Route path=":id" element={<ConversationChannelPage />} />
+					</Route>
+					<Route path="groups" element={<GroupPage />}>
+						<Route path=":id" element={<GroupChannelPage />} />
+					</Route>
 				</Route>
 			</Routes>
 		</AppWithProviders>

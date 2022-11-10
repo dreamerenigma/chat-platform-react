@@ -5,7 +5,7 @@ import {
 	PayloadAction 
 } from "@reduxjs/toolkit";
 import { Group, GroupMessage, GroupMessageEventPayload } from "../utils/types";
-import { fetchGroupMessages, fetchGroups as fetchGroupsAPI } from "../utils/api";
+import { fetchGroupMessages as fetchGroupMessagesAPI } from "../utils/api";
 import { RootState } from ".";
 
 export interface GroupMessagesState {
@@ -16,11 +16,11 @@ const initialState: GroupMessagesState  = {
 	messages: [],
 };
 
-export const fetchGroupsMessagesThunk = createAsyncThunk('groupMessages/fetch', 
+export const fetchGroupMessagesThunk = createAsyncThunk('groupMessages/fetch', 
 	(id: number) => fetchGroupMessagesAPI(id)
 );
 
-export const groupMessageSlice = createSlice({
+export const groupMessagesSlice = createSlice({
 	name: 'groupMessages',
 	initialState,
 	reducers: {
@@ -34,27 +34,27 @@ export const groupMessageSlice = createSlice({
 		},
 	},
 	extraReducers: (builder) => {
-		builder.addCase(fetchGroupMessagesAPI.fulfilled, (state, action) => {
+		builder.addCase(fetchGroupMessagesThunk.fulfilled, (state, action) => {
 			const { id } = action.payload.data;
-			console.log('fetchGroupMEssagesThunk.fulfilled');
+			console.log('fetchGroupMessagesThunk.fulfilled');
 			console.log(action.payload.data);
 			const index = state.messages.findIndex((gm) => gm.id === id);
 			const exists = state.messages.find((gm) => gm.id === id);
 			exists
 				? (state.messages[index] = action.payload.data)
-				: state.messages.push(action.payload);
+				: state.messages.push(action.payload.data);
 		});
 	},
 });
 
-const selectGroupMessage = (state: RootState) => state.groups.groups;
+const selectGroupMessages = (state: RootState) => state.groupMessages.messages;
 const selectGroupMessageId = (state: RootState, id: number) => id;
 
-export const selectGroupById = createSelector(
-	[selectGroupMessage, selectGroupMessageId],
-	(groups, groupId) => groups.find((c) => c.id === groupId)
+export const selectGroupMessage = createSelector(
+	[selectGroupMessages, selectGroupMessageId],
+	(groupMessages, id) => groupMessages.find((c) => c.id === id)
 );
 
-export const {} = groupMessageSlice.actions;
+export const { addGroupMessage } = groupMessagesSlice.actions;
 
-export default groupMessageSlice.reducer;
+export default groupMessagesSlice.reducer;

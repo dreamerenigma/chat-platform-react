@@ -32,7 +32,6 @@ export const CreateConversationForm: FC<Props> = ({ setShowModal, type }) => {
 	const [searching, setSearching] = useState(false);
 	const [message, setMessage] = useState('');
 	const [selectedUsers, setSelectedUsers] = useState<User[]>([]);
-	
 	const debouncedQuery = useDebounce(query, 1000);
 	const dispatch = useDispatch<AppDispatch>();
 	const navigate = useNavigate();

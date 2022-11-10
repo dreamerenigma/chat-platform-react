@@ -61,18 +61,19 @@ export type MessageEventPayload = {
 	conversation: Conversation;
 };
 
-export type GroupMessageEventPayload = {
-	message: GroupMessageType;
-	group: Group;
-};
-
 export type CreateMessageParams = {
+	id: number;
 	content: string;
 };
 
 export type ConversationMessage = {
 	id: number;
 	messages: MessageType[];
+};
+
+export type GroupMessage = {
+	id: number;
+	messages: GroupMessageType[];
 };
 
 export type DeleteMessageParams = {
@@ -113,7 +114,19 @@ export type Group = {
 	lastMessageSentAt: Date;
 };
 
-export type GroupMessage = {
-	id: number;
-	messages: GroupMessageType[];
+export type GroupMessageEventPayload = {
+	message: GroupMessageType;
+	group: Group;
+};
+
+export type UserSidebarRouteType =
+	| 'conversations'
+	| 'friends'
+	| 'connections'
+	| 'settings'
+	| 'calls';
+
+export type UserSidebarItemType = {
+	id: UserSidebarRouteType;
+	pathname: string;
 };
