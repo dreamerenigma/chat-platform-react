@@ -1,10 +1,11 @@
 import styled, { css } from 'styled-components';
-import { 
-	ContextMenuProps, 
-	ConversationSelectedProps, 
-	InputContainerProps, 
-	MessageItemContentProps, 
-	PageProps 
+import {
+	ContextMenuProps,
+	ConversationSelectedProps,
+	InputContainerProps,
+	MessageItemContentProps,
+	PageProps,
+	SidebarItemProps,
 } from './styleTypes';
 
 export const SIDEBAR_WIDTH = 400;
@@ -72,46 +73,9 @@ export const Page = styled.div<PageProps>`
 	align-items: ${(props) => props.alignItems};
 `;
 
-export const ConversationSidebarStyle = styled.aside`
-	position: absolute;
-	top: 0;
-	left: 0;
-	height: 100%;
-	width: ${SIDEBAR_WIDTH}px;
-	background-color: #1a1a1a;
-	border-right: 1px solid #5454543d;
-	overflow-y: scroll;
-	&::-webkit-scrollbar {
-		display: none;
-		/* width: 10px;
-		height: 5px; */
-	}
-	/* &::-webkit-scrollbar-thumb {
-		background-color: #2d2d2d;
-	} */
-`;
-
-export const ConversationSidebarHeader = styled.header`
-	position: fixed;
-	width: ${SIDEBAR_WIDTH}px;
-	top: 0;
-	left: 0;
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	padding: 0 32px;
-	box-sizing: border-box;
-	background-color: #151515;
-	height: 100px;
-	border-bottom: 1px solid #5454543d;
-	& h1 {
-		font-weight: 400;
-	}
-`;
-
 export const ConversationChannelPageStyle = styled.div`
 	height: 100%;
-	margin-left: ${SIDEBAR_WIDTH + 90}px;
+	width: 100%;
 `;
 
 export const ConversationSidebarContainer = styled.div`
@@ -165,7 +129,7 @@ export const ModalContentBodyStyle = styled.div`
 	position: relative;
 `;
 
-export const TextField= styled.textarea`
+export const TextField = styled.textarea`
 	font-family: 'Roboto';
 	outline: none;
 	border: none;
@@ -182,39 +146,37 @@ export const TextField= styled.textarea`
 	}
 `;
 
-export const MessagePanelHeaderStyle = styled.header`
-	background-color: #151515;
-	border-bottom: 1px solid #5454543d;
-	height: 100px;
+export const MessagePanelStyle = styled.div`
 	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	padding: 0 32px;
-	box-sizing: border-box;
-	top: 0;
-   left: 0;
-   width: 100%;
+	flex-direction: column;
+	height: 100%;
+	width: 100%;
+	background-color: #141414;
 `;
 
-export const MessagePanelStyle = styled.div`
-	position: relative;
-	background: inherit;
-	height: calc(100% - 100px);
+export const MessagePanelHeaderStyle = styled.header`
+	height: 90px;
+	padding: 10px 32px;
 	box-sizing: border-box;
+   width: 100%;
+	flex-shrink: 0;
+	border-bottom: 1px solid #48484857;
+	box-shadow: 5px 0 5px 1px #000;
+	display: flex;
+	align-items: center;
 `;
 
 export const MessagePanelBody = styled.div`
-	height: calc(100%);
-	display: flex;
-   flex-direction: column;
-	padding: 32px 32px 10px 32px;
+	padding: 32px 32px 0 32px;
 	padding-top: 0;
 	box-sizing: border-box;
+	flex: 1 1 auto;
+	overflow-y: auto;
+	min-height: 0;
 `;
 
 export const MessageContainerStyle = styled.div`
 	height: 100%;
-	position: relative;
 	box-sizing: border-box;
 	padding: 10px 0;
 	display: flex;
@@ -233,6 +195,10 @@ export const MessageInputContainer = styled.div`
 	padding: 24px 32px;
 `;
 
+export const MessagePanelFooter = styled.footer`
+	padding: 0 32px 10px 32px;
+	margin-top: 0;
+`;
 export const MessageInput = styled.input`
 	background-color: inherit;
 	outline: none;
@@ -283,7 +249,7 @@ export const MessageItemHeader = styled.div`
 `;
 
 export const MessageItemContent = styled.div <MessageItemContentProps>`
-	padding: ${({ padding })  => padding};
+	padding: ${({ padding }) => padding};
 	width: 100%;
 `;
 
@@ -350,7 +316,7 @@ export const ConversationSelectedStyle = styled.div`
 	display: flex;
 	gap: 20px;
 	padding: 20px 32px;
-	background-color: #1c1c1c;
+	background-color: #0f0f0f;
 	border-bottom: 1px solid #4343435f;
 	box-sizing: border-box;
 `;
@@ -362,20 +328,18 @@ export const ConversationSelectedItem = styled.div<ConversationSelectedProps>`
 	font-weight: 500;
 	background-color: #212121;
 	color: #f0f0f0;
-	${(props) => 
-		props.selected && 
+	${(props) =>
+		props.selected &&
 		css`
-			background-color: #b1b1b1;
+			background-color: #444444;
 		`};
 `;
-
 export const UserAvatar = styled.img`
 	width: 55px;
 	height: 55px;
 	border-radius: 55px;
 	margin: 10px 0;
 `;
-
 export const UserSidebarTop = styled.div`
 	display: flex;
 	align-items: center;
@@ -399,18 +363,6 @@ export const UserSidebarBottom = styled.div`
 	align-items: center;
 `;
 
-export const UserSidebarStyle = styled.div`
-	height: 100%;
-	display: flex;
-	flex: 0 0 80px;
-	align-items: center;
-	flex-direction: column;
-	overflow-y: scroll;
-	&::-webkit-scrollbar {
-		display: none;
-	}
-`;
-
 export const ConversationSidebarStyles = styled.div`
 	position: absolute;
 	top: 0;
@@ -427,7 +379,6 @@ export const ConversationSidebarStyles = styled.div`
     	height: 5px; */
 	}
 `;
-
 export const ConversationSidebarHeaderStyle = styled.header`
 	padding: 24px 32px;
 	box-sizing: border-box;
@@ -439,37 +390,25 @@ export const ConversationSidebarHeaderStyle = styled.header`
 	background-color: inherit;
 `;
 
-export const ConversationSearchbar = styled.input`
-	box-sizing: border-box;
-	background-color: #202020;
-	border: none;
-	outline: none;
-	font-size: 14px;
-	font-family: 'Roboto';
-	font-weight: 500;
-	padding: 12px 18px;
-	color: #6b6b6b;
-	border-radius: 5px;
-	width: 100%;
-`;
-
 export const ConversationTabStyle = styled.section`
 	display: flex;
-	justify-content: center;
 	gap: 20px;
-	border-top: 2px solid #2727275f;
-	margin-top: 20px;
-	padding-top: 20px;
+	marginp: 14px 18px;
 `;
 
-export const ConversationTabItemnStyle = styled.section<ConversationSelectedProps>`
-	background-color: #212121;
-	padding: 10px 32px;
-	font-size: 14px;
+export const ConversationTabItemStyle = styled.section<ConversationSelectedProps>`
+	cursor: pointer;
+	user-select: none;
+	font-size: 12px;
+	font-weight: 500;
+	background-color: #1f1f1f;
+	text-transform: uppercase;
+	padding: 8px 18px;
 	border-radius: 5px;
-	${(props) => 
-		props.selected && css`
-			background-color: #303030;
+	${({ selected }) =>
+		selected && 
+		css`
+			background-color: #7d7d7d;
 		`};
 `;
 
@@ -489,7 +428,6 @@ export const SidebarContainerItemContent = styled.div`
 		font-size: 18px;
 		font-weight: 600;
 	}
-
 	& .lastMessage {
 		display: block;
 		font-size: 16px;
@@ -504,7 +442,6 @@ export const RecipientResultContainerStyle = styled.div`
 	right: 0;
 	left: 0;
 	margin: 4px 24px;
-	
 `;
 
 export const RecipientScrollableItemContainer = styled.div`
@@ -555,4 +492,69 @@ export const SelectedRecipientPillStyle = styled.div`
 			color: #c62d2d;
 		}
 	}
+`;
+
+export const LayoutPage = styled.div`
+	height: 100%;
+	display: flex;
+`;
+
+export const UserSidebarStyle = styled.div`
+	height: 100%;
+	background-color: #0b0b0b;
+	display: flex;
+	flex: 0 0 80px;
+	align-items: center;
+	flex-direction: column;
+`;
+
+export const ConversationSidebarStyle = styled.div`
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+	width: 400px;
+	background-color: #111111;
+`;
+
+export const ConversationSidebarHeader = styled.div`
+	height: 90px;
+	padding: 10px 30px;
+	box-sizing: border-box;
+	flex-shrink: 0;
+	border-bottom: 1px solid #22222256;
+	box-shadow: 5px 0 5px 1px #000;
+	display: flex;
+	align-items: center;
+`;
+
+export const ConversationsScrollableContainer = styled.div`
+	flex: 1 1 auto;
+	overflow-y: auto;
+	min-height: 0;
+	&::-webkit-scrollbar {
+		display: none;
+	}
+`;
+
+export const ConversationSearchbar = styled.input`
+	background-color: #1a1a1a;
+	color: #e1e1e1;
+	width: 100%;
+	padding: 10px 16px;
+	border: none;
+	outline: none;
+	font-size: 14px;
+	font-family: 'Roboto';
+	border-radius: 5px;
+	box-sizing; border-box;
+`;
+
+export const UserSidebarItem = styled.div<SidebarItemProps>`
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 18px;
+	box-sizing: border-box;
+	background-color: ${({ active }) => active && '#1e1e1e'};
 `;

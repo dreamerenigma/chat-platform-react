@@ -7,8 +7,8 @@ import { AppDispatch } from "../../store";
 import { fetchGroupsThunk } from "../../store/groupSlice";
 import { updateType } from "../../store/selectedSlice";
 import { SocketContext } from "../../utils/context/SocketContent";
-import { Page } from "../../utils/styles";
 import { GroupMessageEventPayload } from "../../utils/types";
+import { addGroupMessage } from '../../store/groupMessageSlice';
 
 export const GroupPage = () => {
 	const { id } = useParams();
@@ -34,10 +34,10 @@ export const GroupPage = () => {
 	}, [id]);
 
 	return (
-		<Page>
+		<>
 			<ConversationSidebar />
 				{!id && <ConversationPanel />}
 			<Outlet />
-		</Page>
+		</>
 	);
 };

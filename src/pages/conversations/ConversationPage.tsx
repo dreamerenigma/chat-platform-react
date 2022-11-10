@@ -12,7 +12,6 @@ import {
 import { addMessage, deleteMessage } from "../../store/messageSlice";
 import { updateType } from "../../store/selectedSlice";
 import { SocketContext } from "../../utils/context/SocketContent";
-import { Page } from "../../utils/styles";
 import { Conversation, MessageEventPayload } from "../../utils/types";
 
 export const ConversationPage = () => {
@@ -52,10 +51,10 @@ export const ConversationPage = () => {
 	}, [id]);
 
 	return (
-		<Page>
+		<>
 			<ConversationSidebar />
 				{!id && <ConversationPanel />}
 			<Outlet />
-		</Page>
+		</>
 	);
 };
