@@ -6,7 +6,7 @@ import {
 	ConversationSidebarHeader,
 	ConversationSidebarStyle,
 	ConversationsScrollableContainer,
-} from "../../utils/styles/sidebars";
+} from "../../utils/styles";
 import { ConversationSidebarItem } from "../conversation/ConversationSidebarItem";
 import { ConversationTab } from "../conversation/ConversationTab";
 import { GroupSidebarItem } from "../groups/GroupSidebarItem";

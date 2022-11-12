@@ -1,22 +1,16 @@
-import { 
-	UserAvatar,
-	UserSidebarBottom,
-	UserSidebarStyle,
-	UserSidebarTop,
-	UserSidebarTopIcons,
-} from '../../utils/styles';
+import {UserAvatar } from '../../utils/styles';
 import styles from './index.module.scss';
-import { ArrowCycle, ChatAdd, ChatDots, Person, SignOut } from 'akar-icons';
+import { ArrowCycle, ChatAdd, ChatDots, Person } from 'akar-icons';
 import avatar from '../../__assets__/avatar_1.png'
 import { useState } from 'react';
 import { CreateConversationModal } from '../modals/CreateConversationModal';
-import { UserSidebarItem } from '../../utils/styles/sidebars';
+import { UserSidebarItem,  UserSidebarStyle } from '../../utils/styles';
 
 export const UserSidebar = () => {
 	const ICON_SIZE = 30;
 	const STROKE_WIDTH = 2;
-
 	const [showModal, setShowModal] = useState(false);
+
 	return (
 		<>
 			{showModal && <CreateConversationModal setShowModal={setShowModal} />}
