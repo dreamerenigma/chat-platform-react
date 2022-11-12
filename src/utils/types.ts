@@ -118,15 +118,3 @@ export type GroupMessageEventPayload = {
 	message: GroupMessageType;
 	group: Group;
 };
-
-export type UserSidebarRouteType =
-	| 'conversations'
-	| 'friends'
-	| 'connections'
-	| 'settings'
-	| 'calls';
-
-export type UserSidebarItemType = {
-	id: UserSidebarRouteType;
-	pathname: string;
-};

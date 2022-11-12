@@ -1,51 +1,67 @@
-import { 
-	ConversationSidebarContainer,
-	ConversationSidebarHeader,
-	ConversationSidebarStyle,
-} from "../../utils/styles";
-import { TbEdit } from 'react-icons/tb';
-import { CreateConversationModal } from "../modals/CreateConversationModal";
+import { ChatAdd } from "akar-icons";
+import { AiOutlineUsergroupAdd } from 'react-icons/ai';
 import { useSelector } from "react-redux";
 import { RootState } from "../../store";
+import { SidebarContainerStyle } from '../../utils/styles';
+import {
+	ConversationSearchbar,
+	ConversationSidebarHeader,
+	ConversationSidebarStyle,
+	ConversationsScrollableContainer,
+} from "../../utils/styles";
+import React, { useState } from "react";
+import { TbEdit } from 'react-icons/tb';
+import { CreateConversationModal } from "../modals/CreateConversationModal";
 import { ConversationSelected } from "./ConversationSelected";
 import { ConversationSidebarItem } from "./ConversationSidebarItem";
 import { GroupSidebarItem } from "../groups/GroupSidebarItem";
-import React from "react";
+import { ConversationTab } from "./ConversationTab";
+import { CreateGroupModal } from "../modals/CreateGroupModal";
 
 export const ConversationSidebar = () => {
-	const [showModal, setShowModal] = React.useState(false);
 	const conversations = useSelector(
 		(state: RootState) => state.conversation.conversations);
 	const groups = useSelector((state: RootState) => state.groups.groups);
-	
-	const selectedConversationType = useSelector(
+	const conversationType = useSelector(
 		(state: RootState) => state.selectedConversationType.type
 	);
-
+	const [showModal, setShowModal] = useState(false);
 	return (
 		<>
-			{showModal && <CreateConversationModal setShowModal={setShowModal} />}
+			{showModal && conversationType === 'private' && (
+				<CreateConversationModal setShowModal={setShowModal} />
+			)}
+			{showModal && conversationType === 'group' && (
+				<CreateGroupModal setShowModal={setShowModal} />
+			)}
 			<ConversationSidebarStyle>
 				<ConversationSidebarHeader>
-					<h1>Conversations</h1>
-					<div onClick={() => setShowModal(!showModal)}>
-						<TbEdit size={40} />
-					</div>
+					<ConversationSearchbar placeholder="Search for Conversations" />
+					{conversationType === 'private' ? (
+						<ChatAdd 
+							size={30} 
+							cursor="pointer"
+							onClick={() => setShowModal(true)} 
+						/>
+					) : (
+						<AiOutlineUsergroupAdd size={30} cursor="pointer" />
+					)}
 				</ConversationSidebarHeader>
-				<ConversationSidebarContainer>
-					<ConversationSelected></ConversationSelected>
-					<section>
-						{selectedConversationType === 'private' 
+				<ConversationTab />
+				<ConversationsScrollableContainer>
+					<SidebarContainerStyle>
+						{conversationType === 'private'
 							? conversations.map((conversation) => (
-								<ConversationSidebarItem 
+								<ConversationSidebarItem
 									key={conversation.id}
 									conversation={conversation}
 								/>
 							)) : groups.map((group) => (
-							<GroupSidebarItem key={group.id} group={group} />
-						))}
-					</section>
-				</ConversationSidebarContainer>
+								<GroupSidebarItem key={group.id} group={group} />
+							))}
+					</SidebarContainerStyle>
+				</ConversationsScrollableContainer>
+				<footer></footer>
 			</ConversationSidebarStyle>
 		</>
 	);
