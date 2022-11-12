@@ -4,9 +4,17 @@ import {
 	createSlice, 
 	PayloadAction 
 } from "@reduxjs/toolkit";
-import { Group, GroupMessage, GroupMessageEventPayload } from "../utils/types";
-import { fetchGroupMessages as fetchGroupMessagesAPI } from "../utils/api";
+import { } from "../utils/api";
+import { 
+	deleteGroupMessage as deleteGroupMessageAPI,
+	fetchGroupMessages as fetchGroupMessagesAPI,
+} from "../utils/api";
 import { RootState } from ".";
+import { 
+	GroupMessage, 
+	DeleteGroupMessageParams, 
+	GroupMessageEventPayload 
+} from "../utils/types";
 
 export interface GroupMessagesState {
 	messages: GroupMessage[];
@@ -18,6 +26,11 @@ const initialState: GroupMessagesState  = {
 
 export const fetchGroupMessagesThunk = createAsyncThunk('groupMessages/fetch', 
 	(id: number) => fetchGroupMessagesAPI(id)
+);
+
+export const deleteGroupMessageThunk = createAsyncThunk(
+	'groupMessages/delete',
+	(params: DeleteGroupMessageParams) => deleteGroupMessageAPI(params)
 );
 
 export const groupMessagesSlice = createSlice({
@@ -43,7 +56,18 @@ export const groupMessagesSlice = createSlice({
 			exists
 				? (state.messages[index] = action.payload.data)
 				: state.messages.push(action.payload.data);
-		});
+		}).addCase(deleteGroupMessageThunk.fulfilled, (state, action) => {
+				console.log('deleteGroupMEssageThunk.fulfilled');
+				const { data } = action.payload;
+				const groupMessages = state.messages.find(
+					(gm) => gm.id === data.groupId);
+				console.log(data);
+				console.log(groupMessages);
+				if (!groupMessages) return;
+				const messageIndex = groupMessages?.messages.findIndex(
+					(m) => m.id === data.messageId);
+				groupMessages?.messages.splice(messageIndex, 1);
+			});
 	},
 });
 
