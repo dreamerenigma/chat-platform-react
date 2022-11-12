@@ -23,6 +23,7 @@ type Props = {
 };
 
 export const CreateGroupForm: FC<Props> = ({ setShowModal }) => {
+	const [title, setTitle] = useState('');
 	const [message, setMessage] = useState('');
 	const [query, setQuery] = useState('');
 	const [results, setResults] = useState<User[]>([]);
@@ -47,9 +48,9 @@ export const CreateGroupForm: FC<Props> = ({ setShowModal }) => {
 
 	const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		if (selectedRecipients.length === 0 || !message) return;
-		const emails = selectedRecipients.map((user) => user.email);
-		return dispatch(createGroupThunk(emails))
+		if (selectedRecipients.length === 0 || !message || !title) return;
+		const users = selectedRecipients.map((user) => user.email);
+		return dispatch(createGroupThunk({ title, users }))
 			.unwrap()
 			.then(({ data }) => {
 				console.log(data);
@@ -65,7 +66,8 @@ export const CreateGroupForm: FC<Props> = ({ setShowModal }) => {
 		if (!exists) setSelectedRecipients((prev) => [...prev, user]);
 	};
 
-	const removeUser = (user: User) => setSelectedRecipients((prev) => prev.filter((u) => u.id !== user.id));
+	const removeUser = (user: User) => 
+		setSelectedRecipients((prev) => prev.filter((u) => u.id !== user.id));
 
 	return (
 		<form className={styles.createConversationForm} onSubmit={onSubmit}>
@@ -83,7 +85,16 @@ export const CreateGroupForm: FC<Props> = ({ setShowModal }) => {
 			)}
 			<section className={styles.message}>
 				<InputContainer backgroundColor='#161616'>
-					<InputLabel>Message (oprional)</InputLabel>
+					<InputLabel>Title</InputLabel>
+					<TextField
+						value={title}
+						onChange={(e) => setMessage(e.target.value)}
+					/>
+				</InputContainer>
+			</section>
+			<section className={styles.message}>
+				<InputContainer backgroundColor='#161616'>
+					<InputLabel>Message (optional)</InputLabel>
 					<TextField
 						value={message}
 						onChange={(e) => setMessage(e.target.value)}
