@@ -4,10 +4,10 @@ import { Outlet, useParams } from "react-router-dom";
 import { ConversationPanel } from "../../components/conversation/ConversationPanel";
 import { ConversationSidebar } from "../../components/conversation/ConversationSidebar";
 import { AppDispatch } from "../../store";
-import { fetchGroupsThunk } from "../../store/groupSlice";
+import { addGroup, fetchGroupsThunk } from "../../store/groupSlice";
 import { updateType } from "../../store/selectedSlice";
 import { SocketContext } from "../../utils/context/SocketContent";
-import { GroupMessageEventPayload } from "../../utils/types";
+import { Group, GroupMessageEventPayload } from "../../utils/types";
 import { addGroupMessage } from '../../store/groupMessageSlice';
 
 export const GroupPage = () => {
@@ -28,9 +28,15 @@ export const GroupPage = () => {
 			dispatch(addGroupMessage(payload));
 		});
 
+		socket.on('onGroupCreate', (payload: Group) => {
+			console.log('Group Created...');
+			dispatch(addGroup(payload));
+		});
+
 		return () => {
 			socket.off('onGroupMessage');
-		}
+			socket.off('onGroupCreate');
+		};
 	}, [id]);
 
 	return (
