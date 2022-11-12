@@ -8,12 +8,14 @@ import { } from "../utils/api";
 import { 
 	deleteGroupMessage as deleteGroupMessageAPI,
 	fetchGroupMessages as fetchGroupMessagesAPI,
+	editGroupMessage as editGroupMessageAPI,
 } from "../utils/api";
 import { RootState } from ".";
 import { 
 	GroupMessage, 
 	DeleteGroupMessageParams, 
-	GroupMessageEventPayload 
+	GroupMessageEventPayload, 
+	EditMessagePayload
 } from "../utils/types";
 
 export interface GroupMessagesState {
@@ -31,6 +33,11 @@ export const fetchGroupMessagesThunk = createAsyncThunk('groupMessages/fetch',
 export const deleteGroupMessageThunk = createAsyncThunk(
 	'groupMessages/delete',
 	(params: DeleteGroupMessageParams) => deleteGroupMessageAPI(params)
+);
+
+export const editGroupMessageThunk = createAsyncThunk(
+	'groupMessages/edit', 
+	(params: EditMessagePayload) => editGroupMessageAPI(params)
 );
 
 export const groupMessagesSlice = createSlice({
@@ -67,6 +74,19 @@ export const groupMessagesSlice = createSlice({
 				const messageIndex = groupMessages?.messages.findIndex(
 					(m) => m.id === data.messageId);
 				groupMessages?.messages.splice(messageIndex, 1);
+			})
+			.addCase(editGroupMessageThunk.fulfilled, (state, action) => {
+				console.log('editGroupMessageThunk.fulfilled');
+				const { data: message } = action.payload;
+				const { id } = message.group;
+				const groupMessage = state.messages.find((cm) => cm.id === id);
+				if (!groupMessage) return;
+				const messageIndex = groupMessage.messages.findIndex(
+					(m) => m.id === message.id
+				);
+				console.log(messageIndex);
+				groupMessage.messages[messageIndex] = message;
+				console.log('Updated Message');
 			});
 	},
 });
@@ -76,7 +96,7 @@ const selectGroupMessageId = (state: RootState, id: number) => id;
 
 export const selectGroupMessage = createSelector(
 	[selectGroupMessages, selectGroupMessageId],
-	(groupMessages, id) => groupMessages.find((c) => c.id === id)
+	(groupMessages, id) => groupMessages.find((c) => c.id === id),
 );
 
 export const { addGroupMessage } = groupMessagesSlice.actions;

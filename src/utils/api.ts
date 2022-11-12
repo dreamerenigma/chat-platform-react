@@ -8,16 +8,16 @@ import {
 	DeleteGroupMessageParams, 
 	DeleteGroupMessageResponse, 
 	DeleteMessageParams, 
-	DeleteMessageResponse, 
+	DeleteMessageResponse,
 	EditMessagePayload, 
 	FetchGroupMessagePayload, 
 	FetchMessagePayload, 
 	Group, 
+	GroupMessageType, 
 	MessageType, 
 	User, 
 	UserCredentialsParams,
 } from './types';
-
 
 const API_URL = process.env.REACT_APP_API_URL;
 
@@ -49,8 +49,8 @@ export const deleteMessage = ({ id, messageId }: DeleteMessageParams) =>
 	axiosClient.delete<DeleteMessageResponse>(`/conversations/${id}/messages/${messageId}`, config);
 
 
-export const editMessage = ({content, conversationId, messageId}: EditMessagePayload) => 
-	axiosClient.patch<MessageType>(`/conversations/${conversationId}/messages/${messageId}`, { content }, config);
+export const editMessage = ({content, id, messageId}: EditMessagePayload) => 
+	axiosClient.patch<MessageType>(`/conversations/${id}/messages/${messageId}`, { content }, config);
 
 export const fetchGroups = () => 
 	axiosClient.get<Group[]>(`/groups`, config);
@@ -69,3 +69,7 @@ export const createGroup = (params: CreateGroupParams) =>
 
 export const deleteGroupMessage = ({id, messageId}: DeleteGroupMessageParams) =>
 	axiosClient.delete<DeleteGroupMessageResponse>(`/groups/${id}/messages/${messageId}`, config);
+
+export const editGroupMessage = ({content, id, messageId}: EditMessagePayload) => 
+	axiosClient.patch<GroupMessageType>(`/groups/${id}/messages/${messageId}`, { content }, config);
+
