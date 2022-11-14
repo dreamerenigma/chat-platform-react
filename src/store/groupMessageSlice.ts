@@ -1,32 +1,33 @@
-import { 
-	createAsyncThunk, 
-	createSelector, 
-	createSlice, 
-	PayloadAction 
+import {
+	createAsyncThunk,
+	createSelector,
+	createSlice,
+	PayloadAction
 } from "@reduxjs/toolkit";
 import { } from "../utils/api";
-import { 
+import {
 	deleteGroupMessage as deleteGroupMessageAPI,
 	fetchGroupMessages as fetchGroupMessagesAPI,
 	editGroupMessage as editGroupMessageAPI,
 } from "../utils/api";
 import { RootState } from ".";
-import { 
-	GroupMessage, 
-	DeleteGroupMessageParams, 
-	GroupMessageEventPayload, 
-	EditMessagePayload
+import {
+	GroupMessage,
+	DeleteGroupMessageParams,
+	GroupMessageEventPayload,
+	EditMessagePayload,
+	GroupMessageType
 } from "../utils/types";
 
 export interface GroupMessagesState {
 	messages: GroupMessage[];
 };
 
-const initialState: GroupMessagesState  = {
+const initialState: GroupMessagesState = {
 	messages: [],
 };
 
-export const fetchGroupMessagesThunk = createAsyncThunk('groupMessages/fetch', 
+export const fetchGroupMessagesThunk = createAsyncThunk('groupMessages/fetch',
 	(id: number) => fetchGroupMessagesAPI(id)
 );
 
@@ -36,7 +37,7 @@ export const deleteGroupMessageThunk = createAsyncThunk(
 );
 
 export const editGroupMessageThunk = createAsyncThunk(
-	'groupMessages/edit', 
+	'groupMessages/edit',
 	(params: EditMessagePayload) => editGroupMessageAPI(params)
 );
 
@@ -52,6 +53,19 @@ export const groupMessagesSlice = createSlice({
 			const groupMessage = state.messages.find((gm) => gm.id === group.id);
 			groupMessage?.messages.unshift(message);
 		},
+		editGroupMessage: (state, action: PayloadAction<GroupMessageType>) => {
+			console.log('editGroupMessageThunk.fulfilled');
+			const { payload } = action;
+			const { id } = payload.group;
+			const groupMessage = state.messages.find((cm) => cm.id === id);
+			if (!groupMessage) return;
+			const messageIndex = groupMessage.messages.findIndex(
+				(m) => m.id === payload.id
+			);
+			console.log(messageIndex);
+			groupMessage.messages[messageIndex] = payload;
+			console.log('Updated Message');
+		}
 	},
 	extraReducers: (builder) => {
 		builder.addCase(fetchGroupMessagesThunk.fulfilled, (state, action) => {
@@ -64,30 +78,17 @@ export const groupMessagesSlice = createSlice({
 				? (state.messages[index] = action.payload.data)
 				: state.messages.push(action.payload.data);
 		}).addCase(deleteGroupMessageThunk.fulfilled, (state, action) => {
-				console.log('deleteGroupMEssageThunk.fulfilled');
-				const { data } = action.payload;
-				const groupMessages = state.messages.find(
-					(gm) => gm.id === data.groupId);
-				console.log(data);
-				console.log(groupMessages);
-				if (!groupMessages) return;
-				const messageIndex = groupMessages?.messages.findIndex(
-					(m) => m.id === data.messageId);
-				groupMessages?.messages.splice(messageIndex, 1);
-			})
-			.addCase(editGroupMessageThunk.fulfilled, (state, action) => {
-				console.log('editGroupMessageThunk.fulfilled');
-				const { data: message } = action.payload;
-				const { id } = message.group;
-				const groupMessage = state.messages.find((cm) => cm.id === id);
-				if (!groupMessage) return;
-				const messageIndex = groupMessage.messages.findIndex(
-					(m) => m.id === message.id
-				);
-				console.log(messageIndex);
-				groupMessage.messages[messageIndex] = message;
-				console.log('Updated Message');
-			});
+			console.log('deleteGroupMessageThunk.fulfilled');
+			const { data } = action.payload;
+			const groupMessages = state.messages.find(
+				(gm) => gm.id === data.groupId);
+			console.log(data);
+			console.log(groupMessages);
+			if (!groupMessages) return;
+			const messageIndex = groupMessages?.messages.findIndex(
+				(m) => m.id === data.messageId);
+			groupMessages?.messages.splice(messageIndex, 1);
+		});
 	},
 });
 
@@ -99,6 +100,6 @@ export const selectGroupMessage = createSelector(
 	(groupMessages, id) => groupMessages.find((c) => c.id === id),
 );
 
-export const { addGroupMessage } = groupMessagesSlice.actions;
+export const { addGroupMessage, editGroupMessage } = groupMessagesSlice.actions;
 
 export default groupMessagesSlice.reducer;
