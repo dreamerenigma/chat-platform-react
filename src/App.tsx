@@ -15,6 +15,8 @@ import { enableMapSet } from 'immer';
 import { GroupChannelPage } from './pages/group/GroupChannelPage';
 import { GroupPage } from './pages/group/GroupPage';
 import { AppPage } from './pages/AppPage';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 enableMapSet();
 
@@ -63,6 +65,7 @@ function App() {
 					</Route>
 				</Route>
 			</Routes>
+			<ToastContainer theme="dark" limit={5}/>
 		</AppWithProviders>
 	);
 }
