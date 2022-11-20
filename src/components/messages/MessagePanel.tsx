@@ -72,7 +72,6 @@ export const MessagePanel: FC<Props> = ({
 								? group?.title || 'Group'
 								: recipient?.firstName || 'user'
 						}
-						placeholderName={placeholderName}
 					/>
 					<MessageTypingStatus>
 						{isRecipientTyping ? `${recipient?.firstName} is typing...` : ''}
