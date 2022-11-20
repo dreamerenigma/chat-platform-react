@@ -10,12 +10,25 @@ import { RootState } from "../../store";
 import { useSelector } from "react-redux";
 import { selectGroupById } from "../../store/groupSlice";
 import { useParams } from "react-router-dom";
+import { useEffect } from "react";
+import { socket } from "../../utils/context/SocketContent";
 
 export const GroupRecipientsSidebar = () => {
-	const { id } = useParams();
+	const { id: groupId } = useParams();
 	const group = useSelector((state: RootState) => 
-		selectGroupById(state, parseInt(id!))
+		selectGroupById(state, parseInt(groupId!))
 	);
+
+	useEffect(() => {
+		const interval = setInterval(() => {
+			console.log(`Pining Group ${groupId}`);
+			socket.emit('getOnlineGroupUsers', { groupId });
+		}, 20000);
+		return () => {
+			console.log('Clearing Interval for GroupRecipientSidebar');
+			clearInterval(interval);
+		};
+	}, [groupId]);
 
 	return (
 		<GroupRecipientSidebarStyle>

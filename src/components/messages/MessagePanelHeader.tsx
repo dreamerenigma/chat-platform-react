@@ -1,4 +1,5 @@
-import { useContext } from "react";
+import { PersonAdd } from "akar-icons";
+import { useContext, useState } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { RootState } from "../../store";
@@ -7,10 +8,12 @@ import { selectGroupById } from "../../store/groupSlice";
 import { selectType } from "../../store/selectedSlice";
 import { AuthContext } from "../../utils/context/AuthContext";
 import { MessagePanelHeaderStyle } from "../../utils/styles"
+import { AddGroupRecipientModal } from "../modals/AddGroupRecipientModal";
 
 export const MessagePanelHeader = () => {
 	const { user } = useContext(AuthContext);
 	const { id } = useParams();
+	const [showModal, setShowModal] = useState(false);
 
 	const type = useSelector(selectType);
 	const conversation = useSelector((state: RootState) => 
@@ -26,5 +29,22 @@ export const MessagePanelHeader = () => {
 	const groupName = group?.title || 'Group'; 
 	const headerTitle = type === 'group' ? groupName : displayName;
 		
-	return <MessagePanelHeaderStyle>{displayName}</MessagePanelHeaderStyle>
+	return (
+		<>
+			{showModal && (
+				<AddGroupRecipientModal 
+					showModal={showModal} 
+					setShowModal={setShowModal} 
+				/>
+			)}
+			<MessagePanelHeaderStyle>
+				<div>
+					<span>{headerTitle}</span>
+				</div>
+				{type === 'group' && (
+					<PersonAdd size={30} onClick={() => setShowModal(true)} />
+				)}
+			</MessagePanelHeaderStyle>
+		</>
+	);
 };
