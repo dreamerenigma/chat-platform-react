@@ -2,9 +2,20 @@ import { keyframes } from "styled-components";
 
 export const fadeInUpwards = keyframes`
 	from {
-		transformY: translate(0%);
+		opacity: 0;
+		transformY: translate(20%);
 	}
 	to {
-		transformY: translate(10%);
+		opacity: 1;
+		transformY: translate(0%);
+	}
+`;
+
+export const slideRightToLeft = keyframes`
+	from {
+		transform: translateX(20%);
+	}
+	to {
+		transform: translateX(0%);
 	}
 `;

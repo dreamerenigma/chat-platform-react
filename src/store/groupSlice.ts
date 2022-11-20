@@ -23,7 +23,8 @@ export const fetchGroupsThunk = createAsyncThunk('groups/fetch', () => {
 	return fetchGroupsAPI();
 });
 
-export const createGroupThunk = createAsyncThunk('groups/create', 
+export const createGroupThunk = createAsyncThunk(
+	'groups/create', 
 	(params: CreateGroupParams) => createGroupAPI(params)
 );
 

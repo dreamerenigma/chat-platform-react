@@ -1,28 +1,29 @@
-import { PersonAdd } from "akar-icons";
+import { PersonAdd, PeopleGroup } from "akar-icons";
 import { useContext, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { RootState } from "../../store";
+import { AppDispatch, RootState } from "../../store";
 import { selectConversationById } from "../../store/conversationSlice";
 import { selectGroupById } from "../../store/groupSlice";
 import { selectType } from "../../store/selectedSlice";
 import { AuthContext } from "../../utils/context/AuthContext";
-import { MessagePanelHeaderStyle } from "../../utils/styles"
+import { GroupHeaderIcons, MessagePanelHeaderStyle } from "../../utils/styles"
 import { AddGroupRecipientModal } from "../modals/AddGroupRecipientModal";
+import { toggleSidebar } from '../../store/groupRecipientsSidebarSlice';
 
 export const MessagePanelHeader = () => {
 	const { user } = useContext(AuthContext);
 	const { id } = useParams();
 	const [showModal, setShowModal] = useState(false);
-
 	const type = useSelector(selectType);
+	const displayName = useDispatch<AppDispatch>();
 	const conversation = useSelector((state: RootState) => 
 		selectConversationById(state, parseInt(id!))
 	);
 	const group = useSelector((state: RootState) => 
 		selectGroupById(state, parseInt(id!))
 	);
-	const displayName = 
+	const showSidebar = 
 		user?.id === conversation?.creator.id 
 			? `${conversation?.recipient.firstName} ${conversation?.recipient.lastName}`
 			: `${conversation?.creator.firstName} ${conversation?.creator.lastName}`;
@@ -41,9 +42,21 @@ export const MessagePanelHeader = () => {
 				<div>
 					<span>{headerTitle}</span>
 				</div>
-				{type === 'group' && user?.id === group?.creator.id && (
-					<PersonAdd size={30} onClick={() => setShowModal(true)} />
-				)}
+				<GroupHeaderIcons>
+					{type === 'group' && user?.id === group?.creator.id && (
+						<PersonAdd 
+							cursor="pointer" 
+							size={30} 
+							onClick={() => setShowModal(true)} 
+						/>
+					)}
+					{type === 'group' && (
+						<PeopleGroup 
+							size={30}
+							onClick={() => dispatch(toggleSidebar())}
+						/>
+					)}
+				</GroupHeaderIcons>
 			</MessagePanelHeaderStyle>
 		</>
 	);

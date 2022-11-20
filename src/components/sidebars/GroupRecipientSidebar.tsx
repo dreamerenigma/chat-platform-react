@@ -37,7 +37,15 @@ export const GroupRecipientsSidebar = () => {
 				<PeopleGroup />
 			</GroupRecipientSidebarHeader>
 			<GroupRecipientSidebarItemContainer>
-				{group?.users.map((user) => (
+				<span>Online Users</span>
+				{onlineUsers.map((user) => (
+					<GroupRecipientSidebarItem>
+						<MessageItemAvatar />
+						<span>{user.firstName}</span>
+					</GroupRecipientSidebarItem>
+				))}
+				<span>Offline Users</span>
+				{offlineUsers.map((user) => (
 					<GroupRecipientSidebarItem>
 						<MessageItemAvatar />
 						<span>{user.firstName}</span>
