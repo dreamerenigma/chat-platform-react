@@ -63,6 +63,7 @@ export const MessagePanel: FC<Props> = ({
 						setContent={setContent}
 						sendMessage={sendMessage}
 						sendTypingStatus={sendTypingStatus}
+						placeholderName={placeholderName}
 					/>
 					<MessageTypingStatus>
 						{isRecipientTyping ? `${recipient?.firstName} is typing...` : ''}

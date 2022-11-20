@@ -16,8 +16,8 @@
 		"akar-icons": "^1.9.20",
 		"axios": "^0.27.2",
 		"date-fns": "^2.29.3",
-		"global": "^4.4.0",
-		"peerjs": "^1.4.7",
+		"emoji-mart": "5.3.2",
+		"emoji-picker-react": "^4.4.5",
 		"react": "^18.2.0",
 		"react-dom": "^18.2.0",
 		"react-hook-form": "^7.36.1",
@@ -25,7 +25,6 @@
 		"react-redux": "^8.0.4",
 		"react-router-dom": "6",
 		"react-scripts": "^5.0.1",
-		"react-spinners": "^0.13.4",
 		"react-toastify": "^9.0.8",
 		"sass": "^1.55.0",
 		"socket.io-client": "^4.5.3",
@@ -59,6 +58,7 @@
 	},
 	"devDependencies": {
 		"@types/axios": "^0.14.0",
+		"@types/emoji-mart": "^3.0.9",
 		"@types/styled-components": "^5.1.26"
 	}
 }
