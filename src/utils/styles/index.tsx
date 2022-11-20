@@ -208,6 +208,8 @@ export const MessageInputContainer = styled.div`
 	border-radius: 5px;
 	width: 100%;
 	padding: 24px 32px;
+	display: flex;
+	gap: 20px;
 `;
 
 export const MessagePanelFooter = styled.footer`
@@ -218,7 +220,7 @@ export const MessageInput = styled.input`
 	background-color: inherit;
 	outline: none;
 	border: none;
-	color: #454545;
+	color: #ffffff;
 	font-family: 'Roboto';
 	box-sizing: border-box;
 	font-size: 18px;
@@ -226,6 +228,8 @@ export const MessageInput = styled.input`
 	padding: 0;
 	margin: 4px 0;
 	resize: none;
+	height: 22px;
+	max-height: 100px;
 `;
 
 export const MessageItemContainer = styled.div`
