@@ -1,5 +1,6 @@
 import axios, { AxiosRequestConfig } from 'axios';
 import { 
+	AddGroupRecipientParams,
 	Conversation,
 	CreateConversationParams, 
 	CreateGroupParams, 
@@ -48,7 +49,6 @@ export const postNewConversation = (data: CreateConversationParams) =>
 export const deleteMessage = ({ id, messageId }: DeleteMessageParams) =>
 	axiosClient.delete<DeleteMessageResponse>(`/conversations/${id}/messages/${messageId}`, config);
 
-
 export const editMessage = ({content, id, messageId}: EditMessagePayload) => 
 	axiosClient.patch<MessageType>(`/conversations/${id}/messages/${messageId}`, { content }, config);
 
@@ -73,3 +73,6 @@ export const deleteGroupMessage = ({id, messageId}: DeleteGroupMessageParams) =>
 export const editGroupMessage = ({content, id, messageId}: EditMessagePayload) => 
 	axiosClient.patch<GroupMessageType>(`/groups/${id}/messages/${messageId}`, { content }, config);
 
+export const addGroupRecipient = ({ id, email } : AddGroupRecipientParams) => {
+	axiosClient.post(`/groups/${id}/recipients`, { email }, config);
+}
