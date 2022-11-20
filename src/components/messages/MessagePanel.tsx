@@ -6,7 +6,12 @@ import { selectConversationById } from "../../store/conversationSlice";
 import { postGroupMessage, postNewMessage } from "../../utils/api";
 import { AuthContext } from "../../utils/context/AuthContext";
 import { getRecipientFromConversation } from "../../utils/helpers";
-import { MessagePanelBody, MessagePanelStyle, MessageTypingStatus } from "../../utils/styles"
+import {
+	MessagePanelBody,
+	MessagePanelFooter,
+	MessagePanelStyle,
+	MessageTypingStatus,
+} from "../../utils/styles";
 import { MessageContainer } from "./MessageContainer";
 import { MessageInputField } from "./MessageInputField";
 import { MessagePanelHeader } from "./MessagePanelHeader";
@@ -16,7 +21,7 @@ type Props = {
 	isRecipientTyping: boolean;
 };
 
-export const MessagePanel: FC<Props> = ({ 
+export const MessagePanel: FC<Props> = ({
 	sendTypingStatus,
 	isRecipientTyping,
 }) => {
@@ -24,15 +29,13 @@ export const MessagePanel: FC<Props> = ({
 	const { id: routeId } = useParams();
 	const { user } = useContext(AuthContext);
 
-	const conversation = useSelector((state: RootState) => 
+	const conversation = useSelector((state: RootState) =>
 		selectConversationById(state, parseInt(routeId!))
 	);
 	const selectedType = useSelector(
 		(state: RootState) => state.selectedConversationType.type
 	);
-
 	const recipient = getRecipientFromConversation(conversation, user);
-
 	const sendMessage = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		if (!routeId || !content) return;
@@ -42,7 +45,7 @@ export const MessagePanel: FC<Props> = ({
 			return postNewMessage(params)
 				.then(() => setContent(''))
 				.catch((err) => console.log(err));
-		else 
+		else
 			return postGroupMessage(params)
 				.then(() => setContent(''))
 				.catch((err) => console.log(err));
@@ -53,18 +56,18 @@ export const MessagePanel: FC<Props> = ({
 				<MessagePanelHeader />
 				<MessagePanelBody>
 					<MessageContainer />
-					<div>
-						<MessageInputField 
-							content={content} 
-							setContent={setContent} 
-							sendMessage={sendMessage}
-							sendTypingStatus={sendTypingStatus}
-						/>
-						<MessageTypingStatus>
-							{isRecipientTyping ? `${recipient?.firstName} is typing...` : ''}
-						</MessageTypingStatus>
-					</div>
-				</MessagePanelBody>
+				</MessagePanelBody>{' '}
+				<MessagePanelFooter>
+					<MessageInputField
+						content={content}
+						setContent={setContent}
+						sendMessage={sendMessage}
+						sendTypingStatus={sendTypingStatus}
+					/>
+					<MessageTypingStatus>
+						{isRecipientTyping ? `${recipient?.firstName} is typing...` : ''}
+					</MessageTypingStatus>
+				</MessagePanelFooter>
 			</MessagePanelStyle>
 		</>
 	);
