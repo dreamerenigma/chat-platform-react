@@ -3,7 +3,7 @@ import {
 	GroupRecipientSidebarItem, 
 	GroupRecipientSidebarItemContainer, 
 	GroupRecipientSidebarStyle, 
-	MessageItemAvatar
+	MessageItemAvatar,
 } from "../../utils/styles";
 import { PeopleGroup } from 'akar-icons';
 import { RootState } from "../../store";

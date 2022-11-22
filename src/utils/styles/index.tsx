@@ -590,6 +590,7 @@ export const GroupRecipientSidebarStyle = styled.aside`
 	height: 100%;
 	width: 500px;
 	background-color: #111111;
+	flex: 0 0 auto;
 `;
 
 export const GroupRecipientSidebarHeader = styled.div`
@@ -598,7 +599,7 @@ export const GroupRecipientSidebarHeader = styled.div`
 	box-sizing: border-box;
    width: 100%;
 	flex-shrink: 0;
-	border-bottom: 1px solid #49494954;
+	border-bottom: 1px solid #49494925;
 	display: flex;
 	align-items: center;
 	gap: 20px
