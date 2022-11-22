@@ -30,11 +30,11 @@ export const MessageContainer = () => {
 	const dispatch = useDispatch<AppDispatch>();
 	const { isEditingMessage, selectedMessage, messageBeingEdited } = useSelector(
 		(state: RootState) => state.messageContainer);
-	
-	const conversationMessages = useSelector(
-		(state: RootState) => selectConversationMessage(state, parseInt(id!))
+	const conversationMessages = useSelector((state: RootState) => 
+		selectConversationMessage(state, parseInt(id!))
 	);
-	const groupMessages = useSelector((state: RootState) => selectGroupMessage(state, parseInt(id!))
+	const groupMessages = useSelector((state: RootState) => 
+		selectGroupMessage(state, parseInt(id!))
 	);
 	const selectedType = useSelector((state: RootState) => selectType(state));
 
@@ -72,7 +72,7 @@ export const MessageContainer = () => {
 			console.log('Unmounting');
 			dispatch(resetMessageContainer());
 		};
-	}, []);
+	}, [id]);
 
 	const mapMessages = (
 		m: MessageType | GroupMessageType,

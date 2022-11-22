@@ -2,13 +2,13 @@ import { useContext, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Outlet, useParams } from "react-router-dom";
 import { ConversationPanel } from "../../components/conversation/ConversationPanel";
-import { ConversationSidebar } from "../../components/conversation/ConversationSidebar";
 import { AppDispatch } from "../../store";
 import { addGroup, fetchGroupsThunk } from "../../store/groupSlice";
 import { updateType } from "../../store/selectedSlice";
 import { SocketContext } from "../../utils/context/SocketContent";
 import { Group, GroupMessageEventPayload } from "../../utils/types";
 import { addGroupMessage } from '../../store/groupMessageSlice';
+import { ConversationSidebar } from "../../components/sidebars/ConversationSidebar";
 
 export const GroupPage = () => {
 	const { id } = useParams();
