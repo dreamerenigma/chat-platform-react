@@ -12,7 +12,7 @@ import {
 export const SIDEBAR_WIDTH = 400;
 
 export const InputField = styled.input`
-	font-family: 'Roboto';
+	font-family: 'Inter';
 	outline: none;
 	border: none;
 	background-color: inherit;
@@ -51,7 +51,7 @@ export const Button = styled.button`
 	width: 100%;
 	outline: none;
 	border: none;
-	font-family: 'Roboto';
+	font-family: 'Inter';
 	font-size: 16px;
 	background-color: #2b09ff;
 	color: #fff;
@@ -592,7 +592,7 @@ export const GroupRecipientSidebarStyle = styled.aside`
 	display: flex;
 	flex-direction: column;
 	height: 100%;
-	width: 500px;
+	width: 350px;
 	background-color: #111111;
 	flex: 0 0 auto;
 `;
@@ -639,7 +639,7 @@ export const GroupHeaderIcons = styled.div`
 	align-items: center;
 `;
 
-export const TestContextMEnu = styled.div<ContextMenuProps>`
+export const TestContextMenu = styled.div<ContextMenuProps>`
 	${({ top, left }) => css`
 		top: ${top}px;
 		left: ${left}px;

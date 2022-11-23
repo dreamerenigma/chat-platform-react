@@ -57,6 +57,12 @@ export const GroupRecipientsSidebar = () => {
 		};
 	}, [group, groupId]);
 
+	useEffect(() => {
+		const handleResize = (e: UIEvent) => dispatch(toggleContextMenu(false));
+		window.addEventListener('resize', handleResize);
+		return () => window.removeEventListener('resize', handleResize);
+	}, []);
+
 	const onUserContextMenu = (
 		e: React.MouseEvent<HTMLDivElement, MouseEvent>,
 		user: User
