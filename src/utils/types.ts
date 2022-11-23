@@ -152,3 +152,8 @@ export type ContextMenuItemType = {
 	color: string;
 	ownerOnly: boolean;
 };
+
+export type AddGroupUserMessagePayload = {
+	group: Group;
+	user: User;
+};

@@ -33,6 +33,12 @@ export const GroupPage = () => {
 			dispatch(addGroup(payload));
 		});
 
+		socket.on('onGroupUserAdd', (payload) => {
+			console.log('onGroupUserAdd');
+			console.log(payload);
+			dispatch(addGroup(payload));
+		});
+
 		return () => {
 			socket.off('onGroupMessage');
 			socket.off('onGroupCreate');
@@ -42,7 +48,7 @@ export const GroupPage = () => {
 	return (
 		<>
 			<ConversationSidebar />
-				{!id && <ConversationPanel />}
+			{!id && <ConversationPanel />}
 			<Outlet />
 		</>
 	);

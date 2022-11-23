@@ -15,6 +15,7 @@ export const MessagePanelHeader = () => {
 	const { user } = useContext(AuthContext);
 	const { id } = useParams();
 	const [showModal, setShowModal] = useState(false);
+	const dispatch = useDispatch<AppDispatch>();
 	const type = useSelector(selectType);
 	const displayName = useDispatch<AppDispatch>();
 	const conversation = useSelector((state: RootState) => 

@@ -3,8 +3,6 @@ import { MessageInput, MessageInputContainer } from "../../utils/styles";
 import { CirclePlusFill, FaceHappy } from 'akar-icons';
 // import Picker, { IEmojiData } from 'emoji-picker-react';
 import styles from './index.module.scss';
-import 'emoji-mart/css/emoji-mart.css';
-import { Picker } from "emoji-mart";
 import { BaseEmoji } from "emoji-mart";
 
 type Props = {
@@ -80,11 +78,11 @@ export const MessageInputField: FC<Props> = ({
 				/>
 				{showEmojiPicker && (
 					<div 
-						style={(
+						style={{
 							position: 'absolute',
 							right: 50,
 							bottom: 150,
-						)}
+						}}
 					>
 						<Picker 
 							showPreview={false} 

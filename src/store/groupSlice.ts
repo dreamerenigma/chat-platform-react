@@ -4,7 +4,7 @@ import {
 	createSlice, 
 	PayloadAction
 } from "@reduxjs/toolkit";
-import { CreateGroupParams, Group, User } from "../utils/types";
+import { CreateGroupParams, Group } from "../utils/types";
 import { 
 	fetchGroups as fetchGroupsAPI, 
 	createGroup as createGroupAPI 
