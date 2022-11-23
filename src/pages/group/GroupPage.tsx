@@ -3,10 +3,10 @@ import { useDispatch } from "react-redux";
 import { Outlet, useParams } from "react-router-dom";
 import { ConversationPanel } from "../../components/conversation/ConversationPanel";
 import { AppDispatch } from "../../store";
-import { addGroup, fetchGroupsThunk } from "../../store/groupSlice";
+import { addGroup, fetchGroupsThunk, updateGroup } from "../../store/groupSlice";
 import { updateType } from "../../store/selectedSlice";
 import { SocketContext } from "../../utils/context/SocketContent";
-import { Group, GroupMessageEventPayload } from "../../utils/types";
+import { AddGroupUserMessagePayload, Group, GroupMessageEventPayload } from "../../utils/types";
 import { addGroupMessage } from '../../store/groupMessageSlice';
 import { ConversationSidebar } from "../../components/sidebars/ConversationSidebar";
 
@@ -33,15 +33,33 @@ export const GroupPage = () => {
 			dispatch(addGroup(payload));
 		});
 
+		/**
+		 * Adds the group for yhe user being added
+		 * to the group.
+		 */
 		socket.on('onGroupUserAdd', (payload) => {
 			console.log('onGroupUserAdd');
 			console.log(payload);
 			dispatch(addGroup(payload));
 		});
 
+		/**
+		 * Update all other clients in the room
+		 * so that they can also see the participant
+		 */
+		socket.on(
+			'onGroupReceivedNewUser',
+			(payload: AddGroupUserMessagePayload) => {
+				console.log(('Received onGroupReceivedNewUser'))
+				dispatch(updateGroup(payload.group));
+			}
+		);
+
 		return () => {
 			socket.off('onGroupMessage');
 			socket.off('onGroupCreate');
+			socket.off('onGroupUserAdd');
+			socket.off('onGroupReceivedNewUser');
 		};
 	}, [id]);
 

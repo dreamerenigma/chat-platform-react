@@ -17,7 +17,6 @@ export const GroupRecipientAddForm = () => {
 
 	const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		console.log(email);
 		addGroupRecipient({ id: parseInt(groupId!), email })
 			.then(({ data }) => {
 				console.log(data);
