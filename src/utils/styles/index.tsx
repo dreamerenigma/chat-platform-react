@@ -216,6 +216,7 @@ export const MessagePanelFooter = styled.footer`
 	padding: 0 32px 10px 32px;
 	margin-top: 0;
 `;
+
 export const MessageInput = styled.input`
 	background-color: inherit;
 	outline: none;
@@ -267,36 +268,38 @@ export const MessageItemHeader = styled.div`
 	}
 `;
 
-export const MessageItemContent = styled.div <MessageItemContentProps>`
+export const MessageItemContent = styled.div<MessageItemContentProps>`
 	padding: ${({ padding }) => padding};
 	width: 100%;
 `;
 
-export const ContextMenuStyle = styled.div<ContextMenuProps>`
+export const ContextMenu = styled.ul<ContextMenuProps>`
 	border-radius: 8px;
 	box-sizing: border-box;
 	position: fixed;
-	width: 200px;
-	background-color: #252525;
+	width: 220px;
+	background-color: #1a1a1a;
 	${(props) => css`
 		top: ${props.top}px;
 		left: ${props.left}px;
 	`}
+	list-style-type: none;
+	margin: 0;
+	padding: 10px;
+`;
 
-	ul {
-		list-style-type: none;
-		margin: 0;
-		padding: 10px;
-	}
-
-	ul li {
-		padding: 14px 16px;
-		border-radius: 8px;
-	}
-
-	ul li:hover {
+export const ContextMenuItem = styled.li`
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	padding: 14px 16px;
+	border-radius: 8px;
+	font-size: 15px;
+	font-weight: 500;
+	margin: 6px 0;
+	&:hover {
 		cursor: pointer;
-		background-color: #1f1f1f;
+		backgroud-color: #1f1f1f;
 	}
 `;
 
@@ -425,7 +428,7 @@ export const ConversationTabItemStyle = styled.section<ConversationSelectedProps
 	padding: 8px 18px;
 	border-radius: 5px;
 	${({ selected }) =>
-		selected && 
+		selected &&
 		css`
 			background-color: #7d7d7d;
 		`};
@@ -533,6 +536,7 @@ export const ConversationSidebarStyle = styled.div`
 	height: 100%;
 	width: 400px;
 	background-color: #111111;
+	flex: 0 0 auto;
 `;
 
 export const ConversationSidebarHeader = styled.div`
@@ -563,7 +567,7 @@ export const ConversationSearchbar = styled.input`
 	border: none;
 	outline: none;
 	font-size: 14px;
-	font-family: 'Roboto';
+	font-family: 'Inter';
 	border-radius: 5px;
 	box-sizing; border-box;
 `;
@@ -610,10 +614,11 @@ export const GroupRecipientSidebarHeader = styled.div`
 `;
 
 export const GroupRecipientSidebarItemContainer = styled.div`
-	padding: 30px 0 0 20px;
+	padding: 30px 0 0 30px;
 	flex: 1 1 auto;
 	overflow-y: auto;
 	min-height: 0;
+	position: relative;
 	&::-webkit-scrollbar {
 		display: none;
 	}
@@ -632,4 +637,13 @@ export const GroupHeaderIcons = styled.div`
 	display: flex;
 	gap: 20px;
 	align-items: center;
+`;
+
+export const TestContextMEnu = styled.div<ContextMenuProps>`
+	${({ top, left }) => css`
+		top: ${top}px;
+		left: ${left}px;
+	`}
+	width: 200px;
+	background-color: #000;
 `;

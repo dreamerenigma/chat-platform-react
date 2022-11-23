@@ -25,42 +25,44 @@ export const ConversationSidebar = () => {
 	const conversationType = useSelector(
 		(state: RootState) => state.selectedConversationType.type
 	);
-
 	return (
 		<>
-		{showModal && conversationType === 'private' && (
-			<CreateConversationModal setShowModal={setShowModal}/>
-		)}
-		<ConversationSidebarStyle>
-			<ConversationSidebarHeader>
-				<ConversationSearchbar placeholder="Search for Conversations" />
-				{conversationType === 'private' ? (
-					<ChatAdd
-						size={30}
-						cursor="pointer"
-						onClick={() => setShowModal(true)}
-					/>
-				) : (
-					<AiOutlineUsergroupAdd
-						size={30}
-						cursor="pointer"
-						onClick={() => setShowModal(true)}
-					/>
-				)}
-			</ConversationSidebarHeader>
-			<ConversationTab />
-			<ConversationsScrollableContainer>
-				<SidebarContainerStyle>
-					{conversationType === 'private'
-						? conversations.map((conversation) => (
-							<ConversationSidebarItem
-								key={conversation.id}
-								conversation={conversation}
-							/>
-						))
-					: groups.map((group) => (
-							<GroupSidebarItem key={group.id} group={group} />
-						))}
+			{showModal && conversationType === 'private' && (
+				<CreateConversationModal setShowModal={setShowModal}/>
+			)}
+			{showModal && conversationType === 'group' && (
+				<CreateGroupModal setShowModal={setShowModal}/>
+			)}
+			<ConversationSidebarStyle>
+				<ConversationSidebarHeader>
+					<ConversationSearchbar placeholder="Search for Conversations" />
+					{conversationType === 'private' ? (
+						<ChatAdd
+							size={30}
+							cursor="pointer"
+							onClick={() => setShowModal(true)}
+						/>
+					) : (
+						<AiOutlineUsergroupAdd
+							size={30}
+							cursor="pointer"
+							onClick={() => setShowModal(true)}
+						/>
+					)}
+				</ConversationSidebarHeader>
+				<ConversationTab />
+				<ConversationsScrollableContainer>
+					<SidebarContainerStyle>
+						{conversationType === 'private'
+							? conversations.map((conversation) => (
+								<ConversationSidebarItem
+									key={conversation.id}
+									conversation={conversation}
+								/>
+							))
+						: groups.map((group) => (
+								<GroupSidebarItem key={group.id} group={group} />
+							))}
 					</SidebarContainerStyle>
 				</ConversationsScrollableContainer>
 				<footer></footer>

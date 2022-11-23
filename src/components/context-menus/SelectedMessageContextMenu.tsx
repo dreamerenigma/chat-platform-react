@@ -2,12 +2,12 @@ import { FC, useContext } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { AppDispatch, RootState } from "../../store";
-import { 
-	setMessageBeingEdited, 
+import {
+	setMessageBeingEdited,
 	setIsEditing,
 } from "../../store/messageContainerSlice";
 import { deleteMessageThunk } from "../../store/messageSlice";
-import { ContextMenuStyle } from "../../utils/styles";
+import { ContextMenu, ContextMenuItem } from "../../utils/styles";
 import { AuthContext } from "../../utils/context/AuthContext";
 import { selectType } from "../../store/selectedSlice";
 import { deleteGroupMessageThunk } from "../../store/groupMessageSlice";
@@ -41,13 +41,12 @@ export const SelectedMessageContextMenu: FC<Props> = ({ points }) => {
 	};
 
 	return (
-		<ContextMenuStyle top={points.y} left={points.x}>
-			<ul>
-				{message?.author.id === user?.id && (
-					<li onClick={deleteMessage}>Delete</li>
-				)}
-				{message?.author.id === user?.id && <li onClick={editMessage}>Edit</li>}
-			</ul>
-		</ContextMenuStyle>
+		<ContextMenu top={points.y} left={points.x}>
+			{message?.author.id === user?.id && (
+				<ContextMenuItem onClick={deleteMessage}>Delete</ContextMenuItem>
+			)}
+			{message?.author.id === user?.id && 
+				<ContextMenuItem onClick={editMessage}>Edit</ContextMenuItem>}
+		</ContextMenu>
 	);
 };
