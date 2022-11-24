@@ -55,6 +55,11 @@ export const groupsSlice = createSlice({
 				console.log('Updating Group....');
 			}
 		},
+		removeGroup: (state, action: PayloadAction<Group>) => {
+			console.log('removeGroup Reducer');
+			
+
+		},
 	},
 	extraReducers: (builder) => {
 		builder
@@ -89,6 +94,7 @@ export const selectGroupById = createSelector(
 export const { 
 	addGroup, 
 	updateGroup,
+	removeGroup,
 } = groupsSlice.actions;
 
 export default groupsSlice.reducer;

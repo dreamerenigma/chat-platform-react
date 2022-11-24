@@ -13,11 +13,7 @@ import { useParams } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import { SocketContext } from "../../utils/context/SocketContent";
 import { User } from "../../utils/types";
-import { 
-	setContextMenuLocation, 
-	setSelectedUser, 
-	toggleContextMenu, 
-} from "../../store/groupRecipientsSidebarSlice";
+import { setContextMenuLocation, setSelectedUser, toggleContextMenu } from "../../store/groupRecipientsSidebarSlice";
 import { SelectedParticipantContextMenu } from "../context-menus/SelectedParticipantContextMenu";
 
 export const GroupRecipientsSidebar = () => {
@@ -42,8 +38,9 @@ export const GroupRecipientsSidebar = () => {
 		socket.emit('getOnlineGroupUsers', { groupId });
 		const interval = setInterval(() => {
 			socket.emit('getOnlineGroupUsers', { groupId });
-		}, 10000);
+		}, 2000);
 		socket.on('onlineGroupUsersReceived', (payload) => {
+			console.log('received onlinegroupUSersReceived event');
 			setOnlineUsers(payload.onlineUsers);
 		});
 		return () => {
