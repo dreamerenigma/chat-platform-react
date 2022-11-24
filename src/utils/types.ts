@@ -162,3 +162,8 @@ export type AddGroupUserMessagePayload = {
 	group: Group;
 	user: User;
 };
+
+export type RemovedGroupUserMessagePayload = {
+	group: Group;
+	user: User;
+};

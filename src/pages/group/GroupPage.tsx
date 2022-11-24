@@ -1,19 +1,26 @@
 import { useContext, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { Outlet, useParams } from "react-router-dom";
+import { Outlet, useNavigate, useParams } from "react-router-dom";
 import { ConversationPanel } from "../../components/conversation/ConversationPanel";
+import { ConversationSidebar } from "../../components/sidebars/ConversationSidebar";
 import { AppDispatch } from "../../store";
 import { addGroup, fetchGroupsThunk, updateGroup } from "../../store/groupSlice";
 import { updateType } from "../../store/selectedSlice";
 import { SocketContext } from "../../utils/context/SocketContent";
-import { AddGroupUserMessagePayload, Group, GroupMessageEventPayload } from "../../utils/types";
+import { 
+	AddGroupUserMessagePayload, 
+	Group,
+	GroupMessageEventPayload,
+} from "../../utils/types";
 import { addGroupMessage } from '../../store/groupMessageSlice';
-import { ConversationSidebar } from "../../components/sidebars/ConversationSidebar";
+import { AuthContext } from "../../utils/context/AuthContext";
 
 export const GroupPage = () => {
 	const { id } = useParams();
+	const { user } = useContext(AuthContext);
 	const dispatch = useDispatch<AppDispatch>();
 	const socket = useContext(SocketContext);
+	const navigate = useNavigate();
 
 	useEffect(() => {
 		dispatch(updateType('group'));
@@ -55,11 +62,25 @@ export const GroupPage = () => {
 			}
 		);
 
+		socket.on(
+			'onGroupRemovedUser', (payload) => {
+				console.log('onGroupRemovedUser');
+				console.log(payload);
+				dispatch(updateGroup(payload.group));
+				if (payload.user.id === user?.id) {
+					console.log('user is logged in ws remoived from the group');
+					console.log('navigating...');
+					navigate('/groups');
+				}
+			}
+		);
+
 		return () => {
 			socket.off('onGroupMessage');
 			socket.off('onGroupCreate');
 			socket.off('onGroupUserAdd');
 			socket.off('onGroupReceivedNewUser');
+			socket.off('onGroupRemoveUser');
 		};
 	}, [id]);
 
