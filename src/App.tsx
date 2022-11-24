@@ -1,7 +1,7 @@
 import { PropsWithChildren, useState } from 'react';
 import { Route, Routes} from 'react-router-dom';
 import { Socket } from 'socket.io-client';
-import { AuthenticateRoute } from './components/AuthenticatedRoute';
+import { AuthenticatedRoute} from './components/AuthenticatedRoute';
 import { ConversationChannelPage } from './pages/conversations/ConversationChannelPage';
 import { ConversationPage } from './pages/conversations/ConversationPage';
 import { LoginPage } from './pages/LoginPage';
@@ -18,6 +18,7 @@ import { AppPage } from './pages/AppPage';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import 'emoji-mart/css/emoji-mart-css';
+import { ConversationPageGuard } from './guards/ConversationPageGuard';
 
 enableMapSet();
 
@@ -51,15 +52,14 @@ function App() {
 			<Routes>
 				<Route path="/register" element={<RegisterPage />} />
 				<Route path="/login" element={<LoginPage />} />
-				<Route 
-					element={
-						<AuthenticateRoute>
-							<AppPage />
-						</AuthenticateRoute>
-					}
-				>
+				<Route element={<AuthenticatedRoute children={<AppPage />} />}>
 					<Route path="conversations" element={<ConversationPage />}>
-						<Route path=":id" element={<ConversationChannelPage />} />
+						<Route 
+							path=":id" 
+							element={
+								<ConversationPageGuard children={<ConversationChannelPage />} />
+							}
+						/>
 					</Route>
 					<Route path="groups" element={<GroupPage />}>
 						<Route path=":id" element={<GroupChannelPage />} />
