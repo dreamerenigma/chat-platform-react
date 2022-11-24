@@ -81,17 +81,21 @@ export const GroupPage = () => {
 			console.log('onGroupRemoved');
 			console.log('user is logged in ws removed from the group');
 			console.log('navigating...');
-			navigate('/groups');
+			console.log('id:', id);
 			dispatch(removeGroup(payload.group));
+			if (id && parseInt(id) === payload.group.id) {
+				console.log('Navigating User to /groups');
+				navigate('/groups');
+			}
 		});
 
 		return () => {
 			socket.removeAllListeners();
-			socket.off('onGroupMessage');
-			socket.off('onGroupCreate');
-			socket.off('onGroupUserAdd');
-			socket.off('onGroupReceivedNewUser');
-			socket.off('onGroupRemovedUser');
+			// socket.off('onGroupMessage');
+			// socket.off('onGroupCreate');
+			// socket.off('onGroupUserAdd');
+			// socket.off('onGroupReceivedNewUser');
+			// socket.off('onGroupRemovedUser');
 		};
 	}, [id]);
 
