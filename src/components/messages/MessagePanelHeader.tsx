@@ -41,7 +41,7 @@ export const MessagePanelHeader = () => {
 			)}
 			<MessagePanelHeaderStyle>
 				<div>
-					<span>{headerTitle}</span>
+					{/* <span>{headerTitle}</span> */}
 				</div>
 				<GroupHeaderIcons>
 					{type === 'group' && user?.id === group?.creator.id && (
