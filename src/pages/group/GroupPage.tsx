@@ -16,7 +16,7 @@ import {
 	AddGroupUserMessagePayload, 
 	Group,
 	GroupMessageEventPayload,
-	RemovedGroupUserMessagePayload,
+	RemoveGroupUserMessagePayload,
 } from "../../utils/types";
 import { addGroupMessage } from '../../store/groupMessageSlice';
 import { AuthContext } from "../../utils/context/AuthContext";
@@ -70,14 +70,14 @@ export const GroupPage = () => {
 
 		socket.on(
 			'onGrupRecipientRemoved', 
-			(payload: RemovedGroupUserMessagePayload) => {
+			(payload: RemoveGroupUserMessagePayload) => {
 				console.log('onGroupRecipientRemoved');
 				console.log(payload);
 				dispatch(updateGroup(payload.group));
 			}
 		);
 
-		socket.on('onGroupRemoved', (payload: RemovedGroupUserMessagePayload)=> {
+		socket.on('onGroupRemoved', (payload: RemoveGroupUserMessagePayload)=> {
 			console.log('onGroupRemoved');
 			console.log('user is logged in ws removed from the group');
 			console.log('navigating...');

@@ -118,6 +118,7 @@ export type Group = {
 	title?: string;
 	users: User[];
 	creator: User;
+	owner: User;
 	messages: GroupMessageType[];
 	createdAt: number;
 	lastMessageSent: MessageType;
@@ -128,7 +129,6 @@ export type GroupMessageEventPayload = {
 	message: GroupMessageType;
 	group: Group;
 };
-
 
 export type CreateGroupParams = {
 	users: string[];
@@ -163,7 +163,12 @@ export type AddGroupUserMessagePayload = {
 	user: User;
 };
 
-export type RemovedGroupUserMessagePayload = {
+export type RemoveGroupUserMessagePayload = {
 	group: Group;
 	user: User;
+};
+
+export type UpdateGroupOwnerParams = {
+	id: number;
+	newOwnerId: number;
 };

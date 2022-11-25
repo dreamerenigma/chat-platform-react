@@ -96,9 +96,7 @@ export const GroupRecipientsSidebar = () => {
 						</GroupRecipientSidebarItem>
 					))}
 				{groupSidebarState.showUserContextMenu && (
-					<SelectedParticipantContextMenu 
-						points={groupSidebarState.points}
-					/>
+					<SelectedParticipantContextMenu points={groupSidebarState.points} />
 				)}
 			</GroupRecipientSidebarItemContainer>
 		</GroupRecipientSidebarStyle>

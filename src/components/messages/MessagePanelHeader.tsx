@@ -17,20 +17,20 @@ export const MessagePanelHeader = () => {
 	const [showModal, setShowModal] = useState(false);
 	const dispatch = useDispatch<AppDispatch>();
 	const type = useSelector(selectType);
-	const displayName = useDispatch<AppDispatch>();
 	const conversation = useSelector((state: RootState) => 
 		selectConversationById(state, parseInt(id!))
 	);
 	const group = useSelector((state: RootState) => 
 		selectGroupById(state, parseInt(id!))
 	);
-	const showSidebar = 
+	const displayName = 
 		user?.id === conversation?.creator.id 
 			? `${conversation?.recipient.firstName} ${conversation?.recipient.lastName}`
 			: `${conversation?.creator.firstName} ${conversation?.creator.lastName}`;
 	const groupName = group?.title || 'Group'; 
 	const headerTitle = type === 'group' ? groupName : displayName;
 		
+	console.log(`Group: `, group);
 	return (
 		<>
 			{showModal && (
@@ -41,10 +41,10 @@ export const MessagePanelHeader = () => {
 			)}
 			<MessagePanelHeaderStyle>
 				<div>
-					{/* <span>{headerTitle}</span> */}
+					<span>{headerTitle}</span>
 				</div>
 				<GroupHeaderIcons>
-					{type === 'group' && user?.id === group?.creator.id && (
+					{type === 'group' && user?.id === group?.owner?.id && (
 						<PersonAdd 
 							cursor="pointer" 
 							size={30} 
@@ -53,6 +53,7 @@ export const MessagePanelHeader = () => {
 					)}
 					{type === 'group' && (
 						<PeopleGroup 
+							cursor="pointer"
 							size={30}
 							onClick={() => dispatch(toggleSidebar())}
 						/>

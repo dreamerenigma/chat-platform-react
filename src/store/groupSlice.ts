@@ -2,15 +2,21 @@ import {
 	createAsyncThunk, 
 	createSelector,
 	createSlice, 
-	PayloadAction
+	PayloadAction,
 } from "@reduxjs/toolkit";
-import { CreateGroupParams, Group, RemoveGroupRecipientParams } from "../utils/types";
+import { RootState } from ".";
 import { 
 	fetchGroups as fetchGroupsAPI, 
 	createGroup as createGroupAPI,
 	removeGroupRecipient as removeGroupRecipientAPI,
+	updateGroupOwner as updateGroupOwnerAPI,
 } from "../utils/api";
-import { RootState } from ".";
+import { 
+	CreateGroupParams, 
+	Group, 
+	RemoveGroupRecipientParams,
+	UpdateGroupOwnerParams,
+} from "../utils/types";
 
 export interface GroupState {
 	groups: Group[];
@@ -34,6 +40,11 @@ export const removeGroupRecipientThunk = createAsyncThunk(
 	(params: RemoveGroupRecipientParams) => removeGroupRecipientAPI(params)
 );
 
+export const updateGroupOwnerThunk = createAsyncThunk(
+	'groups/owner/update',
+	(params: UpdateGroupOwnerParams) => updateGroupOwnerAPI(params)
+)
+
 export const groupsSlice = createSlice({
 	name: 'groups',
 	initialState,
@@ -45,10 +56,6 @@ export const groupsSlice = createSlice({
 		updateGroup: (state, action: PayloadAction<Group>) => {
 			const updatedGroup = action.payload; 
 			const existingGroup = state.groups.find((g) => g.id === updatedGroup.id);
-			console.log('Original Group.users');
-			console.log(existingGroup?.users);
-			console.log('Updated Group.users');
-			console.log(updatedGroup.users);
 			const index = state.groups.findIndex((g) => g.id === updatedGroup.id);
 			if (existingGroup) {
 				state.groups[index] = updatedGroup;
@@ -57,8 +64,10 @@ export const groupsSlice = createSlice({
 		},
 		removeGroup: (state, action: PayloadAction<Group>) => {
 			console.log('removeGroup Reducer');
-			
-
+			const group = state.groups.find((g) => g.id === action.payload.id);
+			const index= state.groups.findIndex((g) => g.id === action.payload.id);
+			if (!group) return;
+			state.groups.slice(index, 1); 
 		},
 	},
 	extraReducers: (builder) => {
@@ -79,6 +88,9 @@ export const groupsSlice = createSlice({
 					state.groups[index] = updatedGroup;
 					console.log('Updating Group....');
 				}
+			})
+			.addCase(updateGroupOwnerThunk.fulfilled, (state, action) => {
+				console.log('updateGroupOwneThunk.fulfilled');
 			});
 	},
 });
