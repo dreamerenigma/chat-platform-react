@@ -2,7 +2,11 @@ import { FC, useContext } from "react"
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { AppDispatch, RootState } from "../../store";
-import { removeGroupRecipientThunk, selectGroupById, updateGroupOwnerThunk } from "../../store/groupSlice";
+import { 
+	removeGroupRecipientThunk, 
+	selectGroupById, 
+	updateGroupOwnerThunk, 
+} from "../../store/groupSlice";
 import { AuthContext } from "../../utils/context/AuthContext";
 import { getUserContextMenuIcon, isGroupOwner } from "../../utils/helpers";
 import { ContextMenu, ContextMenuItem } from "../../utils/styles";
@@ -62,7 +66,7 @@ export const SelectedParticipantContextMenu: FC<Props> = ({ points }) => {
 			</ContextMenuItem>
 			{isOwner && user?.id !== selectedUser?.id && (
 				<>
-					<ContextMenuItem>
+					<ContextMenuItem onClick={kickUser}>
 						<PersonCross size={20} color="#ff0000" />
 						<span style={{ color: '#ff0000' }}>Kick User</span>
 					</ContextMenuItem>
