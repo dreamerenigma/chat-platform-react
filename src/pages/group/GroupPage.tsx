@@ -89,6 +89,16 @@ export const GroupPage = () => {
 			}
 		});
 
+		socket.on('onGroupParticipantLeft', (payload) => {
+			console.log('ongroupParticioantLeft received');
+			console.log(payload);
+			dispatch(updateGroup(payload.group));
+			if (payload.userId === user?.id) {
+				console.log('payload.userId matches user.ud...')
+				navigate('/groups');
+			}
+		});
+
 		socket.on('onGroupOwnerUpdate', (payload: Group) => {
 			console.log('received onGroupownerUpdate');
 			dispatch(updateGroup(payload));
@@ -96,11 +106,6 @@ export const GroupPage = () => {
 
 		return () => {
 			socket.removeAllListeners();
-			// socket.off('onGroupMessage');
-			// socket.off('onGroupCreate');
-			// socket.off('onGroupUserAdd');
-			// socket.off('onGroupReceivedNewUser');
-			// socket.off('onGroupRemovedUser');
 		};
 	}, [id]);
 
