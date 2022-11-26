@@ -221,16 +221,14 @@ export const MessageInput = styled.input`
 	background-color: inherit;
 	outline: none;
 	border: none;
-	color: #ffffff;
-	font-family: 'Roboto';
+	color: #454545;
+	font-family: 'Inter';
 	box-sizing: border-box;
 	font-size: 18px;
 	width: 100%;
 	padding: 0;
 	margin: 4px 0;
 	resize: none;
-	height: 22px;
-	max-height: 100px;
 `;
 
 export const MessageItemContainer = styled.div`
@@ -238,7 +236,7 @@ export const MessageItemContainer = styled.div`
 	gap: 20px;
 	align-items: center;
 	padding: 5px 0;
-	word-break: break-all;
+	word-break: break-word;
 `;
 
 export const MessageItemAvatar = styled.div`
