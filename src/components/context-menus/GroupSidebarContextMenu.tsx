@@ -6,6 +6,7 @@ import { selectGroupById } from "../../store/groupSlice";
 import { AuthContext } from "../../utils/context/AuthContext";
 import { isGroupOwner } from "../../utils/helpers";
 import { ContextMenu, ContextMenuItem } from "../../utils/styles";
+
 import { IoMdExit, IoIosArchive } from 'react-icons/io';
 
 export const GroupSidebarContextMenu: FC = () => {
