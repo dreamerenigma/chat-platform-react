@@ -90,7 +90,7 @@ export const GroupPage = () => {
 		});
 
 		socket.on('onGroupParticipantLeft', (payload) => {
-			console.log('ongroupParticioantLeft received');
+			console.log('onGroupParticipantLeft received');
 			console.log(payload);
 			dispatch(updateGroup(payload.group));
 			if (payload.userId === user?.id) {
