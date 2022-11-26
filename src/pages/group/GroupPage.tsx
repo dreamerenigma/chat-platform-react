@@ -89,6 +89,11 @@ export const GroupPage = () => {
 			}
 		});
 
+		socket.on('onGroupOwnerUpdate', (payload: Group) => {
+			console.log('received onGroupownerUpdate');
+			dispatch(updateGroup(payload));
+		});
+
 		return () => {
 			socket.removeAllListeners();
 			// socket.off('onGroupMessage');
