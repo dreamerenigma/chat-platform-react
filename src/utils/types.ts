@@ -40,7 +40,7 @@ export type MessageType = {
 
 export type GroupMessageType = {
 	id: number;
-	content?: string;
+	content: string;
 	createdAt: string;
 	author: User;
 	group: Group;

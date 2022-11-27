@@ -19,7 +19,7 @@ import {
 	editMessageContent, 
 	resetMessageContainer, 
 	setIsEditing, 
-	setSelectedMessage 
+	setSelectedMessage,
 } from "../../store/messageContainerSlice";
 
 export const MessageContainer = () => {
@@ -29,7 +29,8 @@ export const MessageContainer = () => {
 	const { id } = useParams();
 	const dispatch = useDispatch<AppDispatch>();
 	const { isEditingMessage, selectedMessage, messageBeingEdited } = useSelector(
-		(state: RootState) => state.messageContainer);
+		(state: RootState) => state.messageContainer
+	);
 	const conversationMessages = useSelector((state: RootState) => 
 		selectConversationMessage(state, parseInt(id!))
 	);
@@ -104,7 +105,9 @@ export const MessageContainer = () => {
 						</MessageItemContent>
 					) : (
 						<MessageItemContent padding="0 0 0 70px">
-							{m.content}
+							{m.content.split('\n').map((content) => (
+								<div>{content}</div>
+							))}
 						</MessageItemContent>
 					)}
 				</MessageItemContainer>

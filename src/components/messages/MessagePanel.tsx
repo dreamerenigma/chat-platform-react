@@ -27,6 +27,7 @@ export const MessagePanel: FC<Props> = ({
 	isRecipientTyping,
 }) => {
 	const [content, setContent] = useState('');
+
 	const { id: routeId } = useParams();
 	const { user } = useContext(AuthContext);
 
@@ -40,8 +41,7 @@ export const MessagePanel: FC<Props> = ({
 		(state: RootState) => state.selectedConversationType.type
 	);
 	const recipient = getRecipientFromConversation(conversation, user);
-	const sendMessage = async (e: React.FormEvent<HTMLFormElement>) => {
-		e.preventDefault();
+	const sendMessage = async () => {
 		if (!routeId || !content) return;
 		const id = parseInt(routeId);
 		const params = { id, content };
@@ -54,6 +54,7 @@ export const MessagePanel: FC<Props> = ({
 				.then(() => setContent(''))
 				.catch((err) => console.log(err));
 	};
+
 	return (
 		<>
 			<MessagePanelStyle>

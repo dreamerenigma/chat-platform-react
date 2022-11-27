@@ -52,7 +52,9 @@ export const FormattedMessage: React.FC<FormattedMessageProps> = ({
 					</MessageItemContent>
 				) : (
 					<MessageItemContent padding="8px 0 0 0">
-						{message.content}
+						{message.content?.split('\n').map((content) => (
+							<div>{content}</div>
+						))}
 					</MessageItemContent>
 				)}
 			</MessageItemDetails>
