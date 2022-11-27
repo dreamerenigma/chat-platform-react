@@ -105,9 +105,7 @@ export const MessageContainer = () => {
 						</MessageItemContent>
 					) : (
 						<MessageItemContent padding="0 0 0 70px">
-							{m.content.split('\n').map((content) => (
-								<div>{content}</div>
-							))}
+							{m.content}
 						</MessageItemContent>
 					)}
 				</MessageItemContainer>

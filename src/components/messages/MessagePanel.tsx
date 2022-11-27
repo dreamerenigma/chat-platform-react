@@ -1,4 +1,4 @@
-import React, { FC, useContext, useState } from "react";
+import React, { FC, useContext, useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { RootState } from "../../store";
@@ -27,7 +27,8 @@ export const MessagePanel: FC<Props> = ({
 	isRecipientTyping,
 }) => {
 	const [content, setContent] = useState('');
-
+	
+	const ref = useRef<HTMLDivElement>(null);
 	const { id: routeId } = useParams();
 	const { user } = useContext(AuthContext);
 
@@ -57,11 +58,22 @@ export const MessagePanel: FC<Props> = ({
 				.catch((err) => console.log(err));
 	};
 
+	useEffect(() => {
+		if (ref.current) {
+
+		}
+	});
+
 	return (
 		<>
 			<MessagePanelStyle>
 				<MessagePanelHeader />
-				<MessagePanelBody>
+				<MessagePanelBody 
+					ref={ref}
+					onScroll={(e) => {
+						console.log(e);
+					}}
+				>
 					<MessageContainer />
 				</MessagePanelBody>{' '}
 				<MessagePanelFooter>

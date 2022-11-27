@@ -1,4 +1,4 @@
-import { Dispatch, FC, SetStateAction, useRef, useState } from "react";
+import { Dispatch, FC, SetStateAction, useState } from "react";
 import { CharacterLimit, MessageInputContainer } from "../../utils/styles";
 import { CirclePlusFill, FaceVeryHappy } from "akar-icons";
 import { MessageTextField } from "../inputs/MessageTextField";
@@ -30,11 +30,11 @@ export const MessageInputField: FC<Props> = ({
 				<CirclePlusFill className={styles.icon} size={ICON_SIZE} />
 				<form onSubmit={sendMessage} className={styles.form}>
 					{/* <MessageInput 
-							value={content}
-							onChange={updateContent}
-							onKeyDown={sendTypingStatus}
-							placeholder={`Send a message to ${placeholderName}`}
-						/> */}
+						value={content}
+						onChange={updateContent}
+						onKeyDown={sendTypingStatus}
+						placeholder={`Send a message to ${placeholderName}`}
+					/> */}
 					<MessageTextField
 						message={content}
 						setMessage={setContent}
