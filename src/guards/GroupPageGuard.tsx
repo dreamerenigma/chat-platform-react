@@ -6,7 +6,6 @@ export const GroupPageGuard: FC<React.PropsWithChildren> = ({ children }) => {
 	const location = useLocation();
 	const { loading, error } = useConversationGuard();
 	if (loading) return <div>loading group</div>;
-
 	return error ? (
 		<Navigate to="/groups" state={{ from: location }} replace />
 	) : (
