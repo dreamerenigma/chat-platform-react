@@ -56,7 +56,8 @@ export const messagesSlice = createSlice({
 			const conversationMessage = state.messages.find(
 				(cm) => cm.id === conversation.id
 			);
-			conversationMessage?.messages.unshift(message);
+			console.log('Adding Message...');
+			conversationMessage?.messages.push(message);
 		},
 		deleteMessage: (state, action: PayloadAction<DeleteMessageResponse>) => {
 			console.log('Inside deleteMessage reducer');

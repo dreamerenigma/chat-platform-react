@@ -43,6 +43,7 @@ export const MessageTextField: FC<Props> = ({
 			e.preventDefault();
 			sendMessage();
 			setIsMultiLine(false);
+			setMessage('');
 			if (ref.current) ref.current.style.height = '21px';
 		}
 	};

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import {
 	MessageContainerStyle,
 	MessageItemContainer,
@@ -22,7 +22,8 @@ import {
 	setSelectedMessage,
 } from "../../store/messageContainerSlice";
 
-export const MessageContainer = () => {
+export const ConversationsMessageContainer = React.forwardRef(
+(props, ref: React.ForwardedRef<HTMLDivElement>) => {
 	const [showMenu, setShowMenu] = useState(false);
 	const [points, setPoints] = useState({ x: 0, y: 0 });
 	const { user } = useContext(AuthContext);
@@ -53,6 +54,14 @@ export const MessageContainer = () => {
 		dispatch(editMessageContent(e.target.value));
 
 	useEffect(() => {
+		const divRef = ref as React.RefObject<HTMLDivElement>;
+		if (divRef.current) {
+			divRef.current.scrollTop = 
+				divRef.current.scrollHeight - divRef.current.clientHeight;
+		}
+	}, []);
+
+	useEffect(() => {
 		const handleClick = () => setShowMenu(false);
 		window.addEventListener('click', handleClick);
 		return () => window.removeEventListener('click', handleClick);
@@ -78,12 +87,15 @@ export const MessageContainer = () => {
 	const mapMessages = (
 		m: MessageType | GroupMessageType,
 		index: number,
-		arr: MessageType[] | GroupMessageType[]
+		messages: MessageType[] | GroupMessageType[]
 	) => {
 		const nextIndex = index + 1;
-		const currentMessage = arr[index];
-		const nextMessage = arr[nextIndex];
-		if (arr.length === nextIndex || currentMessage.author.id !== nextMessage.author.id) 
+		const currentMessage = messages[index];
+		const nextMessage = messages[nextIndex];
+		if (
+			messages.length === nextIndex || 
+			currentMessage.author.id !== nextMessage.author.id
+		) 
 			return ( 
 				<FormattedMessage 
 					onContextMenu={(e) => onContextMenu(e, m)} 
@@ -120,10 +132,20 @@ export const MessageContainer = () => {
 	};
 
 	return (
-		<MessageContainerStyle>
+		<MessageContainerStyle
+			ref={ref}
+			onScroll={(e) => {
+				const divElement = e.target as HTMLDivElement;
+				console.log(-divElement.scrollHeight);
+				console.log(divElement.scrollTop);
+				if (divElement.scrollTop === 0) {
+					console.log(divElement.scrollTop);
+					console.log('Fetch more message....');
+				}
+			}}
+		>
 			<>{formatMessages()}</>
-			{showMenu && <SelectedMessageContextMenu points=
-			{points} />}
+			{showMenu && <SelectedMessageContextMenu points={points} />}
 		</MessageContainerStyle>
 	);
-};
+});

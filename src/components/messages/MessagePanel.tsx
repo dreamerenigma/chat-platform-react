@@ -13,7 +13,7 @@ import {
 	MessagePanelStyle,
 	MessageTypingStatus,
 } from "../../utils/styles";
-import { MessageContainer } from "./MessageContainer";
+import { ConversationsMessageContainer } from "./MessageContainer";
 import { MessageInputField } from "./MessageInputField";
 import { MessagePanelHeader } from "./MessagePanelHeader";
 
@@ -27,8 +27,9 @@ export const MessagePanel: FC<Props> = ({
 	isRecipientTyping,
 }) => {
 	const [content, setContent] = useState('');
-	
+
 	const ref = useRef<HTMLDivElement>(null);
+	const messageContainerRef = useRef<HTMLDivElement>(null);
 	const { id: routeId } = useParams();
 	const { user } = useContext(AuthContext);
 
@@ -50,19 +51,20 @@ export const MessagePanel: FC<Props> = ({
 
 		if (selectedType === 'private')
 			return postNewMessage(params)
-				.then(() => setContent(''))
+				.then(() => {
+					setContent('');
+					if (messageContainerRef.current) {
+						messageContainerRef.current.scrollTop = 
+							messageContainerRef.current.scrollHeight - 
+							messageContainerRef.current.clientHeight;
+					}
+				})
 				.catch((err) => console.log(err));
 		else
 			return postGroupMessage(params)
 				.then(() => setContent(''))
 				.catch((err) => console.log(err));
 	};
-
-	useEffect(() => {
-		if (ref.current) {
-
-		}
-	});
 
 	return (
 		<>
@@ -74,7 +76,7 @@ export const MessagePanel: FC<Props> = ({
 						console.log(e);
 					}}
 				>
-					<MessageContainer />
+					<ConversationsMessageContainer ref={messageContainerRef}/>
 				</MessagePanelBody>{' '}
 				<MessagePanelFooter>
 					<MessageInputField

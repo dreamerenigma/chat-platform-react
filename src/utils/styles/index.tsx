@@ -205,7 +205,7 @@ export const MessageContainerStyle = styled.div`
 	box-sizing: border-box;
 	padding: 10px 0;
 	display: flex;
-	flex-direction: column-reverse;
+	flex-direction: column;
 	overflow-y: scroll;
 	&::-webkit-scrollbar {
 		display: none;
@@ -221,8 +221,7 @@ div<MessageInputContainerProps>`
 	padding: 18px 32px;
 	display: flex;
 	gap: 20px;
-	align-items: ${({ isMultiLine }) =>
-		(isMultiLine ? 'top' : 'center')};
+	align-items: ${({ isMultiLine }) => (isMultiLine ? 'top' : 'center')};
 	position: relative;
 `;
 
