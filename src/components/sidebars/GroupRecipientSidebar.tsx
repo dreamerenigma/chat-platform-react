@@ -5,7 +5,6 @@ import {
 	GroupRecipientSidebarStyle,
 	MessageItemAvatar,
 } from "../../utils/styles";
-import { PeopleGroup } from 'akar-icons';
 import { AppDispatch, RootState } from "../../store";
 import { useDispatch, useSelector } from "react-redux";
 import { selectGroupById } from "../../store/groupSlice";
@@ -13,8 +12,13 @@ import { useParams } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import { SocketContext } from "../../utils/context/SocketContent";
 import { User } from "../../utils/types";
-import { setContextMenuLocation, setSelectedUser, toggleContextMenu } from "../../store/groupRecipientsSidebarSlice";
+import { 
+	setContextMenuLocation, 
+	setSelectedUser, 
+	toggleContextMenu,
+} from "../../store/groupRecipientsSidebarSlice";
 import { SelectedParticipantContextMenu } from "../context-menus/SelectedParticipantContextMenu";
+import { Crown } from "akar-icons";
 
 export const GroupRecipientsSidebar = () => {
 	const { id: groupId } = useParams();
@@ -77,11 +81,14 @@ export const GroupRecipientsSidebar = () => {
 					<GroupRecipientSidebarItem
 						onContextMenu={(e) => onUserContextMenu(e, user)}
 					>
-						<MessageItemAvatar />
-						<span>{user.firstName}</span>
+						<div className="left">
+							<MessageItemAvatar />
+							<span>{user.firstName}</span>
+						</div>
+						{user.id === group?.owner.id && <Crown color="#ffbf00" />}
 					</GroupRecipientSidebarItem>
 				))}
-				<span>Offline Users</span>
+				<span>Offline Users</span>s
 				{group?.users
 					.filter(
 						(user) =>
@@ -91,8 +98,11 @@ export const GroupRecipientsSidebar = () => {
 						<GroupRecipientSidebarItem
 							onContextMenu={(e) => onUserContextMenu(e, user)}
 						>
-							<MessageItemAvatar />
-							<span>{user.firstName}</span>
+							<div className="left">
+								<MessageItemAvatar />
+								<span>{user.firstName}</span>
+							</div>
+							{user.id === group?.owner.id && <Crown color="#ffbf00"/>}
 						</GroupRecipientSidebarItem>
 					))}
 				{groupSidebarState.showUserContextMenu && (
