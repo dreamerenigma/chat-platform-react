@@ -174,3 +174,8 @@ export type UpdateGroupOwnerParams = {
 };
 
 export type ContextMenuEvent = React.MouseEvent<HTMLDivElement, MouseEvent>;
+
+export type FetchMessageParams = {
+	id: number;
+	skip: number;
+};

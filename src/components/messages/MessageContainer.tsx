@@ -12,7 +12,7 @@ import { useParams } from 'react-router-dom';
 import { SelectedMessageContextMenu } from '../context-menus/SelectedMessageContextMenu';
 import { FormattedMessage } from "./FormattedMessage";
 import { EditMessageContainer } from "./EditMessageContainer";
-import { selectConversationMessage } from "../../store/messageSlice";
+import { selectConversationMessage, updatePaginationSkip } from "../../store/messageSlice";
 import { selectType } from "../../store/selectedSlice";
 import { selectGroupMessage } from '../../store/groupMessageSlice';
 import { 
@@ -22,14 +22,18 @@ import {
 	setSelectedMessage,
 } from "../../store/messageContainerSlice";
 
-export const ConversationsMessageContainer = React.forwardRef(
-(props, ref: React.ForwardedRef<HTMLDivElement>) => {
+export const MessageContainer = () => {
 	const [showMenu, setShowMenu] = useState(false);
 	const [points, setPoints] = useState({ x: 0, y: 0 });
 	const { user } = useContext(AuthContext);
 	const { id } = useParams();
 	const dispatch = useDispatch<AppDispatch>();
-	const { isEditingMessage, selectedMessage, messageBeingEdited } = useSelector(
+	const ref = useRef<HTMLDivElement>(null);
+	const pagination = useSelector(
+		(state: RootState) => state.messages.pagination
+	);
+
+	const { isEditingMessage, messageBeingEdited } = useSelector(
 		(state: RootState) => state.messageContainer
 	);
 	const conversationMessages = useSelector((state: RootState) => 
@@ -52,14 +56,6 @@ export const ConversationsMessageContainer = React.forwardRef(
 
 	const onEditMessageChange = (e: React.ChangeEvent<HTMLInputElement>) =>
 		dispatch(editMessageContent(e.target.value));
-
-	useEffect(() => {
-		const divRef = ref as React.RefObject<HTMLDivElement>;
-		if (divRef.current) {
-			divRef.current.scrollTop = 
-				divRef.current.scrollHeight - divRef.current.clientHeight;
-		}
-	}, []);
 
 	useEffect(() => {
 		const handleClick = () => setShowMenu(false);
@@ -132,20 +128,26 @@ export const ConversationsMessageContainer = React.forwardRef(
 	};
 
 	return (
-		<MessageContainerStyle
-			ref={ref}
+		<MessageContainerStyle 
+			ref={ref} 
 			onScroll={(e) => {
-				const divElement = e.target as HTMLDivElement;
-				console.log(-divElement.scrollHeight);
-				console.log(divElement.scrollTop);
-				if (divElement.scrollTop === 0) {
-					console.log(divElement.scrollTop);
-					console.log('Fetch more message....');
+				const element = e.target as HTMLDivElement;
+				const lastElement = element.children[element.children.length - 1];
+				if (
+					lastElement.getBoundingClientRect().y - 
+						element.getBoundingClientRect().top === 
+					10
+				) {
+					console.log('At the top');
+					dispatch(updatePaginationSkip(pagination.skip + 100));
 				}
 			}}
 		>
-			<>{formatMessages()}</>
+			<>
+				{formatMessages()}
+				{/* <div>Fetch More Messages</div> */}
+			</>
 			{showMenu && <SelectedMessageContextMenu points={points} />}
 		</MessageContainerStyle>
 	);
-});
+};

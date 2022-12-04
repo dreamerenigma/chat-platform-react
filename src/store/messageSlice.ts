@@ -1,4 +1,9 @@
-import { createAsyncThunk, createSelector, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { 
+	createAsyncThunk, 
+	createSelector,
+	createSlice, 
+	PayloadAction,
+} from "@reduxjs/toolkit";
 import { RootState } from ".";
 import { 
 	deleteMessage as deleteMessageAPI,
@@ -10,6 +15,7 @@ import {
 	DeleteMessageParams, 
 	DeleteMessageResponse, 
 	EditMessagePayload, 
+	FetchMessageParams, 
 	MessageEventPayload, 
 	MessageType,
 } from "../utils/types";
@@ -17,17 +23,23 @@ import {
 export interface MessagesState {
 	messages: ConversationMessage[];
 	loading: boolean;
+	pagination: {
+		skip: number;
+	};
 }
 
 const initialState: MessagesState = {
 	messages: [],
 	loading: false,
+	pagination: {
+		skip: 0,
+	},
 };
 
 export const fetchMessagesThunk = createAsyncThunk(
 	'messages/fetch',
-	(id: number) => {
-		return getConversationMessages(id);
+	(params: FetchMessageParams) => {
+		return getConversationMessages(params);
 	}
 );
 
@@ -39,7 +51,7 @@ export const deleteMessageThunk = createAsyncThunk(
 );
 
 export const editMessageThunk = createAsyncThunk(
-	'message/edit', 
+	'messages/edit', 
 	(params: EditMessagePayload) => {
 		return editMessageAPI(params);
 	}
@@ -79,6 +91,10 @@ export const messagesSlice = createSlice({
 				(m) => m.id === message.id);
 			conversationMessage.messages.splice(messageIndex, 1);
 		},
+		updatePaginationSkip: (state, action: 
+		PayloadAction<number>) => {
+			state.pagination.skip = action.payload;
+		},
 	},
 	extraReducers: (builder) => {
 		builder
@@ -88,7 +104,10 @@ export const messagesSlice = createSlice({
 				const exists = state.messages.find((cm) => cm.id === id);
 				if (exists) {
 					console.log('exists');
-					state.messages[index] = action.payload.data;
+					// state.messages[index] = action.payload.data;
+					state.messages[
+						index
+					].messages.concat(action.payload.data.messages);
 				} else {
 					state.messages.push(action.payload.data);
 				}
@@ -126,6 +145,11 @@ export const selectConversationMessage = createSelector(
 	(conversationMessages, id) => conversationMessages.find((cm) => cm.id === id)
 );
 
-export const { addMessage, deleteMessage, editMessage } = messagesSlice.actions;
+export const { 
+	addMessage,
+	deleteMessage,
+	editMessage,
+	updatePaginationSkip,
+} = messagesSlice.actions;
 
 export default messagesSlice.reducer;
