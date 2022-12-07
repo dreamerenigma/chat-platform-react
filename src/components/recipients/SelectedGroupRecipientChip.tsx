@@ -13,11 +13,7 @@ export const SelectedGroupRecipientChip: FC<Props> = ({ user, removeUser }) => {
 		<SelectedRecipientPillStyle>
 			<div className="container">
 				<span>{user.email}</span>
-				<CircleX 
-					className="icon" 
-					size={20} 
-					onClick={() => removeUser(user)}
-				/>
+				<CircleX className="icon" size={20} onClick={() => removeUser(user)} />
 			</div>
 		</SelectedRecipientPillStyle>
 	);

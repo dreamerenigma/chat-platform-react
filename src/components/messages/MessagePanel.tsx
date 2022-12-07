@@ -27,7 +27,6 @@ export const MessagePanel: FC<Props> = ({
 	isRecipientTyping,
 }) => {
 	const [content, setContent] = useState('');
-	
 	const { id: routeId } = useParams();
 	const { user } = useContext(AuthContext);
 
@@ -41,6 +40,7 @@ export const MessagePanel: FC<Props> = ({
 		(state: RootState) => state.selectedConversationType.type
 	);
 	const recipient = getRecipientFromConversation(conversation, user);
+	
 	const sendMessage = async () => {
 		const trimmedContent = content.trim();
 		if (!routeId || !trimmedContent) return;

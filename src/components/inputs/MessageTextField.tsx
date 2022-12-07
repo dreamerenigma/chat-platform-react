@@ -1,4 +1,4 @@
-import { FC, useRef, Dispatch, SetStateAction, useState } from "react";
+import { FC, useRef, Dispatch, SetStateAction } from "react";
 import { MessageTextarea } from "../../utils/styles/inputs/Textarea";
 
 type Props = {
@@ -37,13 +37,11 @@ export const MessageTextField: FC<Props> = ({
 	};
 
 	const onKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
-		console.log('onKeyDown');
 		sendTypingStatus();
 		if (e.key === 'Enter' && !e.shiftKey) {
 			e.preventDefault();
 			sendMessage();
 			setIsMultiLine(false);
-			setMessage('');
 			if (ref.current) ref.current.style.height = '21px';
 		}
 	};

@@ -4,7 +4,7 @@ import { User } from "../../utils/types";
 import { SelectedRecipientChip } from "./SelectedRecipientChip";
 
 type Props = {
-	selectedUser?: User | undefined;
+	selectedUser: User | undefined;
 	setQuery: Dispatch<SetStateAction<string>>;
 	setSelectedUser: Dispatch<SetStateAction<User | undefined>>;
 };

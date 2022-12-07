@@ -68,7 +68,8 @@ export const groupMessagesSlice = createSlice({
 		}
 	},
 	extraReducers: (builder) => {
-		builder.addCase(fetchGroupMessagesThunk.fulfilled, (state, action) => {
+		builder
+		.addCase(fetchGroupMessagesThunk.fulfilled, (state, action) => {
 			const { id } = action.payload.data;
 			console.log('fetchGroupMessagesThunk.fulfilled');
 			console.log(action.payload.data);
@@ -77,7 +78,8 @@ export const groupMessagesSlice = createSlice({
 			exists
 				? (state.messages[index] = action.payload.data)
 				: state.messages.push(action.payload.data);
-		}).addCase(deleteGroupMessageThunk.fulfilled, (state, action) => {
+		})
+		.addCase(deleteGroupMessageThunk.fulfilled, (state, action) => {
 			console.log('deleteGroupMessageThunk.fulfilled');
 			const { data } = action.payload;
 			const groupMessages = state.messages.find(
@@ -85,7 +87,7 @@ export const groupMessagesSlice = createSlice({
 			console.log(data);
 			console.log(groupMessages);
 			if (!groupMessages) return;
-			const messageIndex = groupMessages?.messages.findIndex(
+			const messageIndex = groupMessages.messages.findIndex(
 				(m) => m.id === data.messageId);
 			groupMessages?.messages.splice(messageIndex, 1);
 		});

@@ -29,12 +29,6 @@ export const MessageInputField: FC<Props> = ({
 			<MessageInputContainer isMultiLine={isMultiLine}>
 				<CirclePlusFill className={styles.icon} size={ICON_SIZE} />
 				<form onSubmit={sendMessage} className={styles.form}>
-					{/* <MessageInput 
-						value={content}
-						onChange={updateContent}
-						onKeyDown={sendTypingStatus}
-						placeholder={`Send a message to ${placeholderName}`}
-					/> */}
 					<MessageTextField
 						message={content}
 						setMessage={setContent}

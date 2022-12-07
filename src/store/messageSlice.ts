@@ -105,9 +105,7 @@ export const messagesSlice = createSlice({
 				if (exists) {
 					console.log('exists');
 					// state.messages[index] = action.payload.data;
-					state.messages[
-						index
-					].messages.concat(action.payload.data.messages);
+					state.messages[index].messages.concat(action.payload.data.messages);
 				} else {
 					state.messages.push(action.payload.data);
 				}
@@ -127,8 +125,7 @@ export const messagesSlice = createSlice({
 				const { id } = message.conversation;
 				const conversationMessage = state.messages.find((cm) => cm.id === id);
 				if (!conversationMessage) return;
-				const messageIndex = conversationMessage.messages.findIndex(
-					(m) => m.id === message.id);
+				const messageIndex = conversationMessage.messages.findIndex((m) => m.id === message.id);
 				console.log(messageIndex);
 				conversationMessage.messages[messageIndex] = message;
 				console.log('Updated Message');
@@ -145,11 +142,6 @@ export const selectConversationMessage = createSelector(
 	(conversationMessages, id) => conversationMessages.find((cm) => cm.id === id)
 );
 
-export const { 
-	addMessage,
-	deleteMessage,
-	editMessage,
-	updatePaginationSkip,
-} = messagesSlice.actions;
+export const { addMessage, deleteMessage, editMessage, updatePaginationSkip } = messagesSlice.actions;
 
 export default messagesSlice.reducer;

@@ -33,7 +33,9 @@ export const GroupRecipientAddForm = () => {
 		<form className={styles.createConversationForm} onSubmit={onSubmit}>
 			<InputContainer backgroundColor='#161616'>
 				<InputLabel>Recipient</InputLabel>
-				<InputField value={email} onChange={(e) => setEmail(e.target.value)} />
+				<InputField 
+					value={email} 
+					onChange={(e) => setEmail(e.target.value)} />
 			</InputContainer>
 			<Button style={{ margin: '10px 0' }} disabled={!email}>
 				Add Recipient

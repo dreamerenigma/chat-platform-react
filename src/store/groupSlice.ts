@@ -43,7 +43,7 @@ export const createGroupThunk = createAsyncThunk(
 );
 
 export const removeGroupRecipientThunk = createAsyncThunk(
-	'groups/recipents/delete',
+	'groups/recipients/delete',
 	(params: RemoveGroupRecipientParams) => removeGroupRecipientAPI(params)
 );
 

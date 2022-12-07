@@ -45,6 +45,7 @@ export const GroupRecipientsSidebar = () => {
 		}, 5000);
 		socket.on('onlineGroupUsersReceived', (payload) => {
 			console.log('received onlinegroupUSersReceived event');
+			console.log(payload);
 			setOnlineUsers(payload.onlineUsers);
 		});
 		return () => {
@@ -88,7 +89,7 @@ export const GroupRecipientsSidebar = () => {
 						{user.id === group?.owner.id && <Crown color="#ffbf00" />}
 					</GroupRecipientSidebarItem>
 				))}
-				<span>Offline Users</span>s
+				<span>Offline Users</span>
 				{group?.users
 					.filter(
 						(user) =>

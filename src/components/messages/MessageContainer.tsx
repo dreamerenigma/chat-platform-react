@@ -23,11 +23,18 @@ import {
 } from "../../store/messageContainerSlice";
 
 export const MessageContainer = () => {
+	const { id } = useParams();
+	const dispatch = useDispatch<AppDispatch>();
+	const conversationMessages = useSelector((state: RootState) => 
+		selectConversationMessage(state, parseInt(id!))
+	);
+	const groupMessages = useSelector((state: RootState) => 
+		selectGroupMessage(state, parseInt(id!))
+	);
+	const selectedType = useSelector((state: RootState) => selectType(state));
 	const [showMenu, setShowMenu] = useState(false);
 	const [points, setPoints] = useState({ x: 0, y: 0 });
 	const { user } = useContext(AuthContext);
-	const { id } = useParams();
-	const dispatch = useDispatch<AppDispatch>();
 	const ref = useRef<HTMLDivElement>(null);
 	const pagination = useSelector(
 		(state: RootState) => state.messages.pagination
@@ -36,13 +43,6 @@ export const MessageContainer = () => {
 	const { isEditingMessage, messageBeingEdited } = useSelector(
 		(state: RootState) => state.messageContainer
 	);
-	const conversationMessages = useSelector((state: RootState) => 
-		selectConversationMessage(state, parseInt(id!))
-	);
-	const groupMessages = useSelector((state: RootState) => 
-		selectGroupMessage(state, parseInt(id!))
-	);
-	const selectedType = useSelector((state: RootState) => selectType(state));
 
 	const onContextMenu = (
 		e: React.MouseEvent<HTMLDivElement, MouseEvent>, 
@@ -129,23 +129,18 @@ export const MessageContainer = () => {
 
 	return (
 		<MessageContainerStyle 
-			ref={ref} 
 			onScroll={(e) => {
-				const element = e.target as HTMLDivElement;
-				const lastElement = element.children[element.children.length - 1];
-				if (
-					lastElement.getBoundingClientRect().y - 
-						element.getBoundingClientRect().top === 
-					10
-				) {
-					console.log('At the top');
-					dispatch(updatePaginationSkip(pagination.skip + 100));
+				const node = e.target as HTMLDivElement;
+				const scrollTopMax  = node.scrollHeight - node.clientHeight;
+				if (-scrollTopMax === node.scrollTop) {
+					console.log('');
 				}
 			}}
 		>
 			<>
-				{formatMessages()}
-				{/* <div>Fetch More Messages</div> */}
+			{selectedType === 'private'
+				? conversationMessages?.messages.map(mapMessages)
+				: groupMessages?.messages.map(mapMessages)}
 			</>
 			{showMenu && <SelectedMessageContextMenu points={points} />}
 		</MessageContainerStyle>

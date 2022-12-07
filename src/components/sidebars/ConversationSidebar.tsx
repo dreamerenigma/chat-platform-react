@@ -33,7 +33,6 @@ export const ConversationSidebar = () => {
 		(state: RootState) => state.selectedConversationType.type
 	);
 
-	
 	const onGroupContextMenu = (event: ContextMenuEvent, group: Group) => {
 		event.preventDefault();
 		console.log('Group Context Menu');

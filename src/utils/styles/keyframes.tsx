@@ -3,11 +3,11 @@ import { keyframes } from "styled-components";
 export const fadeInUpwards = keyframes`
 	from {
 		opacity: 0;
-		transformY: translate(20%);
+		transformY: translateY(20%);
 	}
 	to {
 		opacity: 1;
-		transformY: translate(0%);
+		transformY: translateY(0%);
 	}
 `;
 

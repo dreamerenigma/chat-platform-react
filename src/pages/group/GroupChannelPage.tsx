@@ -13,8 +13,6 @@ export const GroupChannelPage = () => {
 	const { id } = useParams();
 	const socket = useContext(SocketContext);
 	const dispatch = useDispatch<AppDispatch>();
-	const [timer, setTimer] = useState<ReturnType<typeof setTimeout>>();
-	const [isTyping, setIsTyping] = useState(false);
 	const [isRecipientTyping, setIsRecipientTyping] = useState(false);
 
 	const showSidebar = useSelector(

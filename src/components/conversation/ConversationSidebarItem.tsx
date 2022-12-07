@@ -4,7 +4,6 @@ import { AuthContext } from "../../utils/context/AuthContext";
 import { getRecipientFromConversation } from "../../utils/helpers";
 import { ConversationSidebarItemStyle } from "../../utils/styles"
 import { Conversation } from "../../utils/types";
-
 import styles from './index.module.scss';
 
 type Props = {
@@ -19,7 +18,7 @@ export const ConversationSidebarItem: React.FC<Props> = ({ conversation }) => {
 	const recipient = getRecipientFromConversation(conversation, user);
 	const lastMessageContent = () => {
 		const { lastMessageSent } = conversation;
-		if (lastMessageSent)
+		if (lastMessageSent  && lastMessageSent.content)
 		return lastMessageSent.content.length >= MESSAGE_LENGTH_MAX
 			? lastMessageSent.content.slice(0, MESSAGE_LENGTH_MAX).concat('...')
 			: lastMessageSent.content;

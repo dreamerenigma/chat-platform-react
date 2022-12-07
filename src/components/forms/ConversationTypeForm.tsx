@@ -21,7 +21,9 @@ export const ConversationTypeForm: FC<Props> = ({ type, setType }) => {
 						onChange={() => setType(chatType.type)}
 						checked={type === chatType.type}
 					/>
-					<label className={styles.radioLabel} htmlFor={chatType.type}>{chatType.label}</label>
+					<label className={styles.radioLabel} htmlFor={chatType.type}>
+						{chatType.label}
+					</label>
 				</div>
 			))}
 		</form>

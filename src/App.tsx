@@ -45,7 +45,6 @@ function AppWithProviders({
 
 function App() {
 	const [user, setUser] = useState<User>();
-
 	return (
 		<AppWithProviders user={user} setUser={setUser} socket={socket}>
 			<Routes>
@@ -68,7 +67,7 @@ function App() {
 					</Route>
 				</Route>
 			</Routes>
-			<ToastContainer theme="dark" limit={5}/>
+			<ToastContainer theme="dark" />
 		</AppWithProviders>
 	);
 }
