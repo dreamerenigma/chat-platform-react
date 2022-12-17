@@ -175,7 +175,9 @@ export type UpdateGroupOwnerParams = {
 
 export type ContextMenuEvent = React.MouseEvent<HTMLDivElement, MouseEvent>;
 
-export type FetchMessageParams = {
+export type Friend = {
 	id: number;
-	skip: number;
+	sender: User;
+	receiver: User;
+	createdAt: number;
 };

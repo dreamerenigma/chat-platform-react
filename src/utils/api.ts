@@ -11,9 +11,9 @@ import {
 	DeleteMessageParams, 
 	DeleteMessageResponse,
 	EditMessagePayload, 
-	FetchGroupMessagePayload, 
-	FetchMessageParams, 
+	FetchGroupMessagePayload,
 	FetchMessagePayload, 
+	Friend, 
 	Group, 
 	GroupMessageType, 
 	MessageType, 
@@ -43,8 +43,8 @@ export const getConversations = () =>
 export const getConversationById = (id: number) =>
 	axiosClient.get<Conversation>(`/conversations/${id}`, config);
 
-export const getConversationMessages = ({ id, skip }: FetchMessageParams) => 
-	axiosClient.get<FetchMessagePayload>(`/conversations/${id}/messages?skip=${skip}`, config);
+export const getConversationMessages = (conversationId: number) => 
+	axiosClient.get<FetchMessagePayload>(`/conversations/${conversationId}`, config);
 
 export const postNewMessage = ({ id, content }: CreateMessageParams) => 
 	axiosClient.post(`/conversations/${id}/messages`, { content }, config); 
@@ -93,3 +93,6 @@ export const updateGroupOwner = ({ id, newOwnerId}: UpdateGroupOwnerParams) =>
 
 export const leaveGroup = (id: number) => 
 	axiosClient.delete(`/groups/${id}/recipients/leave`, config);
+
+export const fetchFriends = () => 
+	axiosClient.get<Friend[]>(`/friends`, config);
