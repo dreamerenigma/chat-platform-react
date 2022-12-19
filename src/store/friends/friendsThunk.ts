@@ -1,7 +1,8 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { 
 	fetchFriendRequests as fetchFriendRequestsAPI,
-	fetchFriends as fetchFriendsAPI 
+	fetchFriends as fetchFriendsAPI,
+	createFriendRequest as createFriendRequestAPI,
 } from "../../utils/api";
 
 export const fetchFriendsThunk = createAsyncThunk('friends/fetch', () => 
@@ -11,4 +12,9 @@ export const fetchFriendsThunk = createAsyncThunk('friends/fetch', () =>
 export const fetchFriendRequestThunk = createAsyncThunk(
 	'friend/request/fetch', 
 	() => fetchFriendRequestsAPI()
+);
+
+export const createFriendRequestThunk = createAsyncThunk(
+	'friends/requests/create',
+	(email: string) => createFriendRequestAPI(email)
 );

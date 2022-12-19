@@ -1,36 +1,16 @@
-import { Navigate, Outlet, useLocation, useNavigate } from "react-router-dom";
-import { friendsNavbarItems } from "../../utils/constants";
+import { Outlet, useLocation } from "react-router-dom";
 import { 
 	FriendsNavbar,
-	FriendsNavbarItem, 
 	FriendsPageStyle, 
 } from "../../utils/styles/friends";
 import { FriendsPage } from "./FriendsPage";
-import { Button } from "../../utils/styles";
-import { AiOutlineUserAdd } from "react-icons/ai";
+import { FriendPageNavbar } from "../../components/navbar/FriendsPageNavbar";
 
 export const FriendsLayoutPage  = () => {
 	const { pathname } = useLocation();
-	const navigate = useNavigate();
 	return(
 		<FriendsPageStyle>
-			<FriendsNavbar>
-				<div className="navLinks">
-					{friendsNavbarItems.map((item) => (
-						<FriendsNavbarItem 
-							key={item.id} 
-							active={pathname === item.pathname}
-							onClick={() => navigate(item.pathname)}
-						>
-							{item.label}
-						</FriendsNavbarItem>
-					))}
-				</div>
-				<Button size="sm" flex={true} variant="primary" >
-						<AiOutlineUserAdd size={24}/>
-						<span>Add Friend</span>
-				</Button>
-			</FriendsNavbar>
+			<FriendPageNavbar />
 			{pathname === '/friends' && <FriendsPage />}
 			<Outlet />
 		</FriendsPageStyle>
