@@ -14,6 +14,7 @@ import {
 	FetchGroupMessagePayload,
 	FetchMessagePayload, 
 	Friend, 
+	FriendRequest, 
 	Group, 
 	GroupMessageType, 
 	MessageType, 
@@ -96,3 +97,6 @@ export const leaveGroup = (id: number) =>
 
 export const fetchFriends = () => 
 	axiosClient.get<Friend[]>(`/friends`, config);
+
+export const fetchFriendRequests = () => 
+	axiosClient.get<FriendRequest[]>('/friends/requests', config);
