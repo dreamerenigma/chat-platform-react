@@ -1,7 +1,7 @@
 import styled, { css } from "styled-components";
 
 type Size = 'sm' | 'md' | 'lg';
-type ButtonVariant = 'primary' | 'outline';
+type ButtonVariant = 'primary' | 'secondary';
 
 type  ButtonProps = Partial<{
 	size: Size;
@@ -28,15 +28,15 @@ export const getButtonSizeStyle = (size?: Size) => {
 			`;
 		default:
 			return css`
-			padding: 12px 24px;
-			font-size: 16px;
+				padding: 12px 24px;
+				font-size: 16px;
 		`;
 	}
 };
 
 export const getButttonVariantStyle = (variant?: ButtonVariant) => {
 	const primary = css`
-		background-ciolor: #2b09ff;
+		background-color: #2b09ff;
 		color: #fff;
 		&:hover {
 			cursor: pointer;
@@ -51,7 +51,7 @@ export const getButttonVariantStyle = (variant?: ButtonVariant) => {
 			cursor: not-allowed;
 		}
 	`;
-	const outline = css`
+	const secondary = css`
 		background-color: inherit;
 		border: 1px solid #2b09ff;
 		color: #fff;
@@ -59,8 +59,8 @@ export const getButttonVariantStyle = (variant?: ButtonVariant) => {
 	switch (variant) {
 		case 'primary':
 			return primary;
-		case 'outline':
-			return outline;
+		case 'secondary':
+			return secondary;
 		default:
 			return primary;
 	}
@@ -80,5 +80,6 @@ export const Button = styled.button<ButtonProps>`
 		css`
 			display: flex;
 			align-items: center;
+			gap: 10px;
 	`}
 `;

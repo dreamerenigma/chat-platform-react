@@ -3,8 +3,7 @@ import { useEffect, useState } from "react";
 import { AiOutlineUsergroupAdd } from 'react-icons/ai';
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../store";
-import { setContextMenuLocation, toggleContextMenu } from "../../store/conversationSlice";
-import { setSelectedGroup } from "../../store/groupSlice";
+
 import { SidebarContainerStyle } from '../../utils/styles';
 import {
 	ConversationSearchbar,
@@ -15,6 +14,11 @@ import {
 import { ContextMenuEvent, Group } from "../../utils/types";
 import { GroupSidebarContextMenu } from "../context-menus/GroupSidebarContextMenu";
 import { ConversationSidebarItem } from "../conversation/ConversationSidebarItem";
+import { 
+	setContextMenuLocation, 
+	setSelectedGroup, 
+	toggleContextMenu,
+} from "../../store/groupSlice";
 import { ConversationTab } from "../conversation/ConversationTab";
 import { GroupSidebarItem } from "../groups/GroupSidebarItem";
 import { CreateConversationModal } from "../modals/CreateConversationModal";

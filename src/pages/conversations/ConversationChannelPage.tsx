@@ -14,14 +14,11 @@ export const ConversationChannelPage = () => {
 	const [timer, setTimer] = useState<ReturnType<typeof setTimeout>>();
 	const [isTyping, setIsTyping] = useState(false);
 	const [isRecipientTyping, setIsRecipientTyping] = useState(false);
-	const pagination = useSelector(
-		(state: RootState) => state.messages.pagination
-	);
 
 	useEffect(() => {
 		const conversationId = parseInt(id!);
-		dispatch(fetchMessagesThunk({ id: conversationId, skip: pagination.skip }));
-	}, [pagination.skip, id]);
+		dispatch(fetchMessagesThunk({ id: conversationId }));
+	}, [id]);
 
 	useEffect(() => {
 		const conversationId = id!;

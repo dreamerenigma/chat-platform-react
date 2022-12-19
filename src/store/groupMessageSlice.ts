@@ -2,7 +2,7 @@ import {
 	createAsyncThunk,
 	createSelector,
 	createSlice,
-	PayloadAction
+	PayloadAction,
 } from "@reduxjs/toolkit";
 import { } from "../utils/api";
 import {
@@ -16,7 +16,7 @@ import {
 	DeleteGroupMessageParams,
 	GroupMessageEventPayload,
 	EditMessagePayload,
-	GroupMessageType
+	GroupMessageType,
 } from "../utils/types";
 
 export interface GroupMessagesState {

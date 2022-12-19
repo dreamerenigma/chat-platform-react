@@ -174,7 +174,12 @@ export type UpdateGroupOwnerParams = {
 };
 
 export type ContextMenuEvent = React.MouseEvent<HTMLDivElement, MouseEvent>;
+
 export type FriendRequestStatus = 'accepted' | 'pending' | 'rejected';
+
+export type FetchMessageParams = {
+	id: number;
+};
 
 export type Friend = {
 	id: number;

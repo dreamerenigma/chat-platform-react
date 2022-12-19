@@ -1,9 +1,4 @@
-import { 
-	createAsyncThunk, 
-	createSelector,
-	createSlice, 
-	PayloadAction,
-} from "@reduxjs/toolkit";
+import { createAsyncThunk, createSelector,createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from ".";
 import { 
 	deleteMessage as deleteMessageAPI,
@@ -23,17 +18,11 @@ import {
 export interface MessagesState {
 	messages: ConversationMessage[];
 	loading: boolean;
-	pagination: {
-		skip: number;
-	};
 }
 
 const initialState: MessagesState = {
 	messages: [],
 	loading: false,
-	pagination: {
-		skip: 0,
-	},
 };
 
 export const fetchMessagesThunk = createAsyncThunk(
@@ -91,10 +80,6 @@ export const messagesSlice = createSlice({
 				(m) => m.id === message.id);
 			conversationMessage.messages.splice(messageIndex, 1);
 		},
-		updatePaginationSkip: (state, action: 
-		PayloadAction<number>) => {
-			state.pagination.skip = action.payload;
-		},
 	},
 	extraReducers: (builder) => {
 		builder
@@ -104,19 +89,18 @@ export const messagesSlice = createSlice({
 				const exists = state.messages.find((cm) => cm.id === id);
 				if (exists) {
 					console.log('exists');
-					// state.messages[index] = action.payload.data;
-					state.messages[index].messages.concat(action.payload.data.messages);
+					state.messages[index] = action.payload.data;
 				} else {
 					state.messages.push(action.payload.data);
 				}
 			})
 			.addCase(deleteMessageThunk.fulfilled, (state, action) => {
 				const { data } = action.payload;
-				const conversationMessages = state.messages.find(
-					(cm) => cm.id === action.payload.data.conversationId);
+				const conversationMessages = state.messages.find((cm) => cm.id === data.conversationId);
 				if (!conversationMessages) return;
-				const messageIndex = conversationMessages?.messages.findIndex(
-					(m) => m.id === data.messageId);
+				const messageIndex = conversationMessages.messages.findIndex(
+					(m) => m.id === data.messageId
+				);
 				conversationMessages?.messages.splice(messageIndex, 1);
 			})
 			.addCase(editMessageThunk.fulfilled, (state, action) => {
@@ -142,6 +126,6 @@ export const selectConversationMessage = createSelector(
 	(conversationMessages, id) => conversationMessages.find((cm) => cm.id === id)
 );
 
-export const { addMessage, deleteMessage, editMessage, updatePaginationSkip } = messagesSlice.actions;
+export const { addMessage, deleteMessage, editMessage } = messagesSlice.actions;
 
 export default messagesSlice.reducer;

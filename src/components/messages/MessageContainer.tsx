@@ -12,7 +12,7 @@ import { useParams } from 'react-router-dom';
 import { SelectedMessageContextMenu } from '../context-menus/SelectedMessageContextMenu';
 import { FormattedMessage } from "./FormattedMessage";
 import { EditMessageContainer } from "./EditMessageContainer";
-import { selectConversationMessage, updatePaginationSkip } from "../../store/messageSlice";
+import { selectConversationMessage } from "../../store/messageSlice";
 import { selectType } from "../../store/selectedSlice";
 import { selectGroupMessage } from '../../store/groupMessageSlice';
 import { 
@@ -36,9 +36,6 @@ export const MessageContainer = () => {
 	const [points, setPoints] = useState({ x: 0, y: 0 });
 	const { user } = useContext(AuthContext);
 	const ref = useRef<HTMLDivElement>(null);
-	const pagination = useSelector(
-		(state: RootState) => state.messages.pagination
-	);
 
 	const { isEditingMessage, messageBeingEdited } = useSelector(
 		(state: RootState) => state.messageContainer
@@ -81,39 +78,37 @@ export const MessageContainer = () => {
 	}, [id]);
 
 	const mapMessages = (
-		m: MessageType | GroupMessageType,
+		message: MessageType | GroupMessageType,
 		index: number,
 		messages: MessageType[] | GroupMessageType[]
 	) => {
-		const nextIndex = index + 1;
 		const currentMessage = messages[index];
-		const nextMessage = messages[nextIndex];
-		if (
-			messages.length === nextIndex || 
-			currentMessage.author.id !== nextMessage.author.id
-		) 
-			return ( 
+		const nextMessage = messages[index + 1];
+		const showMessageHeader = 
+			messages.length === index + 1 || 
+			currentMessage.author.id !== nextMessage.author.id;
+		return ( 
 				<FormattedMessage 
-					onContextMenu={(e) => onContextMenu(e, m)} 
-					key={m.id}
+					onContextMenu={(e) => onContextMenu(e, message)} 
+					key={message.id}
 					user={user}
-					message={m}
+					message={message}
 					onEditMessageChange={onEditMessageChange}
 				/>
 			);
 		if (currentMessage.author.id === nextMessage.author.id) {
 			return (
 				<MessageItemContainer 
-					key={m.id} 
-					onContextMenu={(e) => onContextMenu(e, m)} 
+					key={message.id} 
+					onContextMenu={(e) => onContextMenu(e, message)} 
 				>
-					{isEditingMessage && m.id === messageBeingEdited?.id ? (
+					{isEditingMessage && message.id === messageBeingEdited?.id ? (
 						<MessageItemContent padding="0 0 0 70px">
 							<EditMessageContainer onEditMessageChange={onEditMessageChange} />
 						</MessageItemContent>
 					) : (
 						<MessageItemContent padding="0 0 0 70px">
-							{m.content}
+							{message.content}
 						</MessageItemContent>
 					)}
 				</MessageItemContainer>
@@ -138,10 +133,10 @@ export const MessageContainer = () => {
 			}}
 		>
 			<>
-			{selectedType === 'private'
-				? conversationMessages?.messages.map(mapMessages)
-				: groupMessages?.messages.map(mapMessages)}
-			</>
+				{selectedType === 'private'
+					? conversationMessages?.messages.map(mapMessages)
+					: groupMessages?.messages.map(mapMessages)}
+				</>
 			{showMenu && <SelectedMessageContextMenu points={points} />}
 		</MessageContainerStyle>
 	);

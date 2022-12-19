@@ -40,7 +40,8 @@ export const AddGroupRecipientModal: FC<Props> = ({
 					<MdClose 
 						cursor="pointer"
 						size={32} 
-						onClick={() => setShowModal(false)} />
+						onClick={() => setShowModal(false)} 
+					/>
 				</ModalHeader>
 				<ModalContentBody>
 					<GroupRecipientAddForm />

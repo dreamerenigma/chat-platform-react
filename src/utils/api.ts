@@ -12,6 +12,7 @@ import {
 	DeleteMessageResponse,
 	EditMessagePayload, 
 	FetchGroupMessagePayload,
+	FetchMessageParams,
 	FetchMessagePayload, 
 	Friend, 
 	FriendRequest, 
@@ -44,8 +45,8 @@ export const getConversations = () =>
 export const getConversationById = (id: number) =>
 	axiosClient.get<Conversation>(`/conversations/${id}`, config);
 
-export const getConversationMessages = (conversationId: number) => 
-	axiosClient.get<FetchMessagePayload>(`/conversations/${conversationId}`, config);
+export const getConversationMessages = ({ id }: FetchMessageParams) => 
+	axiosClient.get<FetchMessagePayload>(`/conversations/${id}`, config);
 
 export const postNewMessage = ({ id, content }: CreateMessageParams) => 
 	axiosClient.post(`/conversations/${id}/messages`, { content }, config); 
