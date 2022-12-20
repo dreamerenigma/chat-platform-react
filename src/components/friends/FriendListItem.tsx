@@ -8,7 +8,7 @@ type Props = {
 };
 
 export const FriendListItem: FC<Props> = ({ friend }) => {
-	const { user } = useContext(AuthContext)
+	const { user } = useContext(AuthContext);
 	return (
 		<FriendListItemContainer>
 			<div className="avatar"></div>

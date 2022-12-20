@@ -5,7 +5,7 @@ import { AuthContext } from "../../utils/context/AuthContext";
 import { MdCheck, MdClose } from 'react-icons/md';
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../store";
-import { acceptFriendRequestThunk, cancelFriendRequestThunk } from "../../store/friends/friendsThunk";
+import { acceptFriendRequestThunk, cancelFriendRequestThunk, rejectFriendRequestThunk } from "../../store/friends/friendsThunk";
 
 type Props = {
 	friendRequest: FriendRequest;
@@ -18,12 +18,11 @@ export const FriendRequestItem: FC<Props> = ({ friendRequest }) => {
 	const isIncomingRequest = () => user?.id === friendRequest.receiver.id;
 	
 	const handleFriendRequest = (type?: HandleFriendRequestAction) => {
-		console.log(type); 
 		switch (type) {
 			case 'accept':
 				return dispatch(acceptFriendRequestThunk(friendRequest.id));
 			case 'reject':
-				return;
+				return dispatch(rejectFriendRequestThunk(friendRequest.id));
 			default: 
 				return dispatch(cancelFriendRequestThunk(friendRequest.id));
 		}
