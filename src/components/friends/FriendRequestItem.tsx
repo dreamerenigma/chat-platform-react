@@ -1,13 +1,11 @@
 import { FC, useContext } from "react";
 import { FriendRequestItemContainer, FriendRequestItemIcon } from "../../utils/styles/friends";
-import { FriendRequest } from "../../utils/types";
+import { FriendRequest, HandleFriendRequestAction } from "../../utils/types";
 import { AuthContext } from "../../utils/context/AuthContext";
-import { 
-	MdCheck,
-	MdClose,
-	MdCancel, 
-	MdCheckCircle, 
-} from 'react-icons/md';
+import { MdCheck, MdClose } from 'react-icons/md';
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../../store";
+import { cancelFriendRequestThunk } from "../../store/friends/friendsThunk";
 
 type Props = {
 	friendRequest: FriendRequest;
@@ -15,12 +13,23 @@ type Props = {
 
 export const FriendRequestItem: FC<Props> = ({ friendRequest }) => {
 	const { user } = useContext(AuthContext);
-	const ICON_SIZE = 24;
+	const dispatch = useDispatch<AppDispatch>();
+	
 	const isIncomingRequest = () => user?.id === friendRequest.receiver.id;
-
-	const handleFriendRequest = () => {
-
-	}
+	
+	const handleFriendRequest = (type?: HandleFriendRequestAction) => {
+		console.log(type); 
+		switch (type) {
+			case 'accept':
+				return;
+			case 'reject':
+				return;
+			default: {
+				console.log('Cancelling Friend Request');
+				return dispatch(cancelFriendRequestThunk(friendRequest.id));
+			}
+		}
+	};
 	
 	return (
 		<FriendRequestItemContainer>
@@ -37,12 +46,21 @@ export const FriendRequestItem: FC<Props> = ({ friendRequest }) => {
 			</div>
 			<div className="icons">
 				{isIncomingRequest() && (
-					<FriendRequestItemIcon isAccept={true}>
-						<MdCheck size={ICON_SIZE} />
+					<FriendRequestItemIcon 
+						isAccept={true} 
+						onClick={() => handleFriendRequest('accept')}
+					>
+						<MdCheck />
 					</FriendRequestItemIcon>
 				)}
-				<FriendRequestItemIcon>
-					<MdClose size={ICON_SIZE} />
+				<FriendRequestItemIcon 
+					onClick={() => 
+						isIncomingRequest()
+							? handleFriendRequest('reject')
+							: handleFriendRequest()
+					}
+				>
+					<MdClose />
 				</FriendRequestItemIcon>
 			</div>
 		</FriendRequestItemContainer>

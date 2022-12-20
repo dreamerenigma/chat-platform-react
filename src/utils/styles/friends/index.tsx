@@ -113,6 +113,7 @@ export const FriendRequestItemIcon = styled.div<FriendRequestItemIconProps>`
 	padding: 10px;
 	color: #fff;
 	cursor: pointer;
+	font-size: 24px;
 	&:hover {
 		background-color: #161616;
 		color: ${({ isAccept }) => 

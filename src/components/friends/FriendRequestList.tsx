@@ -6,7 +6,6 @@ import { FriendRequestItem } from "./FriendRequestItem";
 
 export const FriendRequestList = () => {
 	const friendRequests = useSelector((state: RootState) => state.friends.friendRequests);
-	
 	return (
 		<FriendListContainer>
 			{friendRequests.length === 0 && <div>No Friend Request :(</div>}
