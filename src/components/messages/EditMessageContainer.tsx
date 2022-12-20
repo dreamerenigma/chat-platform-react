@@ -19,7 +19,9 @@ type Props = {
 export const EditMessageContainer: FC<Props> = ({ onEditMessageChange }) => {
 	const { id } = useParams();
 	const dispatch = useDispatch<AppDispatch>();
-	const { messageBeingEdited } = useSelector((state: RootState) => state.messageContainer);
+	const { messageBeingEdited } = useSelector(
+		(state: RootState) => state.messageContainer
+	);
 	const conversationType = useSelector((state: RootState) => selectType(state));
 
 	const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
