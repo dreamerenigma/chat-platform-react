@@ -6,7 +6,7 @@ import { SocketContext } from "../utils/context/SocketContent";
 import { FriendRequest } from "../utils/types";
 import { AppDispatch } from "../store";
 import { useDispatch } from "react-redux";
-import { addFriendRequest } from "../store/friends/friendsSlice";
+import { addFriendRequest, removeFriendRequest } from "../store/friends/friendsSlice";
 
 export const AppPage = () => {
 	const socket = useContext(SocketContext);
@@ -16,6 +16,12 @@ export const AppPage = () => {
 			console.log('onFriendRequestReceived');
 			console.log(payload);
 			dispatch(addFriendRequest(payload));
+		});
+
+		socket.on('onFriendRequestCancelled', (payload: FriendRequest) => {
+			console.log('onFriendRequestCancelled');
+			console.log(payload);
+			dispatch(removeFriendRequest(payload));
 		});
 
 		return () => {
