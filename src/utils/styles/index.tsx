@@ -600,15 +600,16 @@ export const ConversationSearchbar = styled.input`
 	box-sizing; border-box;
 `;
 
-export const UserSidebarItem = styled.div<SidebarItemProps>`
+export const ConversationTabContainer = styled.div``;
+
+export const UserSidebarItemStyle = styled.div<SidebarItemProps>`
 	width: 100%;
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	padding: 20px 18px;
+	padding: 18px;
 	box-sizing: border-box;
 	background-color: ${({ active }) => active && '#1e1e1e'};
-	position: relative;
 `;
 
 export const ConversationCreateButton = styled.div`
