@@ -5,7 +5,11 @@ import { useDispatch } from "react-redux";
 import { FriendList } from "../../components/friends/FriendList";
 import { SocketContext } from "../../utils/context/SocketContent";
 import { Friend } from "../../utils/types";
-import { setOfflineFriends, setOnlineFriends } from "../../store/friends/friendsSlice";
+import { 
+	removeFriend, 
+	setOfflineFriends, 
+	setOnlineFriends, 
+} from "../../store/friends/friendsSlice";
 
 export const FriendsPage = () => {
 	const dispatch = useDispatch<AppDispatch>();
@@ -21,10 +25,17 @@ export const FriendsPage = () => {
 			socket.emit('getOnlineFriends');
 		}, 10000);
 
+		socket.on('onFriendRemoved', (friend: Friend) => {
+			console.log('onFriendRemoved');
+			dispatch(removeFriend(friend));
+			socket.emit('getOnlineFriends');
+		});
+
 		return () => {
 			console.log('clearing interval');
 			clearInterval(interval);
 			socket.off('getOnlineFriends');
+			socket.off('onFriendRemoved');
 		};
 	}, []);
 

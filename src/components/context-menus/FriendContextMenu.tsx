@@ -31,6 +31,19 @@ export const FriendContextMenu = () => {
 		);
 	};
 
+	// const sendMessage = () => {
+	// 	const recipient = getUserFriendInstance();
+	// 	recipient &&
+	// 		checkConversationOrCreate(recipient.id)
+	// 			.then(({ data }) => {
+	// 				console.log(data);
+	// 				navigate(`/conversations/${data.id}`);
+	// 			})
+	// 			.catch((err) => {
+	// 				console.log(err);
+	// 			});
+	// };
+
 	return (
 		<ContextMenu top={points.y} left={points.x}>
 			<ContextMenuItem onClick={removeFriend}>

@@ -42,6 +42,12 @@ export const friendsSlice = createSlice({
 				(friendRequest) => friendRequest.id !== id
 			);
 		},
+		removeFriend: (state, action: PayloadAction<Friend>) => {
+			console.log('removeFriend reducer');
+			state.friends = state.friends.filter(
+				(friend) => friend.id !== action.payload.id
+			);
+		},
 		setOnlineFriends: (state, action: PayloadAction<Friend[]>) => {
 			console.log('setFriends Reducer');
 			state.onlineFriends = action.payload;
@@ -53,7 +59,7 @@ export const friendsSlice = createSlice({
 				(friend) => 
 					!state.onlineFriends.find(
 						(onlineFriend) => onlineFriend.id === friend.id
-				)
+					)
 			);
 		},
 		toggleContextMenu: (state, action: PayloadAction<boolean>) => {
@@ -119,5 +125,6 @@ export const {
 	toggleContextMenu,
 	setContextMenuLocation,
 	setSelectedFriend,
+	removeFriend,
 } = friendsSlice.actions; 
 export default friendsSlice.reducer;
