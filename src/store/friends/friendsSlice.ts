@@ -1,5 +1,5 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { Friend, FriendRequest } from "../../utils/types";
+import { Friend, FriendRequest, Points } from "../../utils/types";
 import { 
 	acceptFriendRequestThunk, 
 	cancelFriendRequestThunk, 
@@ -14,13 +14,18 @@ export interface FriendsState {
 	friendRequests: FriendRequest[];
 	onlineFriends: Friend[];
 	offlineFriends: Friend[];
-};
+	showContextMenu: boolean;
+	selectedFriendContextMenu?: Friend;
+	points: Points;
+}
 
 const initialState: FriendsState = {
 	friends: [],
 	friendRequests: [], 
 	onlineFriends: [],
 	offlineFriends: [],
+	showContextMenu: false,
+	points: { x: 0, y: 0 },
 };
 
 export const friendsSlice = createSlice({
@@ -49,6 +54,15 @@ export const friendsSlice = createSlice({
 						(onlineFriend) => onlineFriend.id === friend.id
 				)
 			);
+		},
+		toggleContextMenu: (state, action: PayloadAction<boolean>) => {
+			state.showContextMenu = action.payload;
+		},
+		setSelectedFriend: (state, action: PayloadAction<Friend>) => {
+			state.selectedFriendContextMenu = action.payload;
+		},
+		setContextMenuLocation: (state, action: PayloadAction<Points>) => {
+			state.points = action.payload;
 		},
 	},
 	extraReducers: (builder) => 
@@ -95,5 +109,7 @@ export const {
 	removeFriendRequest, 
 	setOnlineFriends, 
 	setOfflineFriends,
+	setContextMenuLocation,
+	setSelectedFriend,
 } = friendsSlice.actions; 
 export default friendsSlice.reducer;

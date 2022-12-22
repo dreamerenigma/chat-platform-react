@@ -1,8 +1,5 @@
 import { Outlet, useLocation } from "react-router-dom";
-import { 
-	FriendsNavbar,
-	FriendsPageStyle, 
-} from "../../utils/styles/friends";
+import { FriendsPageStyle } from "../../utils/styles/friends";
 import { FriendsPage } from "./FriendsPage";
 import { FriendPageNavbar } from "../../components/navbar/FriendsPageNavbar";
 

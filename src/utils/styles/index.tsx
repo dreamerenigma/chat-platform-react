@@ -289,6 +289,7 @@ export const MessageItemHeader = styled.div`
 export const MessageItemContent = styled.div<MessageItemContentProps>`
 	padding: ${({ padding }) => padding};
 	width: 100%;
+	white-space: pre-wrap;
 `;
 
 export const ContextMenu = styled.ul<ContextMenuProps>`

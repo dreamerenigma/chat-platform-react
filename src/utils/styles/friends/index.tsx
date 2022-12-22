@@ -42,6 +42,7 @@ export const FriendListContainer = styled.div`
 	&::-webkit-scrollbar {
 		display: none;
 	}
+	position: relative;
 `;
 
 export const FriendListItemContainer = styled.div`
