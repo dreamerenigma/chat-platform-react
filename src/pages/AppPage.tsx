@@ -24,10 +24,10 @@ export const AppPage = () => {
 			console.log('onFriendRequestReceived');
 			console.log(payload);
 			dispatch(addFriendRequest(payload));
-			info('Incoming Friend Request', { 
+			info(`Incoming Friend Request from ${payload.sender.firstName}`, { 
 				position: 'bottom-left', 
 				icon: IoMdPersonAdd,
-				onClick: () => navigate('/friends'),
+				onClick: () => navigate('/friends/requests'),
 			});
 		});
 
@@ -46,8 +46,8 @@ export const AppPage = () => {
 					`${payload.friendRequest.receiver.firstName} accepted your friend request`,
 					{ 
 						position: 'bottom-left', 
-						icon: IoMdPersonAdd,
-						onClick: () => navigate('/friends/requests'),
+						icon: BsFillPersonCheckFill,
+						onClick: () => navigate('/friends'),
 					}
 				);
 			}
