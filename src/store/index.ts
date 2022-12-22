@@ -19,6 +19,7 @@ export const store = configureStore({
 		groupMessages: groupMessagesReducer,
 		messageContainer: messageContainerReducer,
 		groupSidebar: groupSidebarReducer,
+		rateLimit: rateLimitReducer,
 	},
 	middleware: (getDefaultMiddleware) => 
 		getDefaultMiddleware({ serializableCheck: false }),
