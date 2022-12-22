@@ -1,14 +1,23 @@
-import { RootState } from "../../store";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { RootState } from "../../store";
 import { FriendListContainer } from "../../utils/styles/friends"
 import { FriendListItem } from "./FriendListItem";
+import { Friend } from '../../utils/types'; 
 
 export const FriendList = () => {
-	const friends =  useSelector((state: RootState) => state.friends.friends);
-	
+	const { friends, onlineFriends, offlineFriends } = useSelector(
+		(state: RootState) => state.friends
+	);
+
 	return (
 		<FriendListContainer>
-			{friends.map((friend) => (
+			{onlineFriends.length > 0 && <span>Online ({onlineFriends.length})</span>}
+			{onlineFriends.map((friend) => (
+				<FriendListItem key={friend.id} friend={friend} />
+			))}
+			{offlineFriends.length > 0 && <span>Offline ({onlineFriends.length})</span>}
+			{onlineFriends.map((friend) => (
 				<FriendListItem key={friend.id} friend={friend} />
 			))}
 		</FriendListContainer>

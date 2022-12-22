@@ -22,7 +22,9 @@ import { Crown } from "akar-icons";
 
 export const GroupRecipientsSidebar = () => {
 	const { id: groupId } = useParams();
+
 	const [onlineUsers, setOnlineUsers] = useState<User[]>([]);
+	
 	const dispatch = useDispatch<AppDispatch>();
 	const socket = useContext(SocketContext);
 	const group = useSelector((state: RootState) =>
