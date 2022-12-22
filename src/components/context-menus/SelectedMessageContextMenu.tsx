@@ -6,11 +6,11 @@ import {
 	setMessageBeingEdited,
 	setIsEditing,
 } from "../../store/messageContainerSlice";
-import { deleteMessageThunk } from "../../store/messageSlice";
 import { ContextMenu, ContextMenuItem } from "../../utils/styles";
 import { AuthContext } from "../../utils/context/AuthContext";
 import { selectType } from "../../store/selectedSlice";
 import { deleteGroupMessageThunk } from "../../store/groupMessageSlice";
+import { deleteMessageThunk } from "../../store/messages/messageThunk";
 
 type Props = {
 	points: { x: number; y: number };

@@ -4,13 +4,13 @@ import { useParams } from "react-router-dom";
 import { AppDispatch, RootState } from "../../store";
 import { editGroupMessageThunk } from "../../store/groupMessageSlice";
 import { setIsEditing } from "../../store/messageContainerSlice";
-import { editMessageThunk } from "../../store/messageSlice";
 import { selectType } from "../../store/selectedSlice";
 import { 
 	EditMessageActionsContainer, 
 	EditMessageInputField, 
 } from "../../utils/styles"
 import { EditMessagePayload } from "../../utils/types";
+import { editMessageThunk } from "../../store/messages/messageThunk";
 
 type Props = {
 	onEditMessageChange: (e: React.ChangeEvent<HTMLInputElement>) => void;

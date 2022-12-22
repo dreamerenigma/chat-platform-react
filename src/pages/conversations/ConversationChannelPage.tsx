@@ -5,7 +5,8 @@ import { MessagePanel } from "../../components/messages/MessagePanel";
 import { SocketContext } from "../../utils/context/SocketContent";
 import { ConversationChannelPageStyle } from "../../utils/styles";
 import { AppDispatch, RootState } from "../../store";
-import { editMessage, fetchMessagesThunk } from "../../store/messageSlice";
+import { editMessage,  } from "../../store/messages/messageSlice";
+import { fetchMessagesThunk } from "../../store/messages/messageThunk";
 
 export const ConversationChannelPage = () => {
 	const { id } = useParams();
@@ -17,7 +18,7 @@ export const ConversationChannelPage = () => {
 
 	useEffect(() => {
 		const conversationId = parseInt(id!);
-		dispatch(fetchMessagesThunk({ id: conversationId }));
+		dispatch(fetchMessagesThunk(conversationId));
 	}, [id]);
 
 	useEffect(() => {

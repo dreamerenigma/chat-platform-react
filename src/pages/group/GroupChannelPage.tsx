@@ -5,7 +5,10 @@ import { MessagePanel } from "../../components/messages/MessagePanel";
 import { SocketContext } from "../../utils/context/SocketContent";
 import { ConversationChannelPageStyle } from "../../utils/styles";
 import { AppDispatch, RootState } from "../../store";
-import { editGroupMessage, fetchGroupMessagesThunk } from "../../store/groupMessageSlice";
+import { 
+	editGroupMessage, 
+	fetchGroupMessagesThunk, 
+} from "../../store/groupMessageSlice";
 import { GroupMessageType } from "../../utils/types";
 import { GroupRecipientsSidebar } from "../../components/sidebars/GroupRecipientSidebar";
 

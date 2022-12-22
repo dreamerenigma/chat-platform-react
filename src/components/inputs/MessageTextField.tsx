@@ -37,6 +37,7 @@ export const MessageTextField: FC<Props> = ({
 	};
 
 	const onKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+		console.log('onKeyDown');
 		sendTypingStatus();
 		if (e.key === 'Enter' && !e.shiftKey) {
 			e.preventDefault();

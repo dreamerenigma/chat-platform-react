@@ -12,7 +12,7 @@ import { useParams } from 'react-router-dom';
 import { SelectedMessageContextMenu } from '../context-menus/SelectedMessageContextMenu';
 import { FormattedMessage } from "./FormattedMessage";
 import { EditMessageContainer } from "./EditMessageContainer";
-import { selectConversationMessage } from "../../store/messageSlice";
+import { selectConversationMessage } from "../../store/messages/messageSlice";
 import { selectType } from "../../store/selectedSlice";
 import { selectGroupMessage } from '../../store/groupMessageSlice';
 import { 
@@ -35,8 +35,6 @@ export const MessageContainer = () => {
 	const [showMenu, setShowMenu] = useState(false);
 	const [points, setPoints] = useState({ x: 0, y: 0 });
 	const { user } = useContext(AuthContext);
-	const ref = useRef<HTMLDivElement>(null);
-
 	const { isEditingMessage, messageBeingEdited } = useSelector(
 		(state: RootState) => state.messageContainer
 	);
@@ -78,37 +76,39 @@ export const MessageContainer = () => {
 	}, [id]);
 
 	const mapMessages = (
-		message: MessageType | GroupMessageType,
+		m: MessageType | GroupMessageType,
 		index: number,
 		messages: MessageType[] | GroupMessageType[]
 	) => {
+		const nextIndex = index + 1;
 		const currentMessage = messages[index];
-		const nextMessage = messages[index + 1];
-		const showMessageHeader = 
+		const nextMessage = messages[index];
+		if (
 			messages.length === index + 1 || 
-			currentMessage.author.id !== nextMessage.author.id;
-		return ( 
+			currentMessage.author.id !== nextMessage.author.id
+		)
+			return ( 
 				<FormattedMessage 
-					onContextMenu={(e) => onContextMenu(e, message)} 
-					key={message.id}
+					onContextMenu={(e) => onContextMenu(e, m)} 
+					key={m.id}
 					user={user}
-					message={message}
+					message={m}
 					onEditMessageChange={onEditMessageChange}
 				/>
 			);
 		if (currentMessage.author.id === nextMessage.author.id) {
 			return (
 				<MessageItemContainer 
-					key={message.id} 
-					onContextMenu={(e) => onContextMenu(e, message)} 
+					key={m.id} 
+					onContextMenu={(e) => onContextMenu(e, m)} 
 				>
-					{isEditingMessage && message.id === messageBeingEdited?.id ? (
+					{isEditingMessage && m.id === messageBeingEdited?.id ? (
 						<MessageItemContent padding="0 0 0 70px">
 							<EditMessageContainer onEditMessageChange={onEditMessageChange} />
 						</MessageItemContent>
 					) : (
 						<MessageItemContent padding="0 0 0 70px">
-							{message.content}
+							{m.content}
 						</MessageItemContent>
 					)}
 				</MessageItemContainer>
