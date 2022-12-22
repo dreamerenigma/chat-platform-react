@@ -5,7 +5,11 @@ import {
 	createMessage as createMessageAPI,
 	getConversationMessages, 
 } from "../../utils/api";
-import { CreateMessageParams, DeleteMessageParams, EditMessagePayload } from "../../utils/types";
+import { 
+	CreateMessageParams, 
+	DeleteMessageParams, 
+	EditMessagePayload, 
+} from "../../utils/types";
 
 export const fetchMessagesThunk = createAsyncThunk(
 	'messages/fetch',
