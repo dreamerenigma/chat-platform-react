@@ -105,8 +105,15 @@ export const GroupPage = () => {
 			dispatch(updateGroup(payload));
 		});
 
-		return () => {
-			socket.removeAllListeners();
+		return () => {		
+			socket.off('onGroupMessage');
+			socket.off('onGroupCreate');
+			socket.off('onGroupUserAdd');
+			socket.off('onGroupRecevedNewUser');
+			socket.off('onGroupRecipientRemoved');
+			socket.off('onGroupRemoved');
+			socket.off('onGroupParticipantLeft');
+			socket.off('onGroupOwnerUpdate');
 		};
 	}, [id]);
 

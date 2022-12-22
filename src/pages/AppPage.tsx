@@ -59,7 +59,11 @@ export const AppPage = () => {
 		});
 
 		return () => {
-			socket.removeAllListeners();
+			console.log('Removing all event listeners');
+			socket.off('onFriendRequestCancelled');
+			socket.off('onFriendRequestRejected');
+			socket.off('onFriendRequestReceived');
+			socket.off('onFriendRequestAccepted');
 		};
 	}, []);
 

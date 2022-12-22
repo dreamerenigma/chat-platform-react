@@ -24,7 +24,7 @@ export const FriendsPage = () => {
 		return () => {
 			console.log('clearing interval');
 			clearInterval(interval);
-			socket.removeAllListeners();
+			socket.off('getOnlineFriends');
 		};
 	}, []);
 

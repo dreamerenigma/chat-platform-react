@@ -1,5 +1,4 @@
-import { Crown, Minus, PersonCross } from "akar-icons";
-import { userContextMenuItems } from "./constants";
+import { ArrowCycle, ChatDots, Crown, Minus, Person, PersonCross } from "akar-icons";
 import { Conversation, Group, User, UserContextMenuActionType } from "./types";
 
 export const getRecipientFromConversation = (
@@ -24,3 +23,16 @@ export const getUserContextMenuIcon = (type: UserContextMenuActionType) => {
 
 export const isGroupOwner = (user?: User, group?: Group) => 
 	user?.id === group?.owner.id;
+
+	export const getIcon = (id: string) => {
+		switch (id) {
+			case 'conversations':
+				return ChatDots;
+			case 'friends':
+				return Person;
+			case 'connections':
+				return ArrowCycle;
+			default: 
+				return ChatDots;
+		}
+	};

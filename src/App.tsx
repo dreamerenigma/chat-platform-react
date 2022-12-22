@@ -16,6 +16,7 @@ import { GroupChannelPage } from './pages/group/GroupChannelPage';
 import { GroupPage } from './pages/group/GroupPage';
 import { AppPage } from './pages/AppPage';
 import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { ConversationPageGuard } from './guards/ConversationPageGuard';
 import { GroupPageGuard } from './guards/GroupPageGuard';
 import { FriendsLayoutPage } from './pages/friends/FriendsLayoutPage';
@@ -47,6 +48,7 @@ function AppWithProviders({
 
 function App() {
 	const [user, setUser] = useState<User>();
+
 	return (
 		<AppWithProviders user={user} setUser={setUser} socket={socket}>
 			<Routes>
