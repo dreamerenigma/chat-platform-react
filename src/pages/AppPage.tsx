@@ -13,6 +13,7 @@ import { useToast } from "../utils/hooks/useToast";
 import { AcceptFriendRequestResponse, FriendRequest } from "../utils/types";
 import { IoMdPersonAdd } from 'react-icons/io';
 import { BsFillPersonCheckFill } from 'react-icons/bs';
+import { fetchFriendRequestThunk } from "../store/friends/friendsThunk";
 
 export const AppPage = () => {
 	const socket = useContext(SocketContext);
@@ -65,7 +66,12 @@ export const AppPage = () => {
 			socket.off('onFriendRequestReceived');
 			socket.off('onFriendRequestAccepted');
 		};
-	}, []);
+	}, [socket]);
+
+	useEffect(() => {
+		dispatch(fetchFriendRequestThunk());
+	}, [dispatch]);
+	
 
 	return (
 		<LayoutPage>
