@@ -32,7 +32,7 @@ export const FriendList = () => {
 					onContextMenu={onContextMenu}
 				/>
 			))}
-			{offlineFriends.length > 0 && (
+			{/* {offlineFriends.length > 0 && (
 				<span>Offline ({onlineFriends.length})</span>
 			)}
 			{onlineFriends.map((friend) => (
@@ -41,7 +41,7 @@ export const FriendList = () => {
 					friend={friend} 
 					onContextMenu={onContextMenu}
 				/>
-			))}
+			))} */}
 			{showContextMenu && <FriendContextMenu />}
 		</FriendListContainer>
 	);
