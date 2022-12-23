@@ -6,13 +6,19 @@ import { FriendContextMenu } from "../context-menus/FriendContextMenu";
 import { ContextMenuEvent, Friend } from "../../utils/types";
 import { toggleContextMenu } from "../../store/groupSlice";
 import { setContextMenuLocation, setSelectedFriend } from "../../store/friends/friendsSlice";
+import { useEffect } from "react";
 
 export const FriendList = () => {
 	const { showContextMenu, onlineFriends, offlineFriends } = useSelector(
 		(state: RootState) => state.friends
 	);
-
 	const dispatch = useDispatch<AppDispatch>()
+
+	useEffect(() => {
+		const handleClick = () => dispatch(toggleContextMenu(false));
+		window.addEventListener('click', handleClick);
+		return () => window.removeEventListener('click', handleClick);
+	}, []);
 
 	const onContextMenu = (e: ContextMenuEvent, friend: Friend) => {
 		e.preventDefault();
