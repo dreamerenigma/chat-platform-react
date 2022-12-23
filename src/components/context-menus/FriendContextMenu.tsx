@@ -8,6 +8,7 @@ import { removeFriendThunk } from "../../store/friends/friendsThunk";
 import { AuthContext } from "../../utils/context/AuthContext";
 import { ContextMenu, ContextMenuItem } from "../../utils/styles";
 import { SocketContext } from "../../utils/context/SocketContent";
+import { checkConversationOrCreate } from "../../utils/api";
 
 export const FriendContextMenu = () => {
 	const { user } = useContext(AuthContext);
@@ -31,18 +32,18 @@ export const FriendContextMenu = () => {
 		);
 	};
 
-	// const sendMessage = () => {
-	// 	const recipient = getUserFriendInstance();
-	// 	recipient &&
-	// 		checkConversationOrCreate(recipient.id)
-	// 			.then(({ data }) => {
-	// 				console.log(data);
-	// 				navigate(`/conversations/${data.id}`);
-	// 			})
-	// 			.catch((err) => {
-	// 				console.log(err);
-	// 			});
-	// };
+	const sendMessage = () => {
+		const recipient = getUserFriendInstance();
+		recipient &&
+			checkConversationOrCreate(recipient.id)
+				.then(({ data }) => {
+					console.log(data);
+					navigate(`/conversations/${data.id}`);
+				})
+				.catch((err) => {
+					console.log(err);
+				});
+	};
 
 	return (
 		<ContextMenu top={points.y} left={points.x}>
@@ -50,7 +51,7 @@ export const FriendContextMenu = () => {
 				<MdPersonRemove size={20} color="#ff0000" />
 				<span style={{ color: "#ff0000" }}>Remove Friend</span>
 			</ContextMenuItem>
-			<ContextMenuItem>
+			<ContextMenuItem onClick={sendMessage}>
 				<MdOutlineTextsms size={20} color="#fff" />
 				<span style={{ color: "#fff" }}>Message</span>
 			</ContextMenuItem>

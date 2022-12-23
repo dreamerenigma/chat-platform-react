@@ -118,3 +118,6 @@ export const rejectFriendRequest = (id: number) =>
 
 export const removeFriend = (id: number) => 
 	axiosClient.delete<Friend>(`/friends/${id}/delete`, config);
+
+export const checkConversationOrCreate = (recipientId: number) => 
+	axiosClient.get<Conversation>(`/exists/conversations/${recipientId}`, config);
