@@ -14,7 +14,7 @@ export const RegisterForm = () => {
 		register,
 		handleSubmit,
 		formState: { errors },
-	} = useForm<CreateUserParams>();
+	} = useForm<CreateUserParams>({ reValidateMode: 'onBlur' });
 
 	const navigate = useNavigate();
 	const onSubmit = async (data: CreateUserParams) => {
