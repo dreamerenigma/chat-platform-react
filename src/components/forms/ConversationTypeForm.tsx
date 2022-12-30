@@ -13,7 +13,7 @@ export const ConversationTypeForm: FC<Props> = ({ type, setType }) => {
 		<form className={styles.conversationTypeForm} >
 			{chatTypes.map((chatType) => (
 				<div>
-					<input 
+					<input
 						className={styles.radio}
 						type="radio"
 						name="conversationType"

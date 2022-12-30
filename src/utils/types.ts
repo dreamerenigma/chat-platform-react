@@ -1,5 +1,5 @@
-export type CreateUserParams = { 
-	email: string;
+export type CreateUserParams = {
+	username: string;
 	firstName: string;
 	lastName: string;
 	password: string;
@@ -32,8 +32,8 @@ export type CreateConversationParams = {
 
 export type MessageType = {
 	id: number;
-   content: string;
-   createdAt: string;
+	content: string;
+	createdAt: string;
 	author: User;
 	conversation: Conversation;
 };
@@ -208,14 +208,14 @@ export type AcceptFriendRequestResponse = {
 	friendRequest: FriendRequest;
 };
 
-export type UserSidebarRouteType =  'conversations' | 'friends' | 'connections';
+export type UserSidebarRouteType = 'conversations' | 'friends' | 'connections';
 
 export type UserSidebarItemType = {
 	id: UserSidebarRouteType;
 	pathname: string;
 };
 
-export type RateLimitType = 'group' | 'private'; 
+export type RateLimitType = 'group' | 'private';
 
 export type UpdateRateLimitPayload = {
 	type: RateLimitType;
