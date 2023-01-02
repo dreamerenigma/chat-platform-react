@@ -1,5 +1,27 @@
-import { ArrowCycle, ChatDots, Crown, Minus, Person, PersonCross } from "akar-icons";
-import { Conversation, Group, User, UserContextMenuActionType } from "./types";
+import { 
+	ArrowCycle, 
+	ChatDots, 
+	Crown, 
+	Minus, 
+	Person, 
+	PersonCross,
+	Gear,
+} from "akar-icons";
+import { 
+	IoIosPerson, 
+	IoIosNotifications, 
+	IoIosLock, 
+	IoMdColorPalette,
+} from 'react-icons/io'; 
+import { 
+	Conversation, 
+	Group,
+	SettingsSidebarRouteType,
+	User, 
+	UserContextMenuActionType,
+	UserSidebarRouteType, 
+} from "./types";
+import { IoMdInfinite } from "react-icons/io";
 
 export const getRecipientFromConversation = (
 	conversation?: Conversation,
@@ -24,7 +46,7 @@ export const getUserContextMenuIcon = (type: UserContextMenuActionType) => {
 export const isGroupOwner = (user?: User, group?: Group) => 
 	user?.id === group?.owner.id;
 
-	export const getIcon = (id: string) => {
+	export const getUserSidebarIcon = (id: string) => {
 		switch (id) {
 			case 'conversations':
 				return ChatDots;
@@ -32,7 +54,24 @@ export const isGroupOwner = (user?: User, group?: Group) =>
 				return Person;
 			case 'connections':
 				return ArrowCycle;
+			case 'settings':
+				return Gear;
 			default: 
 				return ChatDots;
 		}
 	};
+
+export const getSettingsSidebarIcon = (id: SettingsSidebarRouteType) => {
+	switch(id) {
+		case 'profile':
+			return IoIosPerson;
+		case 'security':
+			return IoIosLock;
+		case 'notifications':
+			return IoIosNotifications;	
+		case 'integrations':
+			return IoMdInfinite;
+		case 'apperance':
+			return IoMdColorPalette;
+	}
+};

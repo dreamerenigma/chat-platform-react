@@ -575,9 +575,6 @@ export const ConversationSidebarStyle = styled.div`
 	width: 400px;
 	background-color: #111111;
 	flex: 0 0 auto;
-	@media (max-width: 800px) {
-		width: calc(100% - 80px);
-	}
 `;
 
 export const ConversationSidebarHeader = styled.div`

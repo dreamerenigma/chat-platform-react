@@ -51,3 +51,6 @@ export type FriendRequestItemIconProps = Partial<{
 	isAccept: boolean;
 }>;
 
+export type SettingsSidebarItemsProps = {
+	isActive: boolean;
+}
