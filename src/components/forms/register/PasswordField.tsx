@@ -1,4 +1,5 @@
-import { UseFormRegister } from "react-hook-form";
+import { CreateUserParams } from "../../../utils/types";
+import { FC } from "react";
 import {
 	InputContainer,
 	InputContainerHeader,
@@ -6,10 +7,7 @@ import {
 	InputField,
 	InputLabel,
 } from "../../../utils/styles";
-import { CreateUserParams } from "../../../utils/types";
-import { FC } from "react";
 import { RegisterFormFieldProps } from "../../../utils/types/form";
-import { checkUsernameExists } from "../../../utils/api";
 
 export const PasswordField: FC<RegisterFormFieldProps> = ({
 	register,
@@ -19,7 +17,7 @@ export const PasswordField: FC<RegisterFormFieldProps> = ({
 		<InputContainer>
 			<InputContainerHeader>
 				<InputLabel htmlFor="password">Password</InputLabel>
-				<InputError>{errors.password?.message}</InputError>
+				{errors.password && <InputError>{errors.password.message}</InputError>}
 			</InputContainerHeader>
 			<InputField
 				type="password"
@@ -27,7 +25,7 @@ export const PasswordField: FC<RegisterFormFieldProps> = ({
 				{...register('password', {
 					required: 'Password is Required',
 					minLength: {
-						value: 3,
+						value: 8,
 						message: 'Must be at least 8 characters'
 					}, maxLength: {
 						value: 32,
