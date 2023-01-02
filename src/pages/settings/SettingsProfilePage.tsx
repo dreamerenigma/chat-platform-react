@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Edit } from 'akar-icons';
 import { UserBanner } from '../../components/settings/profile/UserBanner';
 import { Page } from '../../utils/styles';
@@ -5,21 +6,28 @@ import {
    ProfileAboutSection,
    ProfileAboutSectionHeader,
    ProfileDescriptionField,
-   ProfileEditBottomActionBar,
+   ProfileEditActionBar,
    ProfileSection,
    SettingsProfileUserDetails,
 } from '../../utils/styles/settings';
-import { useState } from 'react';
 import { Button } from '../../utils/styles/button';
 
 export const SettingsProfilePage = () => {
+   const [source] = useState('');
+   const [sourceCopy, setSourceCopy] = useState(source);
    const [about, setAbout] = useState('hello world');
    const [editedAbout, setEditedAbout] = useState(about);
    const [isEditing, setIsEditing] = useState(false);
-   
+
+   const isChanged = () => editedAbout !== about || source !== sourceCopy;
+
    return (
       <Page>
-         <UserBanner />
+         <UserBanner 
+            source={source} 
+            sourceCopy={sourceCopy} 
+            setSourceCopy={setSourceCopy} 
+         />
          <ProfileSection>
             <SettingsProfileUserDetails>
                <div className="avatar"></div>
@@ -42,20 +50,20 @@ export const SettingsProfilePage = () => {
                />
             </ProfileAboutSection>
          </ProfileSection>
-         {editedAbout !== about && (
-            <ProfileEditBottomActionBar>
+         {isChanged() && (
+            <ProfileEditActionBar>
                <div>
                   <span>You have unsaved changes</span>
                </div>
                <div className="buttons">
-                  <Button size="md" variant="outline">
+                  <Button size="md" variant="secondary">
                      Reset
                   </Button>
                   <Button size="md">Save</Button>
                </div>
-            </ProfileEditBottomActionBar>
+            </ProfileEditActionBar>
          )}
-         <ProfileEditBottomActionBar animate={editedAbout !== about} />
+         <ProfileEditActionBar />
       </Page>
    );
 };
