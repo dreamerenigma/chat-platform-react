@@ -4,7 +4,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { RootState } from "../../../store";
 import { IconBadge, UserSidebarItemStyle } from "../../../utils/styles";
 import { UserSidebarItemType } from "../../../utils/types";
-import { getIcon } from "../../../utils/helpers";
+import { getUserSidebarIcon } from "../../../utils/helpers";
 
 type Props = {
 	item: UserSidebarItemType;
@@ -16,7 +16,7 @@ export const UserSidebarItem: FC<Props> = ({ item }) => {
 	const friendRequests = useSelector(
 		(state: RootState) => state.friends.friendRequests
 	);
-	const Icon = getIcon(item.id);
+	const Icon = getUserSidebarIcon(item.id);
 	const ICON_SIZE = 30;
 	const STROKE_WIDTH = 2;
 

@@ -21,8 +21,8 @@ import { ConversationPageGuard } from './guards/ConversationPageGuard';
 import { GroupPageGuard } from './guards/GroupPageGuard';
 import { FriendsLayoutPage } from './pages/friends/FriendsLayoutPage';
 import { FriendRequestPage } from './pages/friends/FriendRequestPage';
-import { OnboardingPage } from './pages/onboarding/OnboardingPage';
 import { SettingsPage } from './pages/settings/SettingsPage';
+import { SettingsProfilePage } from './pages/settings/SettingsProfilePage';
 
 enableMapSet();
 
@@ -77,7 +77,6 @@ function App() {
 					</Route>
 					<Route path="settings" element={<SettingsPage />}>
 						<Route path="profile" element={<SettingsProfilePage />} />
-						
 					</Route>
 				</Route>
 			</Routes>

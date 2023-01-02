@@ -79,26 +79,26 @@ export const settingsItems: SettingsItemType[] =
 	{
 		id: 'profile',
 		label: 'Profile',
-		pathname: 'settings/profile',
+		pathname: '/settings/profile',
 	},
 	{
 		id: 'security',
 		label: 'Security',
-		pathname: 'settings/security',
+		pathname: '/settings/security',
 	},
 	{
 		id: 'notifications',
 		label: 'Notifications',
-		pathname: 'settings/notifications',
+		pathname: '/settings/notifications',
 	},
 	{
 		id: 'integrations',
 		label: 'Integrations',
-		pathname: 'settings/integrations',
+		pathname: '/settings/integrations',
 	},
 	{
 		id: 'apperance',
 		label: 'Apperance',
-		pathname: 'settings/apperance',
+		pathname: '/settings/apperance',
 	},
 ];
