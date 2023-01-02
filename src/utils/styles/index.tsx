@@ -101,6 +101,7 @@ export const Page = styled.div<PageProps>`
 	justify-content: ${(props) => props.justifyContent};
 	align-items: ${(props) => props.alignItems};
 	overflow: hidden;
+	0s !important;
 `;
 
 export const ConversationChannelPageStyle = styled.div`

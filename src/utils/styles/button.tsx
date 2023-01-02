@@ -34,7 +34,7 @@ export const getButtonSizeStyle = (size?: Size) => {
 	}
 };
 
-export const getButttonVariantStyle = (variant?: ButtonVariant) => {
+export const getButtonVariantStyle = (variant?: ButtonVariant) => {
 	const primary = css`
 		background-color: #2b09ff;
 		color: #fff;
@@ -53,8 +53,11 @@ export const getButttonVariantStyle = (variant?: ButtonVariant) => {
 	`;
 	const secondary = css`
 		background-color: inherit;
-		border: 1px solid #2b09ff;
 		color: #fff;
+		&:hover {
+			cursor: pointer;
+			background-color: #282828;
+		}
 	`;
 	switch (variant) {
 		case 'primary':
@@ -74,7 +77,7 @@ export const Button = styled.button<ButtonProps>`
 	font-weight: 500;
 	transition: 250ms background-color ease;
 	${({ size }) => getButtonSizeStyle(size)}
-	${({ variant }) => getButttonVariantStyle(variant)}
+	${({ variant }) => getButtonVariantStyle(variant)}
 	${({ flex }) => 
 		flex && 
 		css`

@@ -11,11 +11,20 @@ export const fadeInUpwards = keyframes`
 	}
 `;
 
-export const slideRightToLeft = keyframes`
+export const slideUp = keyframes`
 	from {
-		transform: translateX(20%);
+		transform: translate(-50%, 100%)
 	}
 	to {
-		transform: translateX(0%);
+		transform: translate(-50%, -20%)
+	}
+`;
+
+export const slideDown = keyframes`
+	from {
+		transform: translate(-50%, -20%)
+	}
+	to {
+		transform: translate(-50%, 100%)
 	}
 `;
