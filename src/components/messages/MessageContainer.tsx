@@ -126,7 +126,7 @@ export const MessageContainer = () => {
 		<MessageContainerStyle 
 			onScroll={(e) => {
 				const node = e.target as HTMLDivElement;
-				const scrollTopMax  = node.scrollHeight - node.clientHeight;
+				const scrollTopMax = node.scrollHeight - node.clientHeight;
 				if (-scrollTopMax === node.scrollTop) {
 					console.log('');
 				}
