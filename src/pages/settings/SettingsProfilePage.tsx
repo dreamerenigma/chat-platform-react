@@ -24,6 +24,8 @@ export const SettingsProfilePage = () => {
    const reset = () => {
       setEditedAbout(about);
       setSourceCopy(source);
+      setIsEditing(false);
+      URL.revokeObjectURL(sourceCopy);
    };
 
    return (
@@ -42,6 +44,7 @@ export const SettingsProfilePage = () => {
                <ProfileAboutSectionHeader>
                   <label htmlFor="about">About Me</label>
                   <Edit 
+                     cursor="pointer"
                      strokeWidth={2}
                      size={28} 
                      onClick={() => setIsEditing(!isEditing)}
@@ -51,7 +54,7 @@ export const SettingsProfilePage = () => {
                   maxLength={200} 
                   disabled={!isEditing} 
                   value={editedAbout}
-                  onChange={(e) => setAbout(e.target.value)}
+                  onChange={(e) => setEditedAbout(e.target.value)}
                />
             </ProfileAboutSection>
          </ProfileSection>

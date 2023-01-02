@@ -52,7 +52,7 @@ export const getButtonVariantStyle = (variant?: ButtonVariant) => {
 		}
 	`;
 	const secondary = css`
-		background-color: inherit;
+		background-color: #212121;
 		color: #fff;
 		&:hover {
 			cursor: pointer;
