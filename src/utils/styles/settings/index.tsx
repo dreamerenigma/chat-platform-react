@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
-import { SettingsSidebarItemsProps, UserBannerProps } from "../styleTypes";
 import { slideDown, slideUp } from "../keyframes";
+import { SettingsSidebarItemsProps, UserBannerProps } from "../styleTypes";
 
 export const SettingsSidebarStyle = styled.aside`
    display: flex;
@@ -44,6 +44,7 @@ export const SettingsProfileBanner = styled.div<UserBannerProps>`
    width: 100%;
    height: 300px;
 	cursor: pointer;
+
    ${({ backgroundUrl }) =>
 		backgroundUrl
 			? css`
@@ -51,7 +52,7 @@ export const SettingsProfileBanner = styled.div<UserBannerProps>`
             background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
                url('${backgroundUrl}') no-repeat center;
 				opacity: 70%;
-				transition: 300ms opacity ease;
+				transition: 200ms opacity ease;
 				background-size: cover;
 				&:hover {
 					opacity: 100%;
@@ -149,14 +150,14 @@ export const ProfileDescriptionField = styled.textarea`
 	}
 `;
 
-export const ProfileEditBottomActionBar = styled.div<{
-	animate?: boolean;
-}>`
-	background-color: #000;
+export const ProfileEditActionBar = styled.div`
+	background-color: #0e0e0e;
 	width: 750px;
 	height: 80px;
 	display: flex;
+	padding: 14px 24px;
 	justify-content: space-between;
+	align-items: center;
 	color: #fff;
 	position: fixed;
 	overflow: hidden;
@@ -165,11 +166,15 @@ export const ProfileEditBottomActionBar = styled.div<{
 	transform: translate(-50%, 100%);
 	animation: 500ms ${slideUp} ease;
 	animation-fill-mode: forwards;
-	
+	border-radius: 8px;
+	& .buttons {
+		display: flex;
+		gap: 10px;
+	}
 `;
+
 /**
- * 
-	${({ animate }) => 
+ * ${({ animate }) => 
 		animate
 			? css`
 				animation: 500ms ${slideUp} ease;
@@ -178,5 +183,5 @@ export const ProfileEditBottomActionBar = styled.div<{
 			: css`
 				animation: 500ms ${slideDown} ease;
 				animation-fill-mode: forwards;
-	`}
-**/
+		`}
+*/
