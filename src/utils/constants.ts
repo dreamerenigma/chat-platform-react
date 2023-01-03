@@ -102,3 +102,9 @@ export const settingsItems: SettingsItemType[] =
 		pathname: '/settings/apperance',
 	},
 ];
+
+export enum CDN_URL {
+	BASE = 'https://dialogchat.ams3.cdn.digitaloceanspaces.com/',
+	ORIGINAL = 'https://dialogchat.ams3.cdn.digitaloceanspaces.com/original/',
+	PREVIEW = 'https://dialogchat.ams3.digitaloceanspaces.com/preview/',
+}

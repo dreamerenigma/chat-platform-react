@@ -240,3 +240,11 @@ export type UpdateRateLimitPayload = {
 	type: RateLimitType;
 	status: boolean;
 };
+
+export type UpdateProfileParams = Partial<{
+	about: string;
+	avatar: File;
+	banner: File;
+}>;
+
+export type SelectableTheme = 'dark' | 'light';
