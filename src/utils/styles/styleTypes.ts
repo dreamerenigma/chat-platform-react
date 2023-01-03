@@ -1,4 +1,3 @@
-import { UserBanner } from './../../components/settings/profile/UserBanner';
 export type PageProps = Partial<{
 	display: string;
 	justifyContent: string;
