@@ -20,6 +20,12 @@ import { UserAvatar } from '../../components/settings/profile/UserAvatar';
 export const SettingsProfilePage = () => {
    const { user, updateAuthUser } = useContext(AuthContext);
 
+   const [avatarSource, setAvatarSource] = useState(
+      CDN_URL.BASE.concat(user?.profile?.avatar || '')
+   );
+   const [avatarFile, setAvatarFile] = useState<File>();
+   const [avatarSourceCopy, setAvatarSourceCopy] = useState(avatarSource);
+
    const [bannerSource, setBannerSource] = useState(
       CDN_URL.BASE.concat(user?.profile?.banner || '')
    );
@@ -42,25 +48,32 @@ export const SettingsProfilePage = () => {
       setBannerSourceCopy(CDN_URL.BASE.concat(user?.profile?.banner || ''));
    }, [user?.profile?.banner]);
 
-   const isChanged = () => aboutCopy !== about || bannerFile;
+   const isChanged = () => aboutCopy !== about || bannerFile || avatarFile;
 
    const reset = () => {
       setAboutCopy(about);
       setBannerSourceCopy(bannerSource);
+      setAvatarSourceCopy(avatarSource);
       setIsEditing(false);
+      setAvatarFile(undefined);
       setBannerFile(undefined);
       URL.revokeObjectURL(bannerSourceCopy);
+      URL.revokeObjectURL(avatarSourceCopy);
    };
 
    const save = async () => {
       const formData = new FormData();
       bannerFile && formData.append('banner', bannerFile);
+      avatarFile && formData.append('avatar', avatarFile);
       about !== aboutCopy && formData.append('about', aboutCopy);
       try {
          setLoading(true);
          const { data: updatedUser } = await updateUserProfile(formData);
          console.log(updatedUser);
+         URL.revokeObjectURL(bannerSourceCopy);
+         URL.revokeObjectURL(avatarSourceCopy);
          setBannerFile(undefined);
+         setAvatarFile(undefined);
          updateAuthUser(updatedUser);
          setIsEditing(false);
       } catch (err) {
@@ -86,6 +99,12 @@ export const SettingsProfilePage = () => {
             />
             <ProfileSection>
                <SettingsProfileUserDetails>
+                  <UserAvatar 
+                     avatarSource={avatarSource}
+                     avatarSourceCopy={avatarSourceCopy}
+                     setAvatarSourceCopy={setAvatarSourceCopy}
+                     setAvatarFile={setAvatarFile}
+                  />
                   <span>@{user?.username}</span>
                </SettingsProfileUserDetails>
                <ProfileAboutSection>
