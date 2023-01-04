@@ -50,8 +50,8 @@ export const getConversationById = (id: number) =>
 export const getConversationMessages = (conversationId: number) => 
 	axiosClient.get<FetchMessagePayload>(`/conversations/${conversationId}`, config);
 
-export const createMessage = ({ id, content }: CreateMessageParams) => 
-	axiosClient.post(`/conversations/${id}/messages`, { content }, config); 
+export const createMessage = (id: string, data: FormData) => 
+	axiosClient.post(`/conversations/${id}/messages`, data, {headers: {'Content-Type': 'multipart/form-data'}, ...config}); 
 
 export const postNewConversation = (data: CreateConversationParams) => 
 	axiosClient.post<Conversation>(`/conversations`, data, config);
@@ -130,4 +130,3 @@ export const checkUsernameExists = (username: string) =>
 
 export const updateUserProfile = (data: FormData) =>
 	axiosClient.patch<User>('/users/profiles', data, {...config, headers: { 'Content-Type': 'multipart/form-data' }});
-

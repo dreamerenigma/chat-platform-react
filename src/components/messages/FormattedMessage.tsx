@@ -10,6 +10,7 @@ import {
 } from "../../utils/styles";
 import { User, MessageType, GroupMessageType } from "../../utils/types";
 import { EditMessageContainer } from "./EditMessageContainer";
+import { CDN_URL } from "../../utils/constants";
 
 type FormattedMessageProps = {
 	user?: User;
@@ -52,9 +53,17 @@ export const FormattedMessage: React.FC<FormattedMessageProps> = ({
 					</MessageItemContent>
 				) : (
 					<MessageItemContent padding="8px 0 0 0">
-						{message.content?.split('\n').map((content) => (
-							<div>{content}</div>
-						))}
+						{message.content}
+						<div>
+							{message.attachments?.map((attachment) => (
+								<img
+									key={attachment.key}
+									src={CDN_URL.concat(attachment.key)}
+									width={300}
+									alt={attachment.key}
+								/>
+							))}
+						</div>
 					</MessageItemContent>
 				)}
 			</MessageItemDetails>

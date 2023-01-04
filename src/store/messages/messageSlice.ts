@@ -6,7 +6,7 @@ import {
 	MessageEventPayload, 
 	MessageType,
 } from "../../utils/types";
-import { createMessageThunk, deleteMessageThunk, editMessageThunk, fetchMessagesThunk } from "./messageThunk";
+import { deleteMessageThunk, editMessageThunk, fetchMessagesThunk } from "./messageThunk";
 
 export interface MessagesState {
 	messages: ConversationMessage[];

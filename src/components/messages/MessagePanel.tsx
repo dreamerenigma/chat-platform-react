@@ -1,11 +1,10 @@
-import React, { FC, useContext, useEffect, useRef, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { FC, useContext, useState } from "react";
+import {  useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { AppDispatch, RootState } from "../../store";
+import { RootState } from "../../store";
 import { selectConversationById } from "../../store/conversationSlice";
 import { selectGroupById } from '../../store/groupSlice';
 import { createMessage, postGroupMessage } from "../../utils/api";
-import { setRateLimitStatus } from "../../store/rate-limit/rateLimitSlice";
 import { AuthContext } from "../../utils/context/AuthContext";
 import { getRecipientFromConversation } from "../../utils/helpers";
 import {
@@ -17,10 +16,10 @@ import {
 import { MessageContainer } from "./MessageContainer";
 import { MessageInputField } from "./MessageInputField";
 import { MessagePanelHeader } from "./MessagePanelHeader";
-import { createMessageThunk } from "../../store/messages/messageThunk";
 import { AxiosError } from "axios";
-
 import { useToast } from "../../utils/hooks/useToast";
+import { MessageAttachmentContainer } from "./attachments/MessageAttachmentContainer";
+import { removeAllAttachments } from "../../store/message-panel/messagePanelSlice";
 
 type Props = {
 	sendTypingStatus: () => void;
@@ -36,8 +35,8 @@ export const MessagePanel: FC<Props> = ({
 	const { id: routeId } = useParams();
 	const { user } = useContext(AuthContext);
 	const { error } = useToast({ theme: 'dark' });
-	const dispatch = useDispatch<AppDispatch>();
-
+	const dispatch = useDispatch();
+	const { attachments } = useSelector((state: RootState) => state.messagePanel);
 	const conversation = useSelector((state: RootState) =>
 		selectConversationById(state, parseInt(routeId!))
 	);
@@ -47,21 +46,32 @@ export const MessagePanel: FC<Props> = ({
 	const selectedType = useSelector(
 		(state: RootState) => state.selectedConversationType.type
 	);
-	const rateLimitState = useSelector((state: RootState) => state.rateLimit);
 	const recipient = getRecipientFromConversation(conversation, user);
 
 	const sendMessage = async () => {
 		const trimmedContent = content.trim();
-		if (!routeId || !content.trim()) return;
+		console.log('sendMessage');
+		if (!routeId) return; 
+		if (!trimmedContent && !attachments.length) return;
+
 		const params = { id: parseInt(routeId), content: trimmedContent };
+		const formData = new FormData();
+		
+		formData.append('id', routeId);
+		trimmedContent && formData.append('content', trimmedContent);
+		attachments.forEach((attachment) => 
+			formData.append('attachments', attachment.file)
+		);
+
 		try { 
 			selectedType === 'private'
-				? await createMessage(params)
+				? await createMessage(routeId, formData)
 				: await postGroupMessage(params);
 			setContent('');
+			dispatch(removeAllAttachments());
 		} catch (err) {
 			(err as AxiosError).response?.status === 429 && 
-				error('You  are rate limited', { toastId });
+				error('You are rate limited', { toastId });
 		}
 	};
 	return (
@@ -72,6 +82,7 @@ export const MessagePanel: FC<Props> = ({
 					<MessageContainer />
 				</MessagePanelBody>
 				<MessagePanelFooter>
+					{attachments.length > 0 && <MessageAttachmentContainer />}
 					<MessageInputField
 						content={content}
 						setContent={setContent}
