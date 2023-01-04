@@ -35,7 +35,8 @@ export const GroupRecipientAddForm = () => {
 				<InputLabel>Recipient</InputLabel>
 				<InputField 
 					value={username} 
-					onChange={(e) => setUsername(e.target.value)} />
+					onChange={(e) => setUsername(e.target.value)} 
+				/>
 			</InputContainer>
 			<Button style={{ margin: '10px 0' }} disabled={!username}>
 				Add Recipient

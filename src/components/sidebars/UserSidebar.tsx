@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { 
 	UserAvatar,
 	UserSidebarStyle,
@@ -8,9 +8,11 @@ import avatar from '../../__assets__/avatar_1.png'
 import { CreateConversationModal } from '../modals/CreateConversationModal';
 import { userSidebarItems } from '../../utils/constants';
 import { UserSidebarItem } from './items/UserSidebarItem';
+import { useNavigate } from 'react-router-dom';
 
 export const UserSidebar = () => {
 	const [showModal, setShowModal] = useState(false);
+
 	
 	return (
 		<>

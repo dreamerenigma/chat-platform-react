@@ -81,6 +81,7 @@ export const friendsSlice = createSlice({
 			})
 			.addCase(fetchFriendRequestThunk.fulfilled, (state, action) => {
 				console.log('fetchFriendRequestsThunk.fullfiled');
+				state.friendRequests = action.payload.data;
 			})
 			.addCase(createFriendRequestThunk.fulfilled, (state, action) => {
 				console.log('fetchFriendRequestsThunk.fullfiled');
@@ -98,7 +99,6 @@ export const friendsSlice = createSlice({
 			.addCase(acceptFriendRequestThunk.fulfilled, (state, action) => {
 				console.log('acceptFriendRequestThunk.fulfilled');
 				const {
-					friend,
 					friendRequest: { id },
 				} = action.payload.data;
 				state.friendRequests = state.friendRequests.filter(

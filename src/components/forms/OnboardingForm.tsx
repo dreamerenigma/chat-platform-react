@@ -79,8 +79,7 @@ export const OnboardingForm = () => {
 				onChange={(e) => setUsername(e.target.value)}
 			/>
 			<div onClick={handleClick}>
-				<label className={styles.onboardingLabel} htmlFor="about"
-				>
+				<label className={styles.onboardingLabel} htmlFor="about">
 					About Yourself
 				</label>
 			</div>
@@ -97,11 +96,7 @@ export const OnboardingForm = () => {
 						<div className="fileName">
 							rgthjykuklyhthththtnhgmyoreerjhgtryretluytrytjkytrrrgfgndgny
 						</div>
-						<FiFileMinus
-							size={40}
-							color="#ff0000"
-							onClick={reset}
-						/>
+						<FiFileMinus size={40} color="#ff0000" onClick={reset} />
 					</div>
 				</UploadedAvatarContainer>
 			)}

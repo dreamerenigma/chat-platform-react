@@ -3,14 +3,13 @@ import { useEffect, useState } from "react";
 import { AiOutlineUsergroupAdd } from 'react-icons/ai';
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../store";
-
-import { SidebarContainerStyle } from '../../utils/styles';
 import {
 	ConversationSearchbar,
-	ConversationSidebarHeader,
 	ConversationSidebarStyle,
-	ConversationsScrollableContainer,
+	ScrollableContainer,
+	SidebarHeader,
 } from "../../utils/styles";
+import { SidebarContainerStyle } from '../../utils/styles';
 import { ContextMenuEvent, Group } from "../../utils/types";
 import { GroupSidebarContextMenu } from "../context-menus/GroupSidebarContextMenu";
 import { ConversationSidebarItem } from "../conversation/ConversationSidebarItem";
@@ -31,7 +30,8 @@ export const ConversationSidebar = () => {
 		(state: RootState) => state.conversation.conversations
 	);
 	const showGroupContextMenu = useSelector(
-		(state: RootState) => state.groups.showGroupContextMenu);
+		(state: RootState) => state.groups.showGroupContextMenu
+	);
 	const groups = useSelector((state: RootState) => state.groups.groups);
 	const conversationType = useSelector(
 		(state: RootState) => state.selectedConversationType.type
@@ -67,7 +67,7 @@ export const ConversationSidebar = () => {
 				<CreateGroupModal setShowModal={setShowModal}/>
 			)}
 			<ConversationSidebarStyle>
-				<ConversationSidebarHeader>
+				<SidebarHeader>
 					<ConversationSearchbar placeholder="Search for Conversations" />
 					{conversationType === 'private' ? (
 						<ChatAdd
@@ -82,9 +82,9 @@ export const ConversationSidebar = () => {
 							onClick={() => setShowModal(true)}
 						/>
 					)}
-				</ConversationSidebarHeader>
+				</SidebarHeader>
 				<ConversationTab />
-				<ConversationsScrollableContainer>
+				<ScrollableContainer>
 					<SidebarContainerStyle>
 						{conversationType === 'private'
 							? conversations.map((conversation) => (
@@ -102,7 +102,7 @@ export const ConversationSidebar = () => {
 							))}
 						{showGroupContextMenu && <GroupSidebarContextMenu />}
 					</SidebarContainerStyle>
-				</ConversationsScrollableContainer>
+				</ScrollableContainer>
 				<footer></footer>
 			</ConversationSidebarStyle>
 		</>

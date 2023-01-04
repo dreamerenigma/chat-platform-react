@@ -18,7 +18,6 @@ export const LoginForm = () => {
       handleSubmit,
       formState: { errors },
    } = useForm<UserCredentialsParams>({ reValidateMode: 'onBlur' });
-
    const navigate = useNavigate();
    const socket = useContext(SocketContext);
 

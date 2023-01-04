@@ -6,7 +6,7 @@ import { chatTypes } from "../../utils/constants";
 import { 
 	ConversationSelectedItem,
 	ConversationSelectedStyle,
-} from "../../utils/styles"
+} from "../../utils/styles";
 import { ConversationTypeData } from "../../utils/types";
 
 export const ConversationSelected = () => {
@@ -17,7 +17,6 @@ export const ConversationSelected = () => {
 	const dispatch = useDispatch<AppDispatch>();
 	const onSelectType = (chat: ConversationTypeData) => {
 		dispatch(updateType(chat.type));
-		navigate('/groups');
 		if (chat.type === 'group') navigate('/groups');
 		else navigate('/conversations');
 	};

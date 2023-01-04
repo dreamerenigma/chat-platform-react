@@ -1,10 +1,5 @@
 import { Dispatch, FC, useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { AppDispatch } from "../../store";
-import { createGroupThunk } from "../../store/groupSlice";
-import { searchUsers } from "../../utils/api";
-import { useDebounce } from "../../utils/hooks/useDebounce";
+import { GroupRecipientsField } from "../recipients/GroupRecipientsField";
 import {
 	InputContainer,
 	InputLabel,
@@ -12,11 +7,16 @@ import {
 	Button,
 	RecipientChipContainer
 } from "../../utils/styles";
+import styles from './index.module.scss';
 import { User } from "../../utils/types";
-import { GroupRecipientsField } from "../recipients/GroupRecipientsField";
+import { useDebounce } from "../../utils/hooks/useDebounce";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { AppDispatch } from "../../store";
+import { searchUsers } from "../../utils/api";
 import { RecipientResultContainer } from "../recipients/RecipientResultContainer";
 import { SelectedGroupRecipientChip } from "../recipients/SelectedGroupRecipientChip";
-import styles from './index.module.scss';
+import { createGroupThunk } from "../../store/groupSlice";
 
 type Props = {
 	setShowModal: Dispatch<React.SetStateAction<boolean>>;
