@@ -10,7 +10,7 @@ import {
 } from "../../utils/styles";
 import { User, MessageType, GroupMessageType } from "../../utils/types";
 import { EditMessageContainer } from "./EditMessageContainer";
-import { CDN_URL } from "../../utils/constants";
+import { CDN_URL, CDN_URL_PREVIEW } from "../../utils/constants";
 
 type FormattedMessageProps = {
 	user?: User;
@@ -58,7 +58,7 @@ export const FormattedMessage: React.FC<FormattedMessageProps> = ({
 							{message.attachments?.map((attachment) => (
 								<img
 									key={attachment.key}
-									src={CDN_URL.concat(attachment.key)}
+									src={CDN_URL_PREVIEW.concat(attachment.key)}
 									width={300}
 									alt={attachment.key}
 								/>

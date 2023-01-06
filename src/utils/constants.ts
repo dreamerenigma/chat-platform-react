@@ -103,8 +103,5 @@ export const settingsItems: SettingsItemType[] =
 	},
 ];
 
-export enum CDN_URL {
-	BASE = 'https://dialogchat.ams3.cdn.digitaloceanspaces.com/',
-	ORIGINAL = 'https://dialogchat.ams3.cdn.digitaloceanspaces.com/original/',
-	PREVIEW = 'https://dialogchat.ams3.digitaloceanspaces.com/preview/',
-}
+export const CDN_URL = 'https://dialogchat.ams3.digitaloceanspaces.com/';
+export const CDN_URL_PREVIEW = 'https://dialogchat.ams3.digitaloceanspaces.com/preview';
