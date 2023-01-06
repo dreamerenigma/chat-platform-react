@@ -19,8 +19,8 @@ export const ConversationSidebarItem: React.FC<Props> = ({ conversation }) => {
 	const lastMessageContent = () => {
 		const { lastMessageSent } = conversation;
 		if (lastMessageSent  && lastMessageSent.content)
-		return lastMessageSent.content.length >= MESSAGE_LENGTH_MAX
-			? lastMessageSent.content.slice(0, MESSAGE_LENGTH_MAX).concat('...')
+		return lastMessageSent.content?.length >= MESSAGE_LENGTH_MAX
+			? lastMessageSent.content?.slice(0, MESSAGE_LENGTH_MAX).concat('...')
 			: lastMessageSent.content;
 		return null;
 	};
