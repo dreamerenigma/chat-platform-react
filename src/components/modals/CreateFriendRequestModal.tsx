@@ -1,15 +1,12 @@
-import { FC, Dispatch, SetStateAction, useEffect, createRef } from "react";
+import { FC, Dispatch, useEffect, createRef } from "react";
 import { MdClose } from "react-icons/md";
 import { ModalContainer, ModalHeader, ModalContentBody } from ".";
 import { OverlayStyle } from "../../utils/styles";
-import { CreateConversationForm } from "../forms/CreateConversationForm";
 import { SendFriendRequestForm } from "../forms/SendFriendRequestForm";
 
 type Props = {
 	setShowModal: Dispatch<React.SetStateAction<boolean>>;
 };
-
-
 
 export const CreateFriendRequestModal: FC<Props> = ({ setShowModal }) => {
 	const ref = createRef<HTMLDivElement>();

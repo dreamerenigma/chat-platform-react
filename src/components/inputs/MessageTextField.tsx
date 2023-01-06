@@ -32,7 +32,7 @@ export const MessageTextField: FC<Props> = ({
 	const { error } = useToast({ theme: 'dark' });
 	const { attachments, attachmentCounter } = useSelector(
 		(state: RootState) => state.messagePanel
-	)
+	);
 
 	const onMessageChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
 		e.preventDefault();

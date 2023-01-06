@@ -577,7 +577,7 @@ export const ConversationSidebarStyle = styled.div`
 	flex: 0 0 auto;
 `;
 
-export const ConversationSidebarHeader = styled.div`
+export const SidebarHeader = styled.div`
 	height: 90px;
 	padding: 10px 30px;
 	box-sizing: border-box;
@@ -588,7 +588,7 @@ export const ConversationSidebarHeader = styled.div`
 	gap: 20px;
 `;
 
-export const ConversationsScrollableContainer = styled.div`
+export const ScrollableContainer = styled.div`
 	flex: 1 1 auto;
 	overflow-y: auto;
 	min-height: 0;
@@ -607,7 +607,7 @@ export const ConversationSearchbar = styled.input`
 	font-size: 14px;
 	font-family: 'Inter';
 	border-radius: 5px;
-	box-sizing; border-box;
+	box-sizing: border-box;
 `;
 
 export const ConversationTabContainer = styled.div``;
@@ -638,7 +638,7 @@ export const IconBadge = styled.div`
 `;
 
 export const ConversationCreateButton = styled.div`
-	background-color: #1a1a1a1;
+	background-color: #1a1a1a;
 	padding: 10px;
 	box-sizing: border-box;
 `;
@@ -718,4 +718,36 @@ export const CharacterLimit = styled.span<CharacterLimitProps>`
 	font-weight: 500;
 	color: ${({ atMaxLength }) => 
 		atMaxLength ? '#ff0000' : 'rgb(129, 129, 129)'};
+`;
+
+export const MessageAttachmentContainerStyle = styled.div`
+	display: flex;
+	overflow-x: scroll;
+	gap: 10px;
+	margin: 10px 0;
+	&::-webkit-scrollbar {
+		height: 6px;
+	}
+	&::-webkit-scrollbar-track {
+		background-color: #101010;
+	}
+	&::-webkit-scrollbar-thumb {
+		background-color: #1c1c1c;
+		border-radius: 5px;
+	}
+`;
+
+export const MessageAttachmentStyle = styled.div`
+	box-sizing: border-box;
+	padding: 50px 0 0 0;
+	position: relative;
+	max-height: 300px;
+	height: 300px;
+	background-color: #161616;
+	margin: 10px 0;
+	border-radius: 10px;
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+	text-align: center;
 `;

@@ -1,8 +1,9 @@
 import { Dispatch, FC, SetStateAction, useState } from "react";
 import { CharacterLimit, MessageInputContainer } from "../../utils/styles";
-import { CirclePlusFill, FaceVeryHappy } from "akar-icons";
+import { FaceVeryHappy } from "akar-icons";
 import { MessageTextField } from "../inputs/MessageTextField";
 import styles from "./index.module.scss";
+import { MessageAttachmentActionIcon } from "./MessageAttachmentActionIcon";
 
 type Props = {
 	content: string;
@@ -27,7 +28,7 @@ export const MessageInputField: FC<Props> = ({
 	return (
 		<>
 			<MessageInputContainer isMultiLine={isMultiLine}>
-				<CirclePlusFill className={styles.icon} size={ICON_SIZE} />
+				<MessageAttachmentActionIcon />
 				<form onSubmit={sendMessage} className={styles.form}>
 					<MessageTextField
 						message={content}

@@ -13,7 +13,6 @@ import { useNavigate } from 'react-router-dom';
 export const UserSidebar = () => {
 	const [showModal, setShowModal] = useState(false);
 
-	
 	return (
 		<>
 			{showModal && <CreateConversationModal setShowModal={setShowModal} />}

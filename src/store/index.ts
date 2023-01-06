@@ -1,3 +1,4 @@
+import { messagePanelSlice } from './message-panel/messagePanelSlice';
 import { configureStore } from '@reduxjs/toolkit';
 import conversationReducer from './conversationSlice';
 import messageReducer from './messages/messageSlice';
@@ -9,6 +10,7 @@ import groupSidebarReducer from './groupRecipientsSidebarSlice';
 import friendsReducer from './friends/friendsSlice';
 import rateLimitReducer from './rate-limit/rateLimitSlice';
 import settingsReducer from './settings/settingsSlice';
+import messagePanelReducer from './message-panel/messagePanelSlice';
 
 export const store = configureStore({
 	reducer: {
@@ -21,6 +23,7 @@ export const store = configureStore({
 		messageContainer: messageContainerReducer,
 		groupSidebar: groupSidebarReducer,
 		rateLimit: rateLimitReducer,
+		messagePanel: messagePanelReducer,
 		settings: settingsReducer,
 	},
 	middleware: (getDefaultMiddleware) => 
