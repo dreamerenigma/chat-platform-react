@@ -53,7 +53,6 @@ export const ConversationSidebarItem: React.FC<Props> = ({ conversation }) => {
 					</span>
 				</div>
 			</ConversationSidebarItemStyle>
-			<hr className={styles.hr} /> 
 		</>
 	);
 };

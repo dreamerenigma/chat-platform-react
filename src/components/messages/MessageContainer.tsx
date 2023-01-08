@@ -1,140 +1,108 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
+
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
+import { AppDispatch, RootState } from '../../store';
+import { GroupMessageType, MessageType } from '../../utils/types';
+import { SelectedMessageContextMenu } from '../context-menus/SelectedMessageContextMenu';
+import { selectConversationMessage } from '../../store/messages/messageSlice';
+import { selectGroupMessage } from '../../store/groupMessageSlice';
+import { selectType } from '../../store/selectedSlice';
+import { MessageItemHeader } from './MessageItemHeader';
+import { MessageItemContainerBody } from './MessageItemContainerBody';
+import { useHandleClick, useKeydown } from '../../utils/hooks';
 import {
 	MessageContainerStyle,
 	MessageItemContainer,
-	MessageItemContent,
-} from "../../utils/styles"
-import { GroupMessageType, MessageType } from "../../utils/types";
-import { AuthContext } from "../../utils/context/AuthContext";
-import { useDispatch, useSelector } from 'react-redux';
-import { AppDispatch, RootState } from '../../store';
-import { useParams } from 'react-router-dom';
-import { SelectedMessageContextMenu } from '../context-menus/SelectedMessageContextMenu';
-import { FormattedMessage } from "./FormattedMessage";
-import { EditMessageContainer } from "./EditMessageContainer";
-import { selectConversationMessage } from "../../store/messages/messageSlice";
-import { selectType } from "../../store/selectedSlice";
-import { selectGroupMessage } from '../../store/groupMessageSlice';
-import { 
-	editMessageContent, 
-	resetMessageContainer, 
-	setIsEditing, 
+	MessageItemDetails,
+	UserAvatar,
+} from '../../utils/styles';
+import {
+	editMessageContent,
+	resetMessageContainer,
+	setIsEditing,
 	setSelectedMessage,
-} from "../../store/messageContainerSlice";
-import { CDN_URL, CDN_URL_PREVIEW } from "../../utils/constants";
+} from '../../store/messageContainerSlice';
+import { setContextMenuLocation, toggleContextMenu } from '../../store/groupSlice';
+import { MessageItemAvatar } from './MessageItemAvatar';
 
 export const MessageContainer = () => {
 	const { id } = useParams();
 	const dispatch = useDispatch<AppDispatch>();
-	const conversationMessages = useSelector((state: RootState) => 
+	const conversationMessages = useSelector((state: RootState) =>
 		selectConversationMessage(state, parseInt(id!))
 	);
-	const groupMessages = useSelector((state: RootState) => 
+	const groupMessages = useSelector((state: RootState) =>
 		selectGroupMessage(state, parseInt(id!))
 	);
 	const selectedType = useSelector((state: RootState) => selectType(state));
-	const [showMenu, setShowMenu] = useState(false);
-	const [points, setPoints] = useState({ x: 0, y: 0 });
-	const { user } = useContext(AuthContext);
-	const { isEditingMessage, messageBeingEdited } = useSelector(
+	const { showContextMenu } = useSelector(
 		(state: RootState) => state.messageContainer
 	);
+	const handleKeydown = (e: KeyboardEvent) =>
+		e.key === 'Escape' && dispatch(setIsEditing(false));
+	const handleClick = () => dispatch(toggleContextMenu(false));
+
+	useKeydown(handleKeydown, [id]);
+	useHandleClick(handleClick, [id]);
+
+	useEffect(() => {
+		return () => {
+			dispatch(resetMessageContainer());
+		};
+	}, [id]);
 
 	const onContextMenu = (
-		e: React.MouseEvent<HTMLDivElement, MouseEvent>, 
+		e: React.MouseEvent<HTMLDivElement, MouseEvent>,
 		message: MessageType | GroupMessageType
 	) => {
 		e.preventDefault();
-		setShowMenu(true);
-		setPoints({ x: e.pageX, y: e.pageY });
+		dispatch(toggleContextMenu(true));
+		dispatch(setContextMenuLocation({ x: e.pageX, y: e.pageY }));
 		dispatch(setSelectedMessage(message));
 	};
 
 	const onEditMessageChange = (e: React.ChangeEvent<HTMLInputElement>) =>
 		dispatch(editMessageContent(e.target.value));
 
-	useEffect(() => {
-		const handleClick = () => setShowMenu(false);
-		window.addEventListener('click', handleClick);
-		return () => window.removeEventListener('click', handleClick);
-	}, [id]);
-
-	useEffect(() => {
-		const handleKeydown = (e: KeyboardEvent) => 
-			e.key === 'Escape' && dispatch(setIsEditing(false));
-		window.addEventListener('keydown', handleKeydown);
-		return () => {
-			console.log('Removing keydown event listener');
-			window.removeEventListener('keydown', handleKeydown);
-		};
-	}, [id]);
-
-	useEffect(() => {
-		return () => {
-			console.log('Unmounting');
-			dispatch(resetMessageContainer());
-		};
-	}, [id]);
-
 	const mapMessages = (
-		m: MessageType | GroupMessageType,
+		message: MessageType | GroupMessageType,
 		index: number,
 		messages: MessageType[] | GroupMessageType[]
 	) => {
-		const nextIndex = index + 1;
 		const currentMessage = messages[index];
-		const nextMessage = messages[index];
-		if (
-			messages.length === index + 1 || 
-			currentMessage.author.id !== nextMessage.author.id
-		)
-			return ( 
-				<FormattedMessage 
-					onContextMenu={(e) => onContextMenu(e, m)} 
-					key={m.id}
-					user={user}
-					message={m}
-					onEditMessageChange={onEditMessageChange}
-				/>
-			);
-		if (currentMessage.author.id === nextMessage.author.id) {
-			return (
-				<MessageItemContainer 
-					key={m.id} 
-					onContextMenu={(e) => onContextMenu(e, m)} 
-				>
-					{isEditingMessage && m.id === messageBeingEdited?.id ? (
-						<MessageItemContent padding="0 0 0 70px">
-							<EditMessageContainer onEditMessageChange={onEditMessageChange} />
-						</MessageItemContent>
-					) : (
-						<MessageItemContent padding="0 0 0 70px">
-							{m.content || null}
-							<div>
-								{m.attachments?.map((attachment) => (
-									<img
-										key={attachment.key}
-										src={CDN_URL_PREVIEW.concat(attachment.key)}
-										width={300}
-										alt={attachment.key}
-									/>
-								))}
-							</div>
-						</MessageItemContent>
-					)}
-				</MessageItemContainer>
-			);
-		}
-	};
-
-	const formatMessages = () => {
-		if (selectedType === 'private')
-			return conversationMessages?.messages.map(mapMessages);
-		return groupMessages?.messages.map(mapMessages);
+		const nextMessage = messages[index + 1];
+		const showMessageHeader =
+			messages.length === index + 1 ||
+			currentMessage.author.id !== nextMessage.author.id;
+		return (
+			<MessageItemContainer
+				key={message.id}
+				onContextMenu={(e) => onContextMenu(e, message)}
+			>
+				{showMessageHeader && <MessageItemAvatar message={message}/>}
+				{showMessageHeader ? (
+					<MessageItemDetails>
+						<MessageItemHeader message={message} />
+						<MessageItemContainerBody
+							message={message}
+							onEditMessageChange={onEditMessageChange}
+							padding="8px 0 0 0"
+						/>
+					</MessageItemDetails>
+				) : (
+					<MessageItemContainerBody
+						message={message}
+						onEditMessageChange={onEditMessageChange}
+						padding="0 0 0 70px"
+					/>
+				)}
+			</MessageItemContainer>
+		);
 	};
 
 	return (
-		<MessageContainerStyle 
+		<MessageContainerStyle
 			onScroll={(e) => {
 				const node = e.target as HTMLDivElement;
 				const scrollTopMax = node.scrollHeight - node.clientHeight;
@@ -147,8 +115,8 @@ export const MessageContainer = () => {
 				{selectedType === 'private'
 					? conversationMessages?.messages.map(mapMessages)
 					: groupMessages?.messages.map(mapMessages)}
-				</>
-			{showMenu && <SelectedMessageContextMenu points={points} />}
+			</>
+			{showContextMenu && <SelectedMessageContextMenu />}
 		</MessageContainerStyle>
 	);
 };

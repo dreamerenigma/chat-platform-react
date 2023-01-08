@@ -3,7 +3,7 @@ import {
 	GroupRecipientSidebarItem,
 	GroupRecipientSidebarItemContainer,
 	GroupRecipientSidebarStyle,
-	MessageItemAvatar,
+	MessageItemAvatarStyle,
 } from "../../utils/styles";
 import { AppDispatch, RootState } from "../../store";
 import { useDispatch, useSelector } from "react-redux";
@@ -19,6 +19,7 @@ import {
 } from "../../store/groupRecipientsSidebarSlice";
 import { SelectedParticipantContextMenu } from "../context-menus/SelectedParticipantContextMenu";
 import { Crown } from "akar-icons";
+import { MessageItemAvatar } from "../messages/MessageItemAvatar";
 
 export const GroupRecipientsSidebar = () => {
 	const { id: groupId } = useParams();
@@ -85,7 +86,7 @@ export const GroupRecipientsSidebar = () => {
 						onContextMenu={(e) => onUserContextMenu(e, user)}
 					>
 						<div className="left">
-							<MessageItemAvatar />
+							<MessageItemAvatarStyle />
 							<span>{user.firstName}</span>
 						</div>
 						{user.id === group?.owner.id && <Crown color="#ffbf00" />}
@@ -102,7 +103,7 @@ export const GroupRecipientsSidebar = () => {
 							onContextMenu={(e) => onUserContextMenu(e, user)}
 						>
 							<div className="left">
-								<MessageItemAvatar />
+								<MessageItemAvatarStyle />
 								<span>{user.firstName}</span>
 							</div>
 							{user.id === group?.owner.id && <Crown color="#ffbf00"/>}
