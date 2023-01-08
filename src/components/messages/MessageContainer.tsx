@@ -1,29 +1,28 @@
-
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
+import {
+	MessageContainerStyle,
+	MessageItemContainer,
+	MessageItemDetails,
+} from '../../utils/styles';
 import { AppDispatch, RootState } from '../../store';
 import { GroupMessageType, MessageType } from '../../utils/types';
 import { SelectedMessageContextMenu } from '../context-menus/SelectedMessageContextMenu';
 import { selectConversationMessage } from '../../store/messages/messageSlice';
 import { selectGroupMessage } from '../../store/groupMessageSlice';
 import { selectType } from '../../store/selectedSlice';
-import { MessageItemHeader } from './MessageItemHeader';
-import { MessageItemContainerBody } from './MessageItemContainerBody';
-import { useHandleClick, useKeydown } from '../../utils/hooks';
-import {
-	MessageContainerStyle,
-	MessageItemContainer,
-	MessageItemDetails,
-	UserAvatar,
-} from '../../utils/styles';
 import {
 	editMessageContent,
 	resetMessageContainer,
 	setIsEditing,
 	setSelectedMessage,
+	setContextMenuLocation,
+	toggleContextMenu,
 } from '../../store/messageContainerSlice';
-import { setContextMenuLocation, toggleContextMenu } from '../../store/groupSlice';
+import { MessageItemHeader } from './MessageItemHeader';
+import { MessageItemContainerBody } from './MessageItemContainerBody';
+import { useHandleClick, useKeydown } from '../../utils/hooks';
 import { MessageItemAvatar } from './MessageItemAvatar';
 
 export const MessageContainer = () => {
