@@ -1,9 +1,9 @@
 import { FC, useState } from 'react';
-import { MdClose } from 'react-icons/md';
 import { CDN_URL } from '../../../utils/constants';
 import { useKeydown } from '../../../utils/hooks';
 import { OverlayStyle } from '../../../utils/styles';
 import { GroupMessageType, MessageType } from '../../../utils/types';
+import { MdClose } from 'react-icons/md';
 import styles from './index.module.scss';
 
 type Props = {
@@ -27,11 +27,11 @@ export const MessageItemAttachmentContainer: FC<Props> = ({ message }) => {
       <>
          {showOverlay && (
             <OverlayStyle>
-               <MdClose
+               <MdClose 
                   className={styles.closeIcon}
                   onClick={() => setShowOverlay(false)}
                />
-               <img src={imageUrl} alt="overlay" style={{ maxHeight: '90%' }} />
+               <img src={imageUrl} alt="overlay" />
             </OverlayStyle>
          )}
          <div>

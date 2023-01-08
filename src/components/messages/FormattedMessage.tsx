@@ -1,10 +1,10 @@
 import { useSelector } from "react-redux";
 import { RootState } from "../../store";
 import { 
-	MessageItemContainer, 
-	MessageItemAvatar, 
+	MessageItemContainer,
 	MessageItemDetails,
-	MessageItemContent, 
+	MessageItemContent,
+	MessageItemAvatarStyle, 
 } from "../../utils/styles";
 import { User, MessageType, GroupMessageType } from "../../utils/types";
 import { EditMessageContainer } from "./EditMessageContainer";
@@ -29,7 +29,7 @@ export const FormattedMessage: React.FC<FormattedMessageProps> = ({
 	);
 	return (
 		<MessageItemContainer onContextMenu={onContextMenu}>
-			<MessageItemAvatar />
+			<MessageItemAvatarStyle />
 			<MessageItemDetails>
 				{isEditingMessage && message.id === messageBeingEdited?.id ? (
 					<MessageItemContent padding="8px 0 0 0">
