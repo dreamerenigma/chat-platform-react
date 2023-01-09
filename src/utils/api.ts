@@ -4,6 +4,7 @@ import {
 	AddGroupRecipientParams,
 	CancelFriendRequestResponse,
 	Conversation,
+	ConversationType,
 	CreateConversationParams, 
 	CreateGroupParams, 
 	CreateMessageParams, 
@@ -50,8 +51,20 @@ export const getConversationById = (id: number) =>
 export const getConversationMessages = (conversationId: number) => 
 	axiosClient.get<FetchMessagePayload>(`/conversations/${conversationId}`, config);
 
-export const createMessage = (id: string, data: FormData) => 
-	axiosClient.post(`/conversations/${id}/messages`, data, {headers: {'Content-Type': 'multipart/form-data'}, ...config}); 
+export const createMessage = (
+	id: string, 
+	type: ConversationType,
+	data: FormData,
+) => {
+	const url =
+		type === 'private'
+			? `/conversations/${id}/messages`
+			: `/groups${id}/messages`;
+		return axiosClient.post(url, data, {
+			headers :{ 'Content-Type': 'multippart/form-data' },
+			...config,
+		});
+	};
 
 export const postNewConversation = (data: CreateConversationParams) => 
 	axiosClient.post<Conversation>(`/conversations`, data, config);
