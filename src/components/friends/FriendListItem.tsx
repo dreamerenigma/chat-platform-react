@@ -2,6 +2,7 @@ import { FC, useContext } from "react";
 import { FriendListItemContainer } from "../../utils/styles/friends"
 import { ContextMenuEvent, Friend } from "../../utils/types";
 import { AuthContext } from "../../utils/context/AuthContext";
+import { UserAvatar } from "../users/UserAvatar";
 
 type Props = {
 	friend: Friend;
@@ -16,14 +17,13 @@ export const FriendListItem: FC<Props> = ({
 }) => {
 	const { user } = useContext(AuthContext);
 	
+	const friendUserInstance = 
+		user?.id === friend.sender.id ? friend.receiver : friend.sender;
+
 	return (
 		<FriendListItemContainer onContextMenu={(e) => onContextMenu(e, friend)}>
-			<div className="avatar"></div>
-			<div>
-				{user?.id === friend.sender.id
-					? friend.receiver.username
-					: friend.sender.username}
-			</div>
+			<UserAvatar user={friendUserInstance} />
+			<div>{friendUserInstance.username}</div>
 		</FriendListItemContainer>
 	);
 };
