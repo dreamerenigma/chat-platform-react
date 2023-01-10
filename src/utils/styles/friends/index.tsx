@@ -90,7 +90,6 @@ export const FriendRequestItemContainer = styled.div`
 		align-items: center;
 		gap: 10px;
 	}
-
 	:last-child {
 		border-bottom: unset;
 	}

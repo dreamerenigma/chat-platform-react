@@ -269,4 +269,11 @@ export type Attachment = {
 	file: File;
 };
 
+export type FriendRequestDetailsType = {
+	status: string;
+	displayName: string;
+	user: User;
+	incoming: boolean;
+};
+
 export type SelectableTheme = 'dark' | 'light';
