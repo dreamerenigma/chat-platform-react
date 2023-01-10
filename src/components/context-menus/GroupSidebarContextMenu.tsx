@@ -26,8 +26,6 @@ export const GroupSidebarContextMenu: FC = () => {
 		(state: RootState) => state.groups.selectedGroupContextMenu
 	);
 
-	const isOwner = isGroupOwner(user, group);
-
 	const leaveGroup = () => {
 		if (!contextMenuGroup) return;
 		console.log(contextMenuGroup);

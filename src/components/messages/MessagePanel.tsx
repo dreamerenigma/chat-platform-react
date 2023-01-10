@@ -31,11 +31,11 @@ export const MessagePanel: FC<Props> = ({
 	isRecipientTyping,
 }) => {
 	const toastId = 'rateLimitToast';
+	const dispatch = useDispatch();
 	const [content, setContent] = useState('');
 	const { id: routeId } = useParams();
 	const { user } = useContext(AuthContext);
 	const { error } = useToast({ theme: 'dark' });
-	const dispatch = useDispatch();
 	const { attachments } = useSelector((state: RootState) => state.messagePanel);
 	const conversation = useSelector((state: RootState) =>
 		selectConversationById(state, parseInt(routeId!))

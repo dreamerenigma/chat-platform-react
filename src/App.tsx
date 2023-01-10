@@ -1,13 +1,13 @@
 import { PropsWithChildren, useState } from 'react';
-import { Route, Routes} from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import { Socket } from 'socket.io-client';
-import { AuthenticatedRoute} from './components/AuthenticatedRoute';
+import { AuthenticatedRoute } from './components/AuthenticatedRoute';
 import { ConversationChannelPage } from './pages/conversations/ConversationChannelPage';
 import { ConversationPage } from './pages/conversations/ConversationPage';
 import { LoginPage } from './pages/LoginPage';
 import { RegisterPage } from './pages/RegisterPage';
 import { AuthContext } from './utils/context/AuthContext';
-import { socket, SocketContext } from './utils/context/SocketContent';
+import { socket, SocketContext } from './utils/context/SocketContext';
 import { User } from './utils/types';
 import { Provider as ReduxProvider } from 'react-redux';
 import { store } from './store';
@@ -32,9 +32,9 @@ type Props = {
 	socket: Socket;
 };
 
-function AppWithProviders({ 
-	children, 
-	user, 
+function AppWithProviders({
+	children,
+	user,
 	setUser,
 }: PropsWithChildren & Props) {
 	return (
@@ -50,7 +50,6 @@ function AppWithProviders({
 
 function App() {
 	const [user, setUser] = useState<User>();
-
 	return (
 		<AppWithProviders user={user} setUser={setUser} socket={socket}>
 			<Routes>
@@ -58,22 +57,22 @@ function App() {
 				<Route path="/login" element={<LoginPage />} />
 				<Route element={<AuthenticatedRoute children={<AppPage />} />}>
 					<Route path="conversations" element={<ConversationPage />}>
-						<Route 
-							path=":id" 
+						<Route
+							path=":id"
 							element={
 								<ConversationPageGuard children={<ConversationChannelPage />} />
 							}
 						/>
 					</Route>
 					<Route path="groups" element={<GroupPage />}>
-						<Route 
-							path=":id" 
+						<Route
+							path=":id"
 							element={<GroupPageGuard children={<GroupChannelPage />} />}
 						/>
 					</Route>
 					<Route path="friends" element={<FriendsLayoutPage />}>
-						<Route path="requests" element={<FriendRequestPage />} /> 
-						<Route path="blocked" element={<div>Blocked</div>} /> 
+						<Route path="requests" element={<FriendRequestPage />} />
+						<Route path="blocked" element={<div>Blocked</div>} />
 					</Route>
 					<Route path="settings" element={<SettingsPage />}>
 						<Route path="profile" element={<SettingsProfilePage />} />

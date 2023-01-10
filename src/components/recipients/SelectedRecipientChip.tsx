@@ -1,7 +1,7 @@
-import { Dispatch, FC, SetStateAction } from 'react';
+import { FC, Dispatch, SetStateAction } from 'react';
 import { SelectedRecipientPillStyle } from "../../utils/styles";
 import { User } from '../../utils/types';
-import { Cross, CircleX } from 'akar-icons';
+import { CircleX } from 'akar-icons';
 
 type Props = {
 	user: User;

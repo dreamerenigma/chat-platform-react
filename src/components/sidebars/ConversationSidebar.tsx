@@ -61,10 +61,10 @@ export const ConversationSidebar = () => {
 	return (
 		<>
 			{showModal && conversationType === 'private' && (
-				<CreateConversationModal setShowModal={setShowModal}/>
+				<CreateConversationModal setShowModal={setShowModal} />
 			)}
 			{showModal && conversationType === 'group' && (
-				<CreateGroupModal setShowModal={setShowModal}/>
+				<CreateGroupModal setShowModal={setShowModal} />
 			)}
 			<ConversationSidebarStyle>
 				<SidebarHeader>

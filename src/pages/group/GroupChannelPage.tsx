@@ -2,12 +2,12 @@ import { useContext, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { MessagePanel } from "../../components/messages/MessagePanel";
-import { SocketContext } from "../../utils/context/SocketContent";
+import { SocketContext } from "../../utils/context/SocketContext";
 import { ConversationChannelPageStyle } from "../../utils/styles";
 import { AppDispatch, RootState } from "../../store";
-import { 
-	editGroupMessage, 
-	fetchGroupMessagesThunk, 
+import {
+	editGroupMessage,
+	fetchGroupMessagesThunk,
 } from "../../store/groupMessageSlice";
 import { GroupMessageType } from "../../utils/types";
 import { GroupRecipientsSidebar } from "../../components/sidebars/GroupRecipientSidebar";
@@ -38,16 +38,16 @@ export const GroupChannelPage = () => {
 		});
 		return () => {
 			socket.emit('onGroupLeave', { groupId });
-			socket.off('onGroupMessageUpdate'); 
+			socket.off('onGroupMessageUpdate');
 		};
 	}, [id]);
 
-	const sendTypingStatus = () => {};
+	const sendTypingStatus = () => { };
 
 	return (
 		<>
 			<ConversationChannelPageStyle>
-				<MessagePanel 
+				<MessagePanel
 					sendTypingStatus={sendTypingStatus}
 					isRecipientTyping={isRecipientTyping}
 				></MessagePanel>

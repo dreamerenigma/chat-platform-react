@@ -36,6 +36,7 @@ export const SelectedParticipantContextMenu: FC<Props> = ({ points }) => {
 	const group = useSelector((state: RootState) => 
 		selectGroupById(state, parseInt(id!))
 	);
+	
 	const kickUser = () => {
 		console.log(`Kicking User: ${selectedUser?.id}`);
 		console.log(selectedUser);

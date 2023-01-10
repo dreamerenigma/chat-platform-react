@@ -42,7 +42,6 @@ export const FriendListContainer = styled.div`
 	&::-webkit-scrollbar {
 		display: none;
 	}
-	position: relative;
 `;
 
 export const FriendListItemContainer = styled.div`
@@ -67,14 +66,7 @@ export const FriendRequestItemContainer = styled.div`
 	border-bottom: 1px solid #1f1f1fbf;
 	display: flex;
 	justify-content: space-between;
-	& .avatar {
-		height: 50px;
-		width: 50px;
-		background-color: #227eff;
-		border-radius: 50%;
-	}
-
-	& .user {
+	& .details {
 		display: flex;
 		align-items: center;
 		gap: 20px;
@@ -117,7 +109,6 @@ export const FriendRequestItemIcon = styled.div<FriendRequestItemIconProps>`
 	font-size: 24px;
 	&:hover {
 		background-color: #161616;
-		color: ${({ isAccept }) => 
-		(isAccept ? '#00ff04' : '#ff3a3a')};
+		color: ${({ isAccept }) => (isAccept ? '#00ff04' : '#ff3a3a')};
 	}
 `;

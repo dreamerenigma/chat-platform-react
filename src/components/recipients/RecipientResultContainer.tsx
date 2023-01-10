@@ -2,7 +2,7 @@ import { FC } from "react";
 import {
 	RecipientResultContainerStyle, 
 	RecipientResultItem, 
-	RecipientScrollableItemContainer
+	RecipientScrollableItemContainer,
 } from "../../utils/styles"
 import { User } from "../../utils/types";
 

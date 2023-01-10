@@ -1,11 +1,13 @@
 import { useContext } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { CDN_URL } from "../../utils/constants";
 import { AuthContext } from "../../utils/context/AuthContext";
 import { getRecipientFromConversation } from "../../utils/helpers";
-import { ConversationSidebarItemStyle } from "../../utils/styles"
+import { 
+	ConversationSidebarItemStyle, 
+} from "../../utils/styles"
 import { Conversation } from "../../utils/types";
 import styles from './index.module.scss';
-import { CDN_URL } from "../../utils/constants";
 import defaultAvatar from '../../__assets__/default_avatar.jpg';
 
 type Props = {

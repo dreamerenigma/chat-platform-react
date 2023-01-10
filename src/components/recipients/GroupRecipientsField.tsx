@@ -1,9 +1,9 @@
 import { Dispatch, FC, SetStateAction, useState } from "react";
 import {
-	InputLabel,
 	InputContainer,
+	InputField,
+	InputLabel,
 	RecipientChipContainer,
-	InputField
 } from "../../utils/styles";
 
 type Props = {

@@ -7,7 +7,7 @@ import { toggleContextMenu } from "../../store/friends/friendsSlice";
 import { removeFriendThunk } from "../../store/friends/friendsThunk";
 import { AuthContext } from "../../utils/context/AuthContext";
 import { ContextMenu, ContextMenuItem } from "../../utils/styles";
-import { SocketContext } from "../../utils/context/SocketContent";
+import { SocketContext } from "../../utils/context/SocketContext";
 import { checkConversationOrCreate } from "../../utils/api";
 
 export const FriendContextMenu = () => {

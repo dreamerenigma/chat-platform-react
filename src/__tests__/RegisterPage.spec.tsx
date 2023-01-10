@@ -29,7 +29,6 @@ describe('RegisterPage', () => {
             <RegisterPage />
          </Router>
       );
-
       const submitButton = screen.getByRole('button', {
          name: 'Create My Account',
       });

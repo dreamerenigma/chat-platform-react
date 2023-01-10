@@ -5,11 +5,17 @@ import { AuthContext } from "../../utils/context/AuthContext";
 
 type Props = {
 	friend: Friend;
+	online: boolean;
 	onContextMenu: (e: ContextMenuEvent, friend: Friend) => void;
 };
 
-export const FriendListItem: FC<Props> = ({ friend, onContextMenu }) => {
+export const FriendListItem: FC<Props> = ({ 
+	friend, 
+	online, 
+	onContextMenu, 
+}) => {
 	const { user } = useContext(AuthContext);
+	
 	return (
 		<FriendListItemContainer onContextMenu={(e) => onContextMenu(e, friend)}>
 			<div className="avatar"></div>

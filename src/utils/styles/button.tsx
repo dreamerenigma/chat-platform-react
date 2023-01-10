@@ -18,8 +18,8 @@ export const getButtonSizeStyle = (size?: Size) => {
 			`;
 		case 'md':
 			return css`
-				padding: 14px 26px;
-				font-size: 18px;
+				padding: 12px 24px;
+				font-size: 16px;
 			`;
 		case 'lg':
 			return css`

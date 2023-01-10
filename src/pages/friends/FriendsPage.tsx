@@ -3,12 +3,12 @@ import { fetchFriendsThunk } from "../../store/friends/friendsThunk";
 import { AppDispatch } from '../../store';
 import { useDispatch } from "react-redux";
 import { FriendList } from "../../components/friends/FriendList";
-import { SocketContext } from "../../utils/context/SocketContent";
+import { SocketContext } from "../../utils/context/SocketContext";
 import { Friend } from "../../utils/types";
-import { 
-	removeFriend, 
-	setOfflineFriends, 
-	setOnlineFriends, 
+import {
+	removeFriend,
+	setOfflineFriends,
+	setOnlineFriends,
 } from "../../store/friends/friendsSlice";
 
 export const FriendsPage = () => {
@@ -45,8 +45,8 @@ export const FriendsPage = () => {
 			console.log(friends);
 			dispatch(setOnlineFriends(friends));
 			dispatch(setOfflineFriends());
-		}); 
+		});
 	}, []);
-	
+
 	return <FriendList />;
 };

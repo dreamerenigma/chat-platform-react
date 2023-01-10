@@ -23,7 +23,7 @@ export const MessageItemContainerBody: FC<Props> = ({
    return (
       <>
          {isEditingMessage && message.id === messageBeingEdited?.id ? (
-            <MessageItemContent padding="0 0 0 70px">
+            <MessageItemContent padding={padding}>
                <EditMessageContainer onEditMessageChange={onEditMessageChange} />
             </MessageItemContent>
          ) : (

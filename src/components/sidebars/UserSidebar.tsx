@@ -10,6 +10,7 @@ import { AuthContext } from '../../utils/context/AuthContext';
 export const UserSidebar = () => {
 	const [showModal, setShowModal] = useState(false);
 	const { user } = useContext(AuthContext);
+	
 	return (
 		<>
 			{showModal && <CreateConversationModal setShowModal={setShowModal} />}

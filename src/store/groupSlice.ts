@@ -65,6 +65,7 @@ export const groupsSlice = createSlice({
 			state.groups.unshift(action.payload);
 		},
 		updateGroup: (state, action: PayloadAction<Group>) => {
+			console.log('Inside updateGroup');
 			const updatedGroup = action.payload; 
 			const existingGroup = state.groups.find((g) => g.id === updatedGroup.id);
 			const index = state.groups.findIndex((g) => g.id === updatedGroup.id);

@@ -1,7 +1,6 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { ConversationSidebarItemStyle } from "../../utils/styles"
 import { ContextMenuEvent, Group } from "../../utils/types";
-
 import styles from './index.module.scss';
 
 type Props = {

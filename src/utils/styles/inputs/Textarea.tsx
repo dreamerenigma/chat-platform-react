@@ -4,7 +4,7 @@ export const MessageTextarea = styled.textarea`
 	background-color: inherit;
 	outline: none;
 	border: none;
-	color: #fffff;
+	color: #ffffff;
 	font-family: 'Inter';
 	box-sizing: border-box;
 	font-size: 16px;
@@ -71,7 +71,7 @@ export const FileInput = styled.input`
 
 export const UploadAvatarButton = styled.div`
 	width: 100%;
-	background-color: #1d1d1d;
+	background-color: #202020;
 	color: #fff;
 	display: flex;
 	align-items: center;
@@ -128,5 +128,5 @@ export const UploadedAvatarContainer = styled.div`
 export const UploadedAvatar = styled.img`
 	width: 80px;
 	height: 80px;
-	border-radius:8px;
+	border-radius: 8px;
 `;

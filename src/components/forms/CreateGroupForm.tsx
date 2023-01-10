@@ -5,7 +5,8 @@ import {
 	InputLabel,
 	TextField,
 	Button,
-	RecipientChipContainer
+	RecipientChipContainer,
+	InputField,
 } from "../../utils/styles";
 import styles from './index.module.scss';
 import { User } from "../../utils/types";
@@ -88,7 +89,7 @@ export const CreateGroupForm: FC<Props> = ({ setShowModal }) => {
 					<InputLabel>Title</InputLabel>
 					<TextField
 						value={title}
-						onChange={(e) => setMessage(e.target.value)}
+						onChange={(e) => setTitle(e.target.value)}
 					/>
 				</InputContainer>
 			</section>

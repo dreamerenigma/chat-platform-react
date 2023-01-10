@@ -1,11 +1,15 @@
 import { FC, useContext } from "react";
-import { FriendRequestItemContainer, FriendRequestItemIcon } from "../../utils/styles/friends";
-import { FriendRequest, HandleFriendRequestAction } from "../../utils/types";
 import { AuthContext } from "../../utils/context/AuthContext";
+import { FriendRequest, HandleFriendRequestAction } from "../../utils/types";
 import { MdCheck, MdClose } from 'react-icons/md';
+import { FriendRequestItemContainer, FriendRequestItemIcon } from "../../utils/styles/friends";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../store";
-import { acceptFriendRequestThunk, cancelFriendRequestThunk, rejectFriendRequestThunk } from "../../store/friends/friendsThunk";
+import { 
+	acceptFriendRequestThunk, 
+	cancelFriendRequestThunk, 
+	rejectFriendRequestThunk, 
+} from "../../store/friends/friendsThunk";
 
 type Props = {
 	friendRequest: FriendRequest;
@@ -18,13 +22,14 @@ export const FriendRequestItem: FC<Props> = ({ friendRequest }) => {
 	const isIncomingRequest = () => user?.id === friendRequest.receiver.id;
 	
 	const handleFriendRequest = (type?: HandleFriendRequestAction) => {
+		const { id } = friendRequest;
 		switch (type) {
 			case 'accept':
-				return dispatch(acceptFriendRequestThunk(friendRequest.id));
+				return dispatch(acceptFriendRequestThunk(id));
 			case 'reject':
-				return dispatch(rejectFriendRequestThunk(friendRequest.id));
+				return dispatch(rejectFriendRequestThunk(id));
 			default: 
-				return dispatch(cancelFriendRequestThunk(friendRequest.id));
+				return dispatch(cancelFriendRequestThunk(id));
 		}
 	};
 	

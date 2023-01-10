@@ -21,7 +21,7 @@ export const UserSidebarItem: FC<Props> = ({ item }) => {
 	const STROKE_WIDTH = 2;
 
 	const isActive = () => {
-		if (pathname.includes("/groups") && item.id === "conversations")
+		if (pathname.includes("/groups") && item.id === 'conversations')
 			return true;
 		return pathname.includes(item.pathname);
 	};

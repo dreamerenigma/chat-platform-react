@@ -12,10 +12,6 @@ import { selectType } from "../../store/selectedSlice";
 import { deleteGroupMessageThunk } from "../../store/groupMessageSlice";
 import { deleteMessageThunk } from "../../store/messages/messageThunk";
 
-type Props = {
-	points: { x: number; y: number };
-};
-
 export const SelectedMessageContextMenu = () => {
 	const { id: routeId } = useParams();
 	const { user } = useContext(AuthContext);
@@ -45,8 +41,9 @@ export const SelectedMessageContextMenu = () => {
 			{message?.author.id === user?.id && (
 				<ContextMenuItem onClick={deleteMessage}>Delete</ContextMenuItem>
 			)}
-			{message?.author.id === user?.id && 
-				<ContextMenuItem onClick={editMessage}>Edit</ContextMenuItem>}
+			{message?.author.id === user?.id && (
+				<ContextMenuItem onClick={editMessage}>Edit</ContextMenuItem>
+			)}
 		</ContextMenu>
 	);
 };

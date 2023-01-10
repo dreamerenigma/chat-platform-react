@@ -2,7 +2,7 @@ import { useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 import { postLoginUser } from '../../../utils/api';
-import { SocketContext } from '../../../utils/context/SocketContent';
+import { SocketContext } from '../../../utils/context/SocketContext';
 import {
    Button,
    InputContainer,

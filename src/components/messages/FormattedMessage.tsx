@@ -4,7 +4,7 @@ import {
 	MessageItemContainer,
 	MessageItemDetails,
 	MessageItemContent,
-	MessageItemAvatarStyle, 
+	UserAvatarContainer, 
 } from "../../utils/styles";
 import { User, MessageType, GroupMessageType } from "../../utils/types";
 import { EditMessageContainer } from "./EditMessageContainer";
@@ -29,7 +29,7 @@ export const FormattedMessage: React.FC<FormattedMessageProps> = ({
 	);
 	return (
 		<MessageItemContainer onContextMenu={onContextMenu}>
-			<MessageItemAvatarStyle />
+			<UserAvatarContainer />
 			<MessageItemDetails>
 				{isEditingMessage && message.id === messageBeingEdited?.id ? (
 					<MessageItemContent padding="8px 0 0 0">
