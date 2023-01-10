@@ -3,29 +3,28 @@ import {
 	GroupRecipientSidebarItem,
 	GroupRecipientSidebarItemContainer,
 	GroupRecipientSidebarStyle,
-	MessageItemAvatarStyle,
 } from "../../utils/styles";
 import { AppDispatch, RootState } from "../../store";
 import { useDispatch, useSelector } from "react-redux";
 import { selectGroupById } from "../../store/groupSlice";
 import { useParams } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
-import { SocketContext } from "../../utils/context/SocketContent";
+import { SocketContext } from "../../utils/context/SocketContext";
 import { User } from "../../utils/types";
-import { 
-	setContextMenuLocation, 
-	setSelectedUser, 
+import {
+	setContextMenuLocation,
+	setSelectedUser,
 	toggleContextMenu,
 } from "../../store/groupRecipientsSidebarSlice";
 import { SelectedParticipantContextMenu } from "../context-menus/SelectedParticipantContextMenu";
 import { Crown } from "akar-icons";
-import { MessageItemAvatar } from "../messages/MessageItemAvatar";
+import { UserAvatar } from "../users/UserAvatar";
 
 export const GroupRecipientsSidebar = () => {
 	const { id: groupId } = useParams();
 
 	const [onlineUsers, setOnlineUsers] = useState<User[]>([]);
-	
+
 	const dispatch = useDispatch<AppDispatch>();
 	const socket = useContext(SocketContext);
 	const group = useSelector((state: RootState) =>
@@ -86,7 +85,7 @@ export const GroupRecipientsSidebar = () => {
 						onContextMenu={(e) => onUserContextMenu(e, user)}
 					>
 						<div className="left">
-							<MessageItemAvatarStyle />
+							<UserAvatar user={user} />
 							<span>{user.firstName}</span>
 						</div>
 						{user.id === group?.owner.id && <Crown color="#ffbf00" />}
@@ -103,10 +102,10 @@ export const GroupRecipientsSidebar = () => {
 							onContextMenu={(e) => onUserContextMenu(e, user)}
 						>
 							<div className="left">
-								<MessageItemAvatarStyle />
+								<UserAvatar user={user} />
 								<span>{user.firstName}</span>
 							</div>
-							{user.id === group?.owner.id && <Crown color="#ffbf00"/>}
+							{user.id === group?.owner.id && <Crown color="#ffbf00" />}
 						</GroupRecipientSidebarItem>
 					))}
 				{groupSidebarState.showUserContextMenu && (
