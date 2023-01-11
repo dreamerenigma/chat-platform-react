@@ -290,4 +290,8 @@ export type SystemMessageType = {
 	level: SystemMessageLevel;
 };
 
+export type UpdateStatusParams = {
+	statusMessage: string;
+};
+
 export type SelectableTheme = 'dark' | 'light';
