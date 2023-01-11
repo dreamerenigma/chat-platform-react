@@ -688,18 +688,32 @@ export const GroupRecipientSidebarItemContainer = styled.div`
 	}
 `;
 
-export const GroupRecipientSidebarItem = styled.div`
+type GroupRecipientSidebarItemProps = {
+	online: boolean;
+};
+
+export const GroupRecipientSidebarItem = styled.div<GroupRecipientSidebarItemProps>`
 	display: flex;
 	gap: 10px;
 	align-items: center;
 	font-size: 18px;
 	font-weight: 500;
 	margin: 10px 0;
+	& .recipientDetails {
+		display: flex;
+		flex-direction: column;
+	}
 	& .left {
 		display: flex;
 		align-items: center;
 		gap: 14px;
 	}
+	& .status {
+		font-size: 12px;
+		font-weigth: 500;
+		color: #929292;
+	}
+	opacity:  ${({ online }) => !online && 0.2};
 `;
 
 export const GroupHeaderIcons = styled.div`

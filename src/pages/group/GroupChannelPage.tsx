@@ -10,7 +10,7 @@ import {
 	fetchGroupMessagesThunk,
 } from "../../store/groupMessageSlice";
 import { GroupMessageType } from "../../utils/types";
-import { GroupRecipientsSidebar } from "../../components/sidebars/GroupRecipientSidebar";
+import { GroupRecipientsSidebar } from "../../components/sidebars/group-recipients/GroupRecipientSidebar";
 
 export const GroupChannelPage = () => {
 	const { id } = useParams();
