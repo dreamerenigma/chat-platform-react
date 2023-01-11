@@ -24,6 +24,8 @@ import {
 	setContextMenuLocation,
 	toggleContextMenu,
 } from '../../store/messageContainerSlice';
+import { SystemMessage } from './system/SystemMessage';
+import { SystemMessageList } from './system/SystemMessageList';
 
 export const MessageContainer = () => {
 	const { id } = useParams();
@@ -111,6 +113,7 @@ export const MessageContainer = () => {
 			}}
 		>
 			<>
+			<SystemMessageList />
 				{selectedType === 'private'
 					? conversationMessages?.messages.map(mapMessages)
 					: groupMessages?.messages.map(mapMessages)}

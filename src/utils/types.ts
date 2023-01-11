@@ -276,4 +276,11 @@ export type FriendRequestDetailsType = {
 	incoming: boolean;
 };
 
+export type SystemMessageLevel = 'info' | 'warning' | 'error';
+export type SystemMessageType = {
+	id: number;
+	content: string;
+	level: SystemMessageLevel;
+};
+
 export type SelectableTheme = 'dark' | 'light';

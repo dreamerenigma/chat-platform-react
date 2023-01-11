@@ -1,4 +1,4 @@
-import React, { FC, useContext, useState } from "react";
+import React, { FC, useContext, useEffect, useState } from "react";
 import {  useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { RootState } from "../../store";
@@ -20,18 +20,17 @@ import { AxiosError } from "axios";
 import { useToast } from "../../utils/hooks/useToast";
 import { MessageAttachmentContainer } from "./attachments/MessageAttachmentContainer";
 import { removeAllAttachments } from "../../store/message-panel/messagePanelSlice";
+import { addSystemMessage, clearAllMessaages } from "../../store/system-messages/systemMessagesSlice";
 
 type Props = {
 	sendTypingStatus: () => void;
 	isRecipientTyping: boolean;
 };
 
-export const MessagePanel: FC<Props> = ({
-	sendTypingStatus,
-	isRecipientTyping,
-}) => {
+export const MessagePanel: FC<Props> = ({ sendTypingStatus, isRecipientTyping }) => {
 	const toastId = 'rateLimitToast';
 	const dispatch = useDispatch();
+	const { messageCounter } = useSelector((state: RootState) => state.systemMessages);
 	const [content, setContent] = useState('');
 	const { id: routeId } = useParams();
 	const { user } = useContext(AuthContext);
@@ -40,34 +39,49 @@ export const MessagePanel: FC<Props> = ({
 	const conversation = useSelector((state: RootState) =>
 		selectConversationById(state, parseInt(routeId!))
 	);
-	const group = useSelector((state: RootState) => 
-		selectGroupById(state, parseInt(routeId!))
-	);
-	const selectedType = useSelector(
-		(state: RootState) => state.selectedConversationType.type
-	);
+	const group = useSelector((state: RootState) => selectGroupById(state, parseInt(routeId!)));
+	const selectedType = useSelector((state: RootState) => state.selectedConversationType.type);
 	const recipient = getRecipientFromConversation(conversation, user);
+
+	useEffect(() => {
+		return () => {
+			dispatch(clearAllMessaages());
+			dispatch(removeAllAttachments());
+		}
+	}, []);
 
 	const sendMessage = async () => {
 		const trimmedContent = content.trim();
-		console.log('sendMessage');
 		if (!routeId) return; 
 		if (!trimmedContent && !attachments.length) return;
-		const params = { id: parseInt(routeId), content: trimmedContent };
 		const formData = new FormData();
 		formData.append('id', routeId);
 		trimmedContent && formData.append('content', trimmedContent);
 		attachments.forEach((attachment) => 
 			formData.append('attachments', attachment.file)
 		);
-
 		try { 
 			await createMessage(routeId, selectedType, formData);
 			setContent('');
 			dispatch(removeAllAttachments());
 		} catch (err) {
-			(err as AxiosError).response?.status === 429 && 
-				error('You are rate limited', { toastId });
+			const axiosError = err as AxiosError;
+			if (axiosError.response?.status === 429) {
+				error('You are rate Limited', { toastId });
+				dispatch(addSystemMessage({
+					id: messageCounter,
+					level: 'error',
+					content: 'You are being rate limited. Slow down.',
+				}))
+			} else if (axiosError.response?.status === 404) {
+				dispatch(
+					addSystemMessage({
+						id: messageCounter,
+						level: 'error',
+						content: 'The reipient is not in your friends list or they may have blocked you.',
+					})
+				);
+			}
 		}
 	};
 	return (
@@ -85,9 +99,7 @@ export const MessagePanel: FC<Props> = ({
 						sendMessage={sendMessage}
 						sendTypingStatus={sendTypingStatus}
 						placeholderName={
-							selectedType === 'group'
-								? group?.title || 'Group'
-								: recipient?.firstName || 'user'
+							selectedType === 'group' ? group?.title || 'Group' : recipient?.firstName || 'user'
 						}
 					/>
 					<MessageTypingStatus>

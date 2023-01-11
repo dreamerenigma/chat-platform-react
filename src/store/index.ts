@@ -11,6 +11,7 @@ import friendsReducer from './friends/friendsSlice';
 import rateLimitReducer from './rate-limit/rateLimitSlice';
 import settingsReducer from './settings/settingsSlice';
 import messagePanelReducer from './message-panel/messagePanelSlice';
+import systemMessageReducer from './system-messages/systemMessagesSlice';
 
 export const store = configureStore({
 	reducer: {
@@ -24,6 +25,7 @@ export const store = configureStore({
 		groupSidebar: groupSidebarReducer,
 		rateLimit: rateLimitReducer,
 		messagePanel: messagePanelReducer,
+		systemMessages: systemMessageReducer,
 		settings: settingsReducer,
 	},
 	middleware: (getDefaultMiddleware) => 
