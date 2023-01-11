@@ -2,10 +2,10 @@ import { useContext, useState } from 'react';
 import { UserAvatar, UserSidebarStyle } from '../../utils/styles';
 import styles from './index.module.scss';
 import avatar from '../../__assets__/avatar_1.png'
-import { CreateConversationModal } from '../modals/CreateConversationModal';
 import { CDN_URL, userSidebarItems } from '../../utils/constants';
 import { UserSidebarItem } from './items/UserSidebarItem';
 import { AuthContext } from '../../utils/context/AuthContext';
+import { UpdatePresenceStatusModal } from '../modals/UpdatePresenceStatusModal';
 
 export const UserSidebar = () => {
 	const [showModal, setShowModal] = useState(false);
@@ -13,7 +13,7 @@ export const UserSidebar = () => {
 	
 	return (
 		<>
-			{showModal && <CreateConversationModal setShowModal={setShowModal} />}
+			{showModal && <UpdatePresenceStatusModal setShowModal={setShowModal} />}
 			<UserSidebarStyle>
 				<UserAvatar 
 					src={
@@ -22,7 +22,9 @@ export const UserSidebar = () => {
 							: avatar
 						} 
 						alt="avatar" 
-						width="55px" />
+						width="55px" 
+						onClick={() => setShowModal(true)}
+					/>
 				<hr className={styles.hr} />
 				{userSidebarItems.map((item) => (
 					<UserSidebarItem item={item} />
