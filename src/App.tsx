@@ -23,6 +23,8 @@ import { FriendsLayoutPage } from './pages/friends/FriendsLayoutPage';
 import { FriendRequestPage } from './pages/friends/FriendRequestPage';
 import { SettingsPage } from './pages/settings/SettingsPage';
 import { SettingsProfilePage } from './pages/settings/SettingsProfilePage';
+import { ThemeProvider } from 'styled-components';
+import { DarkTheme, LightTheme } from './utils/themes';
 
 enableMapSet();
 
@@ -37,13 +39,17 @@ function AppWithProviders({
 	user,
 	setUser,
 }: PropsWithChildren & Props) {
+	const theme = 'dark';
+
 	return (
 		<ReduxProvider store={store}>
-			<AuthContext.Provider value={{ user, updateAuthUser: setUser }}>
-				<SocketContext.Provider value={socket}>
-					{children}
-				</SocketContext.Provider>
-			</AuthContext.Provider>
+			<ThemeProvider theme={LightTheme}>
+				<AuthContext.Provider value={{ user, updateAuthUser: setUser }}>
+					<SocketContext.Provider value={socket}>
+						{children}
+					</SocketContext.Provider>
+				</AuthContext.Provider>
+			</ThemeProvider>
 		</ReduxProvider>
 	);
 }
