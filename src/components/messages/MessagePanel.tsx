@@ -1,6 +1,10 @@
 import React, { FC, useContext, useEffect, useState } from "react";
 import {  useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
+import { 
+	addSystemMessage, 
+	clearAllMessages, 
+} from "../../store/system-messages/systemMessagesSlice";
 import { RootState } from "../../store";
 import { selectConversationById } from "../../store/conversationSlice";
 import { selectGroupById } from '../../store/groupSlice';
@@ -20,14 +24,16 @@ import { AxiosError } from "axios";
 import { useToast } from "../../utils/hooks/useToast";
 import { MessageAttachmentContainer } from "./attachments/MessageAttachmentContainer";
 import { removeAllAttachments } from "../../store/message-panel/messagePanelSlice";
-import { addSystemMessage, clearAllMessaages } from "../../store/system-messages/systemMessagesSlice";
 
 type Props = {
 	sendTypingStatus: () => void;
 	isRecipientTyping: boolean;
 };
 
-export const MessagePanel: FC<Props> = ({ sendTypingStatus, isRecipientTyping }) => {
+export const MessagePanel: FC<Props> = ({ 
+	sendTypingStatus, 
+	isRecipientTyping, 
+}) => {
 	const toastId = 'rateLimitToast';
 	const dispatch = useDispatch();
 	const { messageCounter } = useSelector((state: RootState) => state.systemMessages);
@@ -39,13 +45,17 @@ export const MessagePanel: FC<Props> = ({ sendTypingStatus, isRecipientTyping })
 	const conversation = useSelector((state: RootState) =>
 		selectConversationById(state, parseInt(routeId!))
 	);
-	const group = useSelector((state: RootState) => selectGroupById(state, parseInt(routeId!)));
-	const selectedType = useSelector((state: RootState) => state.selectedConversationType.type);
+	const group = useSelector((state: RootState) => 
+		selectGroupById(state, parseInt(routeId!))
+	);
+	const selectedType = useSelector(
+		(state: RootState) => state.selectedConversationType.type
+	);
 	const recipient = getRecipientFromConversation(conversation, user);
 
 	useEffect(() => {
 		return () => {
-			dispatch(clearAllMessaages());
+			dispatch(clearAllMessages());
 			dispatch(removeAllAttachments());
 		}
 	}, []);
@@ -64,15 +74,18 @@ export const MessagePanel: FC<Props> = ({ sendTypingStatus, isRecipientTyping })
 			await createMessage(routeId, selectedType, formData);
 			setContent('');
 			dispatch(removeAllAttachments());
+			dispatch(clearAllMessages());
 		} catch (err) {
 			const axiosError = err as AxiosError;
 			if (axiosError.response?.status === 429) {
 				error('You are rate Limited', { toastId });
-				dispatch(addSystemMessage({
-					id: messageCounter,
-					level: 'error',
-					content: 'You are being rate limited. Slow down.',
-				}))
+				dispatch(
+						addSystemMessage({
+						id: messageCounter,
+						level: 'error',
+						content: 'You are being rate limited. Slow down.',
+					})
+				);
 			} else if (axiosError.response?.status === 404) {
 				dispatch(
 					addSystemMessage({
@@ -99,7 +112,9 @@ export const MessagePanel: FC<Props> = ({ sendTypingStatus, isRecipientTyping })
 						sendMessage={sendMessage}
 						sendTypingStatus={sendTypingStatus}
 						placeholderName={
-							selectedType === 'group' ? group?.title || 'Group' : recipient?.firstName || 'user'
+							selectedType === 'group' 
+								? group?.title || 'Group' 
+								: recipient?.firstName || 'user'
 						}
 					/>
 					<MessageTypingStatus>

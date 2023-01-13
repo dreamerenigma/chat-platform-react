@@ -39,11 +39,9 @@ function AppWithProviders({
 	user,
 	setUser,
 }: PropsWithChildren & Props) {
-	const theme = 'dark';
-
 	return (
 		<ReduxProvider store={store}>
-			<ThemeProvider theme={LightTheme}>
+			<ThemeProvider theme={DarkTheme}>
 				<AuthContext.Provider value={{ user, updateAuthUser: setUser }}>
 					<SocketContext.Provider value={socket}>
 						{children}
@@ -57,6 +55,7 @@ function AppWithProviders({
 function App() {
 	const [user, setUser] = useState<User>();
 	return (
+
 		<AppWithProviders user={user} setUser={setUser} socket={socket}>
 			<Routes>
 				<Route path="/register" element={<RegisterPage />} />

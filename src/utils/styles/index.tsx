@@ -11,7 +11,7 @@ import {
 	PageProps,
 	SidebarItemProps,
 } from './styleTypes';
-import { Theme } from '../types';
+import { Theme } from '../themes';
 
 export const SIDEBAR_WIDTH = 400;
 
@@ -123,10 +123,17 @@ export const ConversationSidebarItemStyle = styled.div<ConversationSidebarItemPr
 	background-color: ${({ selected, theme }) => 
 		selected && theme.conversationSidebar.conversationItem.selected};
 	cursor: pointer;
-	transition: 150ms background-color ease;
+	transition: 100ms background-color ease;
 	&:hover {
 		background-color: ${({ theme }) => 
 			theme.conversationSidebar.conversationItem.hover.backgroundColor};
+	}
+
+	& .title {
+		display: block;
+		font-weight: 600;
+		font-size: 16px;
+		color: ${({ theme }) => theme.text.primary};
 	}
 `;
 
@@ -256,14 +263,13 @@ export const MessageContainerStyle = styled.div`
 	&::-webkit-scrollbar {
 		width: 8px;
 	}
-
 	&::-webkit-scrollbar-track {
-		background-color: #0e0e0e;
+		background-color: color: ${({ theme }) => theme.background.primary};
 	}
 	&::-webkit-scrollbar-thumb {
-		background-color: #161616;
+		background-color: color: ${({ theme }) => theme.background.secondary};
 		width: 5px;
-		border-radius: 5px;
+		border-radius: 20px;
 	}
 `;
 
@@ -373,7 +379,7 @@ export const ContextMenuItem = styled.li`
 export const MessageTypingStatus = styled.div`
 	width: 100%;
 	font-size: 15px;
-	color: #a2a2a2;
+	color: ${({ theme }) => theme.text.secondary};
 	box-sizing: border-box;
 	margin-top: 10px;
 	height: 20px;
@@ -638,8 +644,8 @@ export const ScrollableContainer = styled.div`
 `;
 
 export const ConversationSearchbar = styled.input`
-	background-color: #1a1a1a;
-	color: #e1e1e1;
+	background-color: ${({ theme }) => theme.input.backgroundColor};
+	color: ${({ theme }) => theme.input.color};
 	width: 100%;
 	padding: 10px 16px;
 	border: none;
@@ -688,7 +694,7 @@ export const GroupRecipientSidebarStyle = styled.aside`
 	flex-direction: column;
 	height: 100%;
 	width: 350px;
-	background-color: #111111;
+	background-color: ${({ theme }) => theme.background.secondary};
 	flex: 0 0 auto;
 `;
 
@@ -698,7 +704,7 @@ export const GroupRecipientSidebarHeader = styled.div`
 	box-sizing: border-box;
    width: 100%;
 	flex-shrink: 0;
-	color: #fff;
+	color: ${({ theme }) => theme.text.primary};
 	border-bottom: 1px solid #49494925;
 	display: flex;
 	align-items: center;
@@ -710,7 +716,7 @@ export const GroupRecipientSidebarHeader = styled.div`
 `;
 
 export const GroupRecipientSidebarItemContainer = styled.div`
-	color: #fff;
+	color: ${({ theme }) => theme.text.primary};
 	padding: 30px 0 0 30px;
 	flex: 1 1 auto;
 	overflow-y: auto;
@@ -735,6 +741,7 @@ export const GroupRecipientSidebarItem = styled.div<GroupRecipientSidebarItemPro
 	& .recipientDetails {
 		display: flex;
 		flex-direction: column;
+		color: ${({ theme }) => theme.text.primary};
 	}
 	& .left {
 		display: flex;

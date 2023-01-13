@@ -20,12 +20,12 @@ export const systemMessagesSlice = createSlice({
          state.messageCounter++;
          state.messages.push(action.payload);
       },
-      clearAllMessaages: (state) => {
+      clearAllMessages: (state) => {
          state.messages = [];
       },
    },
 });
 
-export const { addSystemMessage, clearAllMessaages } = systemMessagesSlice.actions;
+export const { addSystemMessage, clearAllMessages } = systemMessagesSlice.actions;
 
 export default systemMessagesSlice.reducer;
