@@ -12,7 +12,7 @@ import {
 	AcceptedVideoCallPayload,
 	FriendRequest,
 	SelectableTheme,
-	CallPayload,
+	VideoCallPayload,
 } from "../utils/types";
 import { BsFillPersonCheckFill } from 'react-icons/bs';
 import { fetchFriendRequestThunk } from "../store/friends/friendsThunk";
@@ -26,8 +26,15 @@ import {
 	setPeer,
 	setIsReceivingCall,
 	setConnection,
+	setLocalStream,
+	setRemoteStream,
+	setIsCallInProgress,
+	setActiveConversationId,
 } from "../store/call/callSlice";
 import { CallReceiveDialog } from "../components/calls/CallReceiveDialog";
+import { RiCreativeCommonsZeroLine } from "react-icons/ri";
+import { IoMdPersonAdd } from "react-icons/io";
+import { useVideoCallRejected } from "../utils/hooks/sockets/useVideoCallRejected";
 
 export const AppPage = () => {
 	const { user } = useContext(AuthContext);
@@ -51,20 +58,24 @@ export const AppPage = () => {
 	}, []);
 
 	useEffect(() => {
-		socket.on('onVideoCallInitiate', (data) => {
-			console.log('receiving video call....');
-			console.log(data);
-		});
-	}, []);
-
-	useEffect(() => {
 		console.log('Registering all events for AppPage');
 		socket.on('onFriendRequestReceived', (payload: FriendRequest) => {
 			console.log('onFriendRequestReceived');
 			console.log(payload);
-			dispatch(removeFriendRequest(payload));
 			dispatch(addFriendRequest(payload));
+			info(`Incoming Friend Request from ${payload.sender.firstName}`, {
+				position: 'bottom-left',
+				icon: IoMdPersonAdd,
+				onClick: () => navigate('/friends/requests'),
+			});
 		});
+
+		socket.on('onFriendRequestCancelled', (payload: FriendRequest) => {
+			console.log('onFriendRequestCancelled');
+			console.log(payload);
+			dispatch(removeFriendRequest(payload));
+		});
+
 		socket.on(
 			'onFriendRequestAccepted',
 			(payload: AcceptFriendRequestResponse) => {
@@ -87,12 +98,13 @@ export const AppPage = () => {
 			dispatch(removeFriendRequest(payload));
 		});
 
-		socket.on('onVideoCall', (data: CallPayload) => {
+		socket.on('onVideoCall', (data: VideoCallPayload) => {
 			console.log('receiving video call....');
 			console.log(data);
 			if (isReceivingCall) return;
 			dispatch(setCaller(data.caller));
 			dispatch(setIsReceivingCall(true));
+			dispatch(setActiveConversationId(data.conversationId));
 		});
 
 		return () => {
@@ -119,10 +131,11 @@ export const AppPage = () => {
 		peer.on('call', (incomingCall) => {
 			console.log('Receiving Call');
 			console.log(incomingCall)
-			navigator.mediaDevices.getUserMedia({
-				video: true,
-				audio: true,
-			})
+			navigator.mediaDevices
+				.getUserMedia({
+					video: true,
+					audio: true,
+				})
 				.then((stream) => {
 					incomingCall.answer(stream);
 					dispatch(setLocalStream(stream));
@@ -146,10 +159,16 @@ export const AppPage = () => {
 		});
 	}, [call]);
 
+	/** 
+	 * This useEffect will only trigger logic for the person who initiated
+	 * the call. It will strat a peer connection with the person who already
+	 * accepted the call.
+	*/
 	useEffect(() => {
 		socket.on('onVideoCallAccept', (data: AcceptedVideoCallPayload) => {
 			console.log('video call was accepted!');
 			console.log(data);
+			dispatch(setIsCallInProgress(true));
 			if (!peer) return console.log('No peer....');
 			if (data.caller.id === user!.id) {
 				console.log(peer.id);
@@ -174,6 +193,8 @@ export const AppPage = () => {
 			socket.off('onVideoCallAccept');
 		};
 	}, [peer]);
+
+	useVideoCallRejected();
 
 	useEffect(() => {
 		if (connection) {

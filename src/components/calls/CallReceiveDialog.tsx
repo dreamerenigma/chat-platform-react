@@ -14,10 +14,11 @@ export const CallReceiveDialog = () => {
    const handleCall = (type: HandleCallType) => {
       switch (type) {
          case 'accept': {
-            socket.emit('videoCallAccepted', { caller  });
+            socket.emit('videoCallAccepted', { caller });
             return;
          }
          case 'reject':
+            socket.emit('videoCallRejected', { caller });
             return;
       }
    };
