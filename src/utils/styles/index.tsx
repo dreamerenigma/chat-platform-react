@@ -128,7 +128,6 @@ export const ConversationSidebarItemStyle = styled.div<ConversationSidebarItemPr
 		background-color: ${({ theme }) => 
 			theme.conversationSidebar.conversationItem.hover.backgroundColor};
 	}
-
 	& .title {
 		display: block;
 		font-weight: 600;
@@ -136,6 +135,8 @@ export const ConversationSidebarItemStyle = styled.div<ConversationSidebarItemPr
 		color: ${({ theme }) => theme.text.primary};
 	}
 `;
+
+export const CallSidebarItemContainer = styled.div``;
 
 export const ConversationSidebarItemDetails = styled.div`
 	word-break: break-all;
@@ -226,8 +227,7 @@ export const MessagePanelStyle = styled.div`
 	flex-direction: column;
 	height: 100%;
 	width: 100%;
-	background-color: ${({ theme }) => 
-		theme.messagePanel.backgroundColor};
+	background-color: ${({ theme }) => theme.messagePanel.backgroundColor};
 `;
 
 export const MessagePanelHeaderStyle = styled.header`
@@ -252,6 +252,13 @@ export const MessagePanelBody = styled.div`
 	min-height: 0;
 	height: calc(100% - 600px);
 `;
+
+export const ConversationCallContainer = styled.div`
+	height: 400px;
+	background-color: #0e0e0e;
+	flex: 1 1 auto;
+`;
+
 
 export const MessageContainerStyle = styled.div`
 	height: 100%;
@@ -317,6 +324,7 @@ export const UserAvatarContainer = styled.img`
 	width: 50px;
 	height: 50px;
 	border-radius: 50%;
+	cursor: pointer;
 `;
 
 export const MessageItemDetails = styled.div`
@@ -372,7 +380,7 @@ export const ContextMenuItem = styled.li`
 	margin: 6px 0;
 	&:hover {
 		cursor: pointer;
-		backgroud-color: #1f1f1f;
+		background-color: #1f1f1f;
 	}
 `;
 
@@ -490,7 +498,7 @@ export const ConversationSidebarHeaderStyle = styled.header`
 export const ConversationTabStyle = styled.section`
 	display: flex;
 	gap: 20px;
-	marginp: 14px 18px;
+	margin: 14px 18px;
 `;
 
 export const ConversationTabItemStyle = styled.section<ConversationSelectedProps>`
@@ -511,7 +519,7 @@ export const ConversationTabItemStyle = styled.section<ConversationSelectedProps
 
 export const SidebarContainerStyle = styled.div``;
 
-export const sidebarContainerItem = styled.div`
+export const SidebarContainerItem = styled.div`
 	display: flex;
 	align-items: center;
 	gap: 20px;
@@ -610,7 +618,7 @@ export const UserSidebarStyle = styled.div`
 	}
 `;
 
-export const ConversationSidebarStyle = styled.div`
+export const SidebarStyle = styled.div`
 	display: flex;
 	flex-direction: column;
 	height: 100%;
@@ -839,5 +847,53 @@ export const SystemMessageContainer = styled.div`
 		font-style: italic;
 		padding-left: 28px;
 		color: #656565;
+	}
+`;
+
+export const CallReceiveDialogContainer = styled.div`
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 325px;
+	background-color: #1f1f1f;
+	color: #fff;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: space-between;
+	gap: 30px;
+	z-index: 999999999;
+	border-radius: 10px;
+	padding: 32px 0;
+
+	& .content {
+		text-align: center;
+	}
+
+	& icons {
+		display: flex;
+		justify-content: center;
+		gap: 10px;
+		& div {
+			height: 50px;
+			width: 50px;
+			background-color: #151515;
+			border-radius: 50%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			cursor: poineter;
+		}
+	}
+
+	& .accept {
+		color: #00ff0a;
+		font-size: 30px;
+	}
+
+	& .reject {
+		color: #ff0000;
+		font-size: 30px;
 	}
 `;

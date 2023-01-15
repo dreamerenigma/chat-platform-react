@@ -1,5 +1,5 @@
 import { PersonAdd, PeopleGroup } from "akar-icons";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { AppDispatch, RootState } from "../../store";
@@ -10,12 +10,26 @@ import { AuthContext } from "../../utils/context/AuthContext";
 import { GroupHeaderIcons, MessagePanelHeaderStyle } from "../../utils/styles"
 import { AddGroupRecipientModal } from "../modals/AddGroupRecipientModal";
 import { toggleSidebar } from '../../store/groupRecipientsSidebarSlice';
+import { FaVideo } from 'react-icons/fa';
+import { getRecipientFromConversation } from "../../utils/helpers";
+import { DataConnection } from "peerjs";
+import { 
+	setCall,
+	setConnection, 
+	setIsCalling,
+	setLocalStream,
+	setPeer, 
+} from "../../store/call/callSlice";
+import { SocketContext } from "../../utils/context/SocketContext";
 
 export const MessagePanelHeader = () => {
+	const [showModal, setShowModal] = useState(false);
 	const { user } = useContext(AuthContext);
 	const { id } = useParams();
-	const [showModal, setShowModal] = useState(false);
-	const dispatch = useDispatch<AppDispatch>();
+	const socket = useContext(SocketContext);
+	const { peer, connection, call } = useSelector(
+		(state: RootState) => state.call
+	);
 	const type = useSelector(selectType);
 	const conversation = useSelector((state: RootState) => 
 		selectConversationById(state, parseInt(id!))
@@ -23,12 +37,44 @@ export const MessagePanelHeader = () => {
 	const group = useSelector((state: RootState) => 
 		selectGroupById(state, parseInt(id!))
 	);
-	const displayName = 
+
+	const dispatch = useDispatch<AppDispatch>();
+	const recipient = getRecipientFromConversation(conversation, user);
+	const displayName =
 		user?.id === conversation?.creator.id 
 			? `${conversation?.recipient.firstName} ${conversation?.recipient.lastName}`
 			: `${conversation?.creator.firstName} ${conversation?.creator.lastName}`;
 	const groupName = group?.title || 'Group'; 
 	const headerTitle = type === 'group' ? groupName : displayName;
+
+	const handleVideoCall = async () => {
+		console.log(recipient);
+		if (!recipient) return console.log('Recipient undefined'); 
+		if (!user) return console.log('User undefinded');
+		const stream = await navigator.mediaDevices.getUserMedia({
+			video: true,
+			audio: true,
+		});
+		socket.emit('onVideoCallInitiate', { 
+			conversationId: conversation?.id ,
+			recipientId: recipient.id,
+		});
+		dispatch(setLocalStream(stream));
+		dispatch(setIsCalling());
+	};
+
+	useEffect(() => {
+		console.log('inside call useEffect');
+		if (call) {
+			call.on('stream', (remoteStream) => {
+				console.log('received remote stream');
+			});
+		}
+		return () => {
+			call?.off('stream');
+		};
+	}, [call]);
+
 	return (
 		<>
 			{showModal && (
@@ -42,6 +88,9 @@ export const MessagePanelHeader = () => {
 					<span>{headerTitle}</span>
 				</div>
 				<GroupHeaderIcons>
+					{type === 'private' && (
+						<FaVideo size={30} cursor="pointer" onClick={handleVideoCall} />
+					)}
 					{type === 'group' && user?.id === group?.owner?.id && (
 						<PersonAdd 
 							cursor="pointer" 

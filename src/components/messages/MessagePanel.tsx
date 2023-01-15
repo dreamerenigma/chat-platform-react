@@ -24,6 +24,7 @@ import { AxiosError } from "axios";
 import { useToast } from "../../utils/hooks/useToast";
 import { MessageAttachmentContainer } from "./attachments/MessageAttachmentContainer";
 import { removeAllAttachments } from "../../store/message-panel/messagePanelSlice";
+import { ConversationCall } from "../conversation/ConversationCall";
 
 type Props = {
 	sendTypingStatus: () => void;
@@ -51,6 +52,7 @@ export const MessagePanel: FC<Props> = ({
 	const selectedType = useSelector(
 		(state: RootState) => state.selectedConversationType.type
 	);
+	const callState = useSelector((state: RootState) => state.call);
 	const recipient = getRecipientFromConversation(conversation, user);
 
 	useEffect(() => {
@@ -100,7 +102,13 @@ export const MessagePanel: FC<Props> = ({
 	return (
 		<>
 			<MessagePanelStyle>
+				{/* {callState.isCalling || !callState.isCallInProgress ? (
+					<ConversationCall />
+				) : (
+					<MessagePanelHeader />
+				)} */}
 				<MessagePanelHeader />
+				<ConversationCall />
 				<MessagePanelBody>
 					<MessageContainer />
 				</MessagePanelBody>

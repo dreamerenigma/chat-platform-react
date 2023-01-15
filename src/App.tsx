@@ -25,6 +25,8 @@ import { SettingsPage } from './pages/settings/SettingsPage';
 import { SettingsProfilePage } from './pages/settings/SettingsProfilePage';
 import { SettingsApperancePage } from './pages/settings/SettingsApperancePage';
 import { PeerPage } from './pages/webrtc/PeerPage';
+import { CallsPage } from './pages/calls/CallPage';
+import { CurrentCallPage } from './pages/calls/CurrentCallPage.tsx';
 
 enableMapSet();
 
@@ -80,7 +82,9 @@ function App() {
 						<Route path="profile" element={<SettingsProfilePage />} />
 						<Route path="apperance" element={<SettingsApperancePage />} />
 					</Route>
-					<Route path="peer" element={<PeerPage />}></Route>
+					<Route path="calls" element={<CallsPage />}>
+						<Route path="current" element={<CurrentCallPage />}/ >
+					</Route>
 				</Route>
 			</Routes>
 			<ToastContainer theme="dark" />

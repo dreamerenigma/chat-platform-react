@@ -6,8 +6,10 @@ import {
 	Person, 
 	PersonCross,
 	Gear,
+	
 } from "akar-icons";
 import { 
+	IoMdVideocam,
 	IoIosPerson, 
 	IoIosNotifications, 
 	IoIosLock, 
@@ -15,6 +17,7 @@ import {
 } from 'react-icons/io'; 
 import { 
 	Conversation, 
+	Friend, 
 	FriendRequest, 
 	FriendRequestDetailsType, 
 	Group,
@@ -58,6 +61,8 @@ export const isGroupOwner = (user?: User, group?: Group) =>
 				return ArrowCycle;
 			case 'settings':
 				return Gear;
+			case 'calls':
+				return IoMdVideocam;
 			default: 
 				return ChatDots;
 		}
@@ -95,3 +100,11 @@ export const getFriendRequestDetails = (
 				user: receiver,
 				incoming: false,
 			};
+
+export const getUserFriendInstance = (
+	authenticatedUser: User, 
+	selectedFriend: Friend,
+) =>
+	authenticatedUser?.id === selectedFriend?.sender.id
+		? selectedFriend?.receiver
+		: selectedFriend?.sender;

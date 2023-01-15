@@ -5,9 +5,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../store";
 import {
 	ConversationSearchbar,
-	ConversationSidebarStyle,
 	ScrollableContainer,
 	SidebarHeader,
+	SidebarStyle,
 } from "../../utils/styles";
 import { SidebarContainerStyle } from '../../utils/styles';
 import { ContextMenuEvent, Group } from "../../utils/types";
@@ -66,7 +66,7 @@ export const ConversationSidebar = () => {
 			{showModal && conversationType === 'group' && (
 				<CreateGroupModal setShowModal={setShowModal} />
 			)}
-			<ConversationSidebarStyle>
+			<SidebarStyle>
 				<SidebarHeader>
 					<ConversationSearchbar placeholder="Search for Conversations" />
 					{conversationType === 'private' ? (
@@ -104,7 +104,7 @@ export const ConversationSidebar = () => {
 					</SidebarContainerStyle>
 				</ScrollableContainer>
 				<footer></footer>
-			</ConversationSidebarStyle>
+			</SidebarStyle>
 		</>
 	);
 };
