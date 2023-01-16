@@ -37,7 +37,9 @@ export const MessagePanel: FC<Props> = ({
 }) => {
 	const toastId = 'rateLimitToast';
 	const dispatch = useDispatch();
-	const { messageCounter } = useSelector((state: RootState) => state.systemMessages);
+	const { messageCounter } = useSelector(
+		(state: RootState) => state.systemMessages
+	);
 	const [content, setContent] = useState('');
 	const { id: routeId } = useParams();
 	const { user } = useContext(AuthContext);
@@ -58,7 +60,6 @@ export const MessagePanel: FC<Props> = ({
 	useEffect(() => {
 		return () => {
 			dispatch(clearAllMessages());
-			dispatch(removeAllAttachments());
 		}
 	}, []);
 
@@ -103,7 +104,8 @@ export const MessagePanel: FC<Props> = ({
 	return (
 		<>
 			<MessagePanelStyle>
-				{callState.isCalling || callState.isCallInProgress ? (
+				{(callState.isCalling || callState.isCallInProgress) && 
+				callState.activeConversationId === parseInt(routeId!) ? (
 					<ConversationCall />
 				) : (
 					<MessagePanelHeader />

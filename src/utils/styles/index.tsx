@@ -916,7 +916,7 @@ export const CallReceiveDialogContainer = styled.div`
 			display: flex;
 			align-items: center;
 			justify-content: center;
-			cursor: poineter;
+			cursor: pointer;
 		}
 	}
 
@@ -928,5 +928,20 @@ export const CallReceiveDialogContainer = styled.div`
 	& .reject {
 		color: #ff0000;
 		font-size: 30px;
+	}
+`;
+
+export const MiniVideo = styled.div`
+	position: absolute;
+	right: 10px;
+	bottom: 10px;
+	height: 300px;
+	width: 400px;
+	backround-color: black;
+	z-index: 99;
+	& video {
+		height: 100%
+		width: 100%;
+		poiter-events: none;
 	}
 `;
