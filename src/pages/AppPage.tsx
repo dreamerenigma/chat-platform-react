@@ -3,7 +3,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { Outlet, useNavigate } from "react-router-dom";
 import { UserSidebar } from "../components/sidebars/UserSidebar"
 import { AppDispatch, RootState } from "../store";
-import { addFriendRequest, removeFriendRequest } from "../store/friends/friendsSlice";
+import { 
+	addFriendRequest, 
+	removeFriendRequest, 
+} from "../store/friends/friendsSlice";
 import { SocketContext } from "../utils/context/SocketContext";
 import { useToast } from "../utils/hooks/useToast";
 import { LayoutPage } from "../utils/styles";
@@ -31,8 +34,8 @@ import {
 	setIsCallInProgress,
 	setReceiver,
 } from "../store/call/callSlice";
-import { CallReceiveDialog } from "../components/calls/CallReceiveDialog";
 import { IoMdPersonAdd } from "react-icons/io";
+import { CallReceiveDialog } from "../components/calls/CallReceiveDialog";
 import { useVideoCallRejected } from "../utils/hooks/sockets/useVideoCallRejected";
 import { useVideoCallHangUp } from "../utils/hooks/sockets/useVideoCallHangUp";
 
@@ -47,24 +50,14 @@ export const AppPage = () => {
 	const { info } = useToast({ theme: 'dark' });
 	const storageTheme = localStorage.getItem('theme') as SelectableTheme;
 	const { theme } = useSelector((state: RootState) => state.settings);
+	
 	useEffect(() => {
 		dispatch(fetchFriendRequestThunk());
 	}, [dispatch]);
 
 	useEffect(() => {
 		if (!user) return;
-		const newPeer = new Peer(user.peer.id, {
-			config: {
-				iceServers: [
-					{
-						url: 'stun.l.google.com:19302',
-					},
-					{
-						url: 'stun1.l.google.com: 19302',
-					},
-				],
-			},
-		});
+		const newPeer = new Peer(user.peer.id) 
 		dispatch(setPeer(newPeer));
 	}, []);
 
@@ -138,37 +131,28 @@ export const AppPage = () => {
 	*/
 	useEffect(() => {
 		if (!peer) return;
-		console.log('inside peer useEffect hook...');
-		console.log(peer);
-		peer.on('call', (incomingCall) => {
-			console.log('Receiving Call');
-			console.log(incomingCall)
-			navigator.mediaDevices
-				.getUserMedia({
-					video: true,
-					audio: true,
-				})
-				.then((stream) => {
-					incomingCall.answer(stream);
-					dispatch(setLocalStream(stream));
-					console.log('answering call');
-					dispatch(setCall(incomingCall));
-				})
-				.catch((err) => {
-					console.log(err);
-				});
+		peer.on('call', async (incomingCall) => {
+			const constraints = { video: true, audio: true };
+			const stream = await navigator.mediaDevices.getUserMedia(constraints);
+			console.log('Receiving Call & Got Local Stream', stream.id);
+			incomingCall.answer(stream);
+			dispatch(setLocalStream(stream));
+			dispatch(setCall(incomingCall));
 		});
-	}, [peer, call, dispatch]);
+	}, [peer, dispatch]);
 
 	useEffect(() => {
-		console.log('an update was made to call, calling callback');
 		if (!call) return;
-		console.log('call exists!');
 		call.on('stream', (remoteStream) => {
-			console.log('received remotestream');
-			console.log('dispatching setRemoteStream action...');
+			console.log('Stream Was Received from Remote Peer');
+			console.log('the remote stream:' , remoteStream.id);
 			dispatch(setRemoteStream(remoteStream));
 		});
+		call.on('close', () => console.log('call was closed'));
+		return () => {
+			call.off('stream');
+			call.off('close');
+		};
 	}, [call]);
 
 	/** 
@@ -178,8 +162,6 @@ export const AppPage = () => {
 	*/
 	useEffect(() => {
 		socket.on('onVideoCallAccept', (data: AcceptedVideoCallPayload) => {
-			console.log('video call was accepted!');
-			console.log(data);
 			dispatch(setIsCallInProgress(true));
 			dispatch(setIsReceivingCall(false));
 			if (!peer) return console.log('No peer....');
@@ -187,8 +169,10 @@ export const AppPage = () => {
 				console.log(peer.id);
 				const connection = peer.connect(data.acceptor.peer.id);
 				dispatch(setConnection(connection));
+				if (!connection) return console.log('No connection');
 				if (localStream) {
 					console.log('local stream for caller exists!');
+					console.log('My local stream:',  localStream.id);
 					const newCall = peer.call(data.acceptor.peer.id, localStream);
 					dispatch(setCall(newCall));
 				}
@@ -198,7 +182,7 @@ export const AppPage = () => {
 		return () => {
 			socket.off('onVideoCallAccept');
 		};
-	}, [peer]);
+	}, [localStream, peer]);
 
 	useVideoCallRejected();
 	useVideoCallHangUp();
@@ -206,20 +190,26 @@ export const AppPage = () => {
 	useEffect(() => {
 		if (connection) {
 			console.log('connection is defined...');
-			connection?.on('open', () => {
-				console.log('connection was opened')
-			});
-			connection.on('error', () => {
-				console.log('an error has occured');
-			});
-			connection.on('data', (data) => {
-				console.log('data received', data);
-			});
-		}
-		return () => {
-			connection?.off('open');
-			connection?.off('error');
-			connection?.off('data');
+			if (connection) {
+				console.log('connection is defined...');
+				connection?.on('open', () => {
+					console.log('connection was opened')
+				});
+				connection.on('error', () => {
+					console.log('an error has occured');
+				});
+				connection.on('data', (data) => {
+					console.log('data received', data);
+				});
+				connection.on('close', () => {
+					console.log('connection closed');
+				});
+			}
+			return () => {
+				connection?.off('open');
+				connection?.off('error');
+				connection?.off('data');
+			};
 		};
 	}, [connection]);
 

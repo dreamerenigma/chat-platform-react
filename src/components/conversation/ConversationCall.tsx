@@ -1,4 +1,10 @@
-import { useContext, useEffect, useRef, useState } from "react";
+import { 
+   useCallback, 
+   useContext, 
+   useEffect,
+   useRef, 
+   useState,
+} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../store";
 import { 
@@ -14,7 +20,7 @@ import {
    BiVideoOff,
 } from "react-icons/bi";
 import { ImPhoneHangUp } from 'react-icons/im';
-import { resetState, setLocalStream } from "../../store/call/callSlice";
+import { resetState } from "../../store/call/callSlice";
 import { SocketContext } from "../../utils/context/SocketContext";
 
 export const ConversationCall = () => {
@@ -28,37 +34,41 @@ export const ConversationCall = () => {
    const dispatch = useDispatch<AppDispatch>();
 
    useEffect(() => {
+      console.log(microphoneEnabled);
+      return () => {
+         console.log('Unmouting Component...');
+      };
+   }, []);
+
+   useEffect(() => {
       console.log('local stream was updated...');
+      console.log(localStream);
       if (localVideoRef.current && localStream) {
          console.log('updating local video ref');
+         console.log(`Updating local stream ${localStream.id}`);
          localVideoRef.current.srcObject = localStream;
          localVideoRef.current.muted = true;
       }
    }, [localStream]);
    useEffect(() => {
       console.log('remote stream was updated...');
+      console.log(remoteStream);
       if (remoteVideoRef.current && remoteStream) {
          console.log('updating remote video ref');
+         console.log(`Updating remote stream ${remoteStream.id}`);
          remoteVideoRef.current.srcObject = remoteStream;
       }
    }, [remoteStream]);
 
    const toggleMicrophone = () => 
-   localStream && 
-   setMicrophoneEnabled((prev) => {
-      console.log('setting audio to ', prev);
-      localStream.getTracks()[0].enabled = !prev;
-      dispatch(setLocalStream(localStream));
-      return !prev;
-   });
+      localStream && 
+      setMicrophoneEnabled((prev) => {
+         localStream.getAudioTracks()[0].enabled = !prev;
+         return !prev;
+      });
 
    const closeCall = () => {
       socket.emit('videoCallHangUp', { caller, receiver });
-      // if (call) {
-      //    console.log('call exists....closing call');
-      //    call.close();
-      //    dispatch(resetState());
-      // }
    };
 
    return (
@@ -81,9 +91,9 @@ export const ConversationCall = () => {
             </div>
             <div>
                {microphoneEnabled ? (
-                  <BiMicrophone onClick={toggleMicrophone} />
-               ) : (
                   <BiMicrophoneOff onClick={toggleMicrophone} />
+               ) : (
+                  <BiMicrophone onClick={toggleMicrophone} />
                )}
             </div>
             <div>
