@@ -9,7 +9,7 @@ import {
 } from "../store/friends/friendsSlice";
 import { SocketContext } from "../utils/context/SocketContext";
 import { useToast } from "../utils/hooks/useToast";
-import { LayoutPage, MiniVideo } from "../utils/styles";
+import { LayoutPage } from "../utils/styles";
 import {
 	AcceptFriendRequestResponse,
 	AcceptedVideoCallPayload,
@@ -39,6 +39,7 @@ import {
 import { CallReceiveDialog } from "../components/calls/CallReceiveDialog";
 import { useVideoCallRejected } from "../utils/hooks/sockets/useVideoCallRejected";
 import { useVideoCallHangUp } from "../utils/hooks/sockets/useVideoCallHangUp";
+import { useVideoCallAccept } from '../utils/hooks/sockets/useVideoCallAccept';
 
 export const AppPage = () => {
 	const { user } = useContext(AuthContext);
@@ -46,16 +47,7 @@ export const AppPage = () => {
 	const socket = useContext(SocketContext);
 	const dispatch = useDispatch<AppDispatch>();
 	const navigate = useNavigate();
-	const { 
-		peer, 
-		call, 
-		isReceivingCall, 
-		isCallInProgress,
-		caller, 
-		connection, 
-		localStream,
-		activeConversationId,
-	} = useSelector((state: RootState) => state.call);
+	const { peer, call, isReceivingCall, caller, connection } = useSelector((state: RootState) => state.call);
 	const { info } = useToast({ theme: 'dark' });
 	const storageTheme = localStorage.getItem('theme') as SelectableTheme;
 	const { theme } = useSelector((state: RootState) => state.settings);
@@ -180,37 +172,7 @@ export const AppPage = () => {
 		};
 	}, [call]);
 
-	/** 
-	 * This useEffect will only trigger logic for the person who initiated
-	 * the call. It will strat a peer connection with the person who already
-	 * accepted the call.
-	*/
-	useEffect(() => {
-		socket.on('onVideoCallAccept', (data: AcceptedVideoCallPayload) => {
-			dispatch(setIsCallInProgress(true));
-			dispatch(setIsReceivingCall(false));
-			if (!peer) return console.log('No peer....');
-			if (data.caller.id === user!.id) {
-				console.log(peer.id);
-				const connection = peer.connect(data.acceptor.peer.id);
-				dispatch(setConnection(connection));
-				if (!connection) return console.log('No connection');
-				if (localStream) {
-					console.log('local stream for caller exists!');
-					console.log('My local stream:',  localStream.id);
-					const newCall = peer.call(data.acceptor.peer.id, localStream);
-					dispatch(setCall(newCall));
-				}
-			} else {
-				dispatch(setActiveConversationId(data.conversation.id));
-			}
-		});
-
-		return () => {
-			socket.off('onVideoCallAccept');
-		};
-	}, [localStream, peer]);
-
+	useVideoCallAccept();
 	useVideoCallRejected();
 	useVideoCallHangUp();
 
