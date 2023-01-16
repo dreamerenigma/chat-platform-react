@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../store";
 import { 
@@ -14,11 +14,15 @@ import {
    BiVideoOff,
 } from "react-icons/bi";
 import { ImPhoneHangUp } from 'react-icons/im';
+import { resetState, setLocalStream } from "../../store/call/callSlice";
+import { SocketContext } from "../../utils/context/SocketContext";
 
 export const ConversationCall = () => {
    const localVideoRef = useRef<HTMLVideoElement>(null);
    const remoteVideoRef = useRef<HTMLVideoElement>(null);
-   const { localStream, remoteStream } = useSelector(
+   const socket = useContext(SocketContext);
+   const [microphoneEnabled, setMicrophoneEnabled] = useState(true);
+   const { localStream, remoteStream, call , caller, receiver } = useSelector(
       (state: RootState) => state.call
    );
    const dispatch = useDispatch<AppDispatch>();
@@ -39,6 +43,24 @@ export const ConversationCall = () => {
       }
    }, [remoteStream]);
 
+   const toggleMicrophone = () => 
+   localStream && 
+   setMicrophoneEnabled((prev) => {
+      console.log('setting audio to ', prev);
+      localStream.getTracks()[0].enabled = !prev;
+      dispatch(setLocalStream(localStream));
+      return !prev;
+   });
+
+   const closeCall = () => {
+      socket.emit('videoCallHangUp', { caller, receiver });
+      // if (call) {
+      //    console.log('call exists....closing call');
+      //    call.close();
+      //    dispatch(resetState());
+      // }
+   };
+
    return (
       <ConversationCallContainer>
          <VideoContainer>
@@ -58,10 +80,14 @@ export const ConversationCall = () => {
                <BiVideo />
             </div>
             <div>
-               <BiMicrophone />
+               {microphoneEnabled ? (
+                  <BiMicrophone onClick={toggleMicrophone} />
+               ) : (
+                  <BiMicrophoneOff onClick={toggleMicrophone} />
+               )}
             </div>
             <div>
-               <ImPhoneHangUp />
+               <ImPhoneHangUp onClick={closeCall}/>
             </div>
          </VideoContainerActionButtons>
       </ConversationCallContainer>

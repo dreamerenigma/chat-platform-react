@@ -29,32 +29,42 @@ import {
 	setLocalStream,
 	setRemoteStream,
 	setIsCallInProgress,
-	setActiveConversationId,
+	setReceiver,
 } from "../store/call/callSlice";
 import { CallReceiveDialog } from "../components/calls/CallReceiveDialog";
-import { RiCreativeCommonsZeroLine } from "react-icons/ri";
 import { IoMdPersonAdd } from "react-icons/io";
 import { useVideoCallRejected } from "../utils/hooks/sockets/useVideoCallRejected";
+import { useVideoCallHangUp } from "../utils/hooks/sockets/useVideoCallHangUp";
 
 export const AppPage = () => {
 	const { user } = useContext(AuthContext);
 	const socket = useContext(SocketContext);
 	const dispatch = useDispatch<AppDispatch>();
 	const navigate = useNavigate();
-	const { peer, call, isReceivingCall, caller, connection } =
+	const { peer, call, isReceivingCall, caller, connection, localStream } =
 		useSelector((state: RootState) => state.call
 		);
 	const { info } = useToast({ theme: 'dark' });
-	const { theme } = useSelector((state: RootState) => state.settings);
 	const storageTheme = localStorage.getItem('theme') as SelectableTheme;
-	
+	const { theme } = useSelector((state: RootState) => state.settings);
 	useEffect(() => {
 		dispatch(fetchFriendRequestThunk());
 	}, [dispatch]);
 
 	useEffect(() => {
 		if (!user) return;
-		const newPeer = new Peer(user.peer.id);
+		const newPeer = new Peer(user.peer.id, {
+			config: {
+				iceServers: [
+					{
+						url: 'stun.l.google.com:19302',
+					},
+					{
+						url: 'stun1.l.google.com: 19302',
+					},
+				],
+			},
+		});
 		dispatch(setPeer(newPeer));
 	}, []);
 
@@ -104,6 +114,7 @@ export const AppPage = () => {
 			console.log(data);
 			if (isReceivingCall) return;
 			dispatch(setCaller(data.caller));
+			dispatch(setReceiver(user!));
 			dispatch(setIsReceivingCall(true));
 			// dispatch(setActiveConversationId(data.conversationId));
 		});
@@ -176,18 +187,11 @@ export const AppPage = () => {
 				console.log(peer.id);
 				const connection = peer.connect(data.acceptor.peer.id);
 				dispatch(setConnection(connection));
-				navigator.mediaDevices
-					.getUserMedia({
-						video: true,
-						audio: true,
-					})
-					.then((stream) => {
-						const newCall = peer.call(data.acceptor.peer.id, stream);
-						dispatch(setCall(newCall));
-					})
-					.catch((err) => {
-						console.log(err);
-					});
+				if (localStream) {
+					console.log('local stream for caller exists!');
+					const newCall = peer.call(data.acceptor.peer.id, localStream);
+					dispatch(setCall(newCall));
+				}
 			}
 		});
 
@@ -197,6 +201,7 @@ export const AppPage = () => {
 	}, [peer]);
 
 	useVideoCallRejected();
+	useVideoCallHangUp();
 
 	useEffect(() => {
 		if (connection) {
