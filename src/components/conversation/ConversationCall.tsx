@@ -28,6 +28,7 @@ export const ConversationCall = () => {
    const remoteVideoRef = useRef<HTMLVideoElement>(null);
    const socket = useContext(SocketContext);
    const [microphoneEnabled, setMicrophoneEnabled] = useState(true);
+   const [videoEnabled, setVideoEnabled] = useState(true);
    const { localStream, remoteStream, call , caller, receiver } = useSelector(
       (state: RootState) => state.call
    );
@@ -67,6 +68,13 @@ export const ConversationCall = () => {
          return !prev;
       });
 
+   const toggleVideo = () => 
+   localStream && 
+   setVideoEnabled((prev) => {
+      localStream.getVideoTracks()[0].enabled = !prev;
+      return !prev;
+   });
+
    const closeCall = () => {
       socket.emit('videoCallHangUp', { caller, receiver });
    };
@@ -87,13 +95,17 @@ export const ConversationCall = () => {
          </VideoContainer>
          <VideoContainerActionButtons>
             <div>
-               <BiVideo />
+               {videoEnabled ? (
+                  <BiVideo onClick={toggleVideo} /> 
+               ) : (
+                  <BiVideoOff onClick={toggleVideo} />
+               )}
             </div>
             <div>
                {microphoneEnabled ? (
-                  <BiMicrophoneOff onClick={toggleMicrophone} />
-               ) : (
                   <BiMicrophone onClick={toggleMicrophone} />
+               ) : (
+                  <BiMicrophoneOff onClick={toggleMicrophone} />
                )}
             </div>
             <div>
