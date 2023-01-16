@@ -47,6 +47,7 @@ export const AppPage = () => {
 	const { info } = useToast({ theme: 'dark' });
 	const { theme } = useSelector((state: RootState) => state.settings);
 	const storageTheme = localStorage.getItem('theme') as SelectableTheme;
+	
 	useEffect(() => {
 		dispatch(fetchFriendRequestThunk());
 	}, [dispatch]);
@@ -104,7 +105,7 @@ export const AppPage = () => {
 			if (isReceivingCall) return;
 			dispatch(setCaller(data.caller));
 			dispatch(setIsReceivingCall(true));
-			dispatch(setActiveConversationId(data.conversationId));
+			// dispatch(setActiveConversationId(data.conversationId));
 		});
 
 		return () => {
@@ -169,6 +170,7 @@ export const AppPage = () => {
 			console.log('video call was accepted!');
 			console.log(data);
 			dispatch(setIsCallInProgress(true));
+			dispatch(setIsReceivingCall(false));
 			if (!peer) return console.log('No peer....');
 			if (data.caller.id === user!.id) {
 				console.log(peer.id);

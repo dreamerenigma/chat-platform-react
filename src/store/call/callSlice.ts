@@ -1,4 +1,3 @@
-import { SetVideoRefPayload } from './../../utils/types';
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { User } from "../../utils/types";
 import { DataConnection, MediaConnection , Peer} from "peerjs";
@@ -7,7 +6,6 @@ export interface CallState {
    isCalling: boolean;
    isCallInProgress: boolean;
    caller?: User;
-   recipient?: User;
    peer?: Peer;
    call?: MediaConnection;
    connection?: DataConnection;
@@ -58,6 +56,16 @@ export const callSlice = createSlice({
       setActiveConversationId: (state, action: PayloadAction<number>) => {
          state.activeConversationId = action.payload;
       },
+      resetState: (state) => {
+         state.caller = undefined;
+         state.isCallInProgress = false;
+         state.isCalling = false;
+         state.activeConversationId = undefined;
+         state.localStream = undefined;
+         state.remoteStream = undefined;
+         state.connection = undefined;
+         state.isReceivingCall = false;
+      },
    },
 });
 
@@ -72,5 +80,6 @@ export const {
    setLocalStream,
    setIsCallInProgress,
    setActiveConversationId,
+   resetState,
 } = callSlice.actions;
 export default callSlice.reducer;
