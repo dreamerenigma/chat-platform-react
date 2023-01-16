@@ -12,7 +12,6 @@ import { useToast } from "../utils/hooks/useToast";
 import { LayoutPage } from "../utils/styles";
 import {
 	AcceptFriendRequestResponse,
-	AcceptedVideoCallPayload,
 	FriendRequest,
 	SelectableTheme,
 	VideoCallPayload,
@@ -25,11 +24,8 @@ import { DarkTheme, LightTheme } from "../utils/themes";
 import Peer from "peerjs";
 import { AuthContext } from "../utils/context/AuthContext";
 import {
-	setActiveConversationId,
 	setCall,
 	setCaller,
-	setConnection,
-	setIsCallInProgress,
 	setIsReceivingCall,
 	setLocalStream,
 	setPeer,
@@ -40,6 +36,7 @@ import { CallReceiveDialog } from "../components/calls/CallReceiveDialog";
 import { useVideoCallRejected } from "../utils/hooks/sockets/useVideoCallRejected";
 import { useVideoCallHangUp } from "../utils/hooks/sockets/useVideoCallHangUp";
 import { useVideoCallAccept } from '../utils/hooks/sockets/useVideoCallAccept';
+import { useFriendRequestReceived } from "../utils/hooks/sockets/friend-request/useFriendRequestReceived";
 
 export const AppPage = () => {
 	const { user } = useContext(AuthContext);
@@ -73,19 +70,10 @@ export const AppPage = () => {
 		dispatch(setPeer(newPeer));
 	}, []);
 
+	useFriendRequestReceived();
+
 	useEffect(() => {
 		console.log('Registering all events for AppPage');
-		socket.on('onFriendRequestReceived', (payload: FriendRequest) => {
-			console.log('onFriendRequestReceived');
-			console.log(payload);
-			dispatch(addFriendRequest(payload));
-			info(`Incoming Friend Request from ${payload.sender.firstName}`, {
-				position: 'bottom-left',
-				icon: IoMdPersonAdd,
-				onClick: () => navigate('/friends/requests'),
-			});
-		});
-
 		socket.on('onFriendRequestCancelled', (payload: FriendRequest) => {
 			console.log('onFriendRequestCancelled');
 			console.log(payload);
@@ -155,16 +143,9 @@ export const AppPage = () => {
 
 	useEffect(() => {
 		if (!call) return;
-		call.on('stream', (remoteStream) => {
-			console.log('Stream Was Received from Remote Peer');
-			console.log('the remote stream:' , remoteStream.id);
-			dispatch(setRemoteStream(remoteStream));
-			console.log(remoteStream);
-			if (remoteVideoRef.current && remoteStream) {
-				remoteVideoRef.current.srcObject = remoteStream;
-				remoteVideoRef.current.play();
-			}
-		});
+		call.on('stream', (remoteStream) =>
+			dispatch(setRemoteStream(remoteStream))
+		);
 		call.on('close', () => console.log('call was closed'));
 		return () => {
 			call.off('stream');
