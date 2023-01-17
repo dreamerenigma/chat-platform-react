@@ -112,3 +112,8 @@ export enum CDN_URL {
 	ORIGINAL = 'https://dialogchat.ams3.digitaloceanspaces.com/original',
 	PREVIEW = 'https://dialogchat.ams3.digitaloceanspaces.com/preview',
 }
+
+export enum SenderEvents {
+	VIDEO_CALL_INITIATE = 'onVideoCallInitiate',
+	VOICE_CALL_INITIATE = 'onVoiceCallInitiate',
+}
