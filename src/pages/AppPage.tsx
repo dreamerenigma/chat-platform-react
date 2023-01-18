@@ -14,7 +14,7 @@ import {
 	AcceptFriendRequestResponse,
 	FriendRequest,
 	SelectableTheme,
-	VideoCallPayload,
+	CallPayload,
 } from "../utils/types";
 import { IoMdPersonAdd } from "react-icons/io";
 import { BsFillPersonCheckFill } from 'react-icons/bs';
@@ -38,6 +38,7 @@ import { useVideoCallHangUp } from "../utils/hooks/sockets/useVideoCallHangUp";
 import { useVideoCallAccept } from '../utils/hooks/sockets/useVideoCallAccept';
 import { useFriendRequestReceived } from "../utils/hooks/sockets/friend-request/useFriendRequestReceived";
 import { useVideoCall } from '../utils/hooks/sockets/call/useVideoCall';
+import { useVoiceCall } from "../utils/hooks/sockets/call/useVoiceCall";
 
 export const AppPage = () => {
 	const { user } = useContext(AuthContext);
@@ -146,6 +147,7 @@ export const AppPage = () => {
 	useVideoCallAccept();
 	useVideoCallRejected();
 	useVideoCallHangUp();
+	useVoiceCall();
 
 	useEffect(() => {
 		if (connection) {

@@ -278,9 +278,7 @@ export const VideoContainerItem = styled.div`
 	}
 `;
 
-export const AudioContainerItem = styled.div`
-
-`;
+export const AudioContainerItem = styled.div``;
 
 export const VideoContainerActionButtons = styled.div`
 	display: flex;

@@ -9,10 +9,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../store";
 import { 
    AudioContainerItem,
-   ConversationCallContainer, 
-   MediaContainer, 
-   VideoContainerActionButtons, 
-   VideoContainerItem, 
+   ConversationCallContainer,
+   MediaContainer,
+   VideoContainerActionButtons,
 } from "../../utils/styles";
 import { 
    BiMicrophone, 

@@ -303,7 +303,7 @@ export type UpdateStatusParams = {
 
 export type SelectableTheme = 'dark' | 'light';
 
-export type VideoCallPayload = {
+export type CallPayload = {
 	recipientId: number;
 	conversationId: number;
 	caller: User;
