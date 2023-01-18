@@ -263,7 +263,7 @@ export const ConversationCallContainer = styled.div`
 	flex-direction: column;
 `;
 
-export const VideoContainer = styled.div`
+export const MediaContainer = styled.div`
 	display: flex;
 	gap: 20px;
 `;
@@ -276,6 +276,10 @@ export const VideoContainerItem = styled.div`
 		heigth: 100%;
 		pointer-events: none;
 	}
+`;
+
+export const AudioContainerItem = styled.div`
+
 `;
 
 export const VideoContainerActionButtons = styled.div`
