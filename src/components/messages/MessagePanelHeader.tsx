@@ -4,23 +4,27 @@ import { useSelector } from "react-redux";
 import { selectType } from "../../store/selectedSlice";
 import { MessagePanelConversationHeader } from "./headers/MessagePanelConversationHeader";
 import { MessagePanelGroupHeader } from "./headers/MessagePanelGroupHeader";
+import { ConversationVideoCall } from "../conversation/ConversationVideoCall";
+import { ConversationAudioCall } from "../conversation/ConversationAudioCall";
 
 export const MessagePanelHeader = () => {
 	const { id: routeId } = useParams();
-	const { isCalling, isCallInProgress, activeConversationId, callType } = useSelector(
-		(state: RootState) => state.call
-	);
+	const { isCalling, isCallInProgress, activeConversationId, callType } = 
+		useSelector((state: RootState) => state.call);
 	const type = useSelector(selectType);
 
 	const showCallPanel = isCalling || isCallInProgress;
+	const isRouteActive = activeConversationId === parseInt(routeId!);
 	if (!showCallPanel)
 		return type === 'private' ? (
 			<MessagePanelConversationHeader />
 		) : (
 			<MessagePanelGroupHeader />
 		);
-	return null;
-
-	// if (showCallPanel && activeConversationId == parseInt(routeId!))
-	// 	return callType === 'video' ? 
+		
+	return isRouteActive && callType === 'video' ? (
+		<ConversationVideoCall />
+	) : (
+		<ConversationAudioCall />
+	);
 };

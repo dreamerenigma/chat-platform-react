@@ -20,10 +20,9 @@ import {
    BiVideoOff,
 } from "react-icons/bi";
 import { ImPhoneHangUp } from 'react-icons/im';
-import { resetState } from "../../store/call/callSlice";
 import { SocketContext } from "../../utils/context/SocketContext";
 
-export const ConversationCall = () => {
+export const ConversationVideoCall = () => {
    const localVideoRef = useRef<HTMLVideoElement>(null);
    const remoteVideoRef = useRef<HTMLVideoElement>(null);
    const socket = useContext(SocketContext);
