@@ -903,15 +903,13 @@ export const CallReceiveDialogContainer = styled.div`
 	flex-direction: column;
 	align-items: center;
 	justify-content: space-between;
-	gap: 30px;
+	gap: 50px;
 	z-index: 999999999;
 	border-radius: 10px;
-	padding: 32px 0;
-
+	padding: 32px 24px;
 	& .content {
 		text-align: center;
 	}
-
 	& icons {
 		display: flex;
 		justify-content: center;

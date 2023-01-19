@@ -9,24 +9,22 @@ import { SocketContext } from "../../utils/context/SocketContext";
 import { AuthContext } from "../../utils/context/AuthContext";
 
 export const CallReceiveDialog = () => {
-   const { caller } = useSelector((state: RootState) => state.call);
+   const { caller, callType } = useSelector((state: RootState) => state.call);
    const socket = useContext(SocketContext);
    const handleCall = (type: HandleCallType) => {
       switch (type) {
-         case 'accept': {
-            socket.emit('videoCallAccepted', { caller });
-            return;
-         }
+         case 'accept': 
+            return  socket.emit('videoCallAccepted', { caller });
          case 'reject':
-            socket.emit('videoCallRejected', { caller });
-            return;
+            return socket.emit('videoCallRejected', { caller });
       }
    };
    return (
       <CallReceiveDialogContainer>
          <UserAvatar user={caller!} />
          <div className="content">
-            <span>{caller!.username} wants to calladasdasdsadsadsadsadad you</span>
+            <span>{caller!.username} wants to {callType === 'audio' ?  'voice' : 'video'}{''}
+            call you</span>
          </div>
          <div className="icons">
             <div className="accept" onClick={() => handleCall('accept')}>
