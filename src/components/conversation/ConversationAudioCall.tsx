@@ -21,6 +21,7 @@ import {
 } from "react-icons/bi";
 import { ImPhoneHangUp } from 'react-icons/im';
 import { SocketContext } from "../../utils/context/SocketContext";
+import { WebsocketEvents } from "../../utils/constants";
 
 export const ConversationAudioCall = () => {
    const localAudioRef = useRef<HTMLAudioElement>(null);
@@ -67,7 +68,7 @@ export const ConversationAudioCall = () => {
    });
 
    const closeCall = () => {
-      socket.emit('videoCallHangUp', { caller, receiver });
+      socket.emit(WebsocketEvents.VOICE_CALL_HANG_UP, { caller, receiver });
    };
 
    return (
