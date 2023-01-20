@@ -1,11 +1,11 @@
 import { useContext, useEffect } from "react";
-import { SocketContext } from "../../context/SocketContext";
 import { useDispatch } from "react-redux";
-import { AppDispatch } from "../../../store";
-import { resetState } from "../../../store/call/callSlice";
-import { WebsocketEvents } from "../../constants";
+import { SocketContext } from "../../../context/SocketContext";
+import { AppDispatch } from "../../../../store";
+import { resetState } from "../../../../store/call/callSlice";
+import { WebsocketEvents } from "../../../constants";
 
-export function useVideoCallRejected() {
+export function useVoiceCallRejected() {
    const socket = useContext(SocketContext);
    const dispatch = useDispatch<AppDispatch>();
    useEffect(() => {
