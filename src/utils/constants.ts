@@ -123,3 +123,7 @@ export enum SenderEvents {
 export enum ReceiverEvents {
 	VOICE_CALL = 'onVoiceCall',
 }
+
+export enum WebsocketEvents {
+	VOICE_CALL_ACCEPTED = 'onVoiceCallAccepted',
+}

@@ -52,39 +52,40 @@ export const ConversationAudioCall = () => {
       }
    }, [remoteStream]);
 
-   // const toggleMicrophone = () => 
-   //    localStream && 
-   //    setMicrophoneEnabled((prev) => {
-   //       localStream.getAudioTracks()[0].enabled = !prev;
-   //       return !prev;
-   //    });
+   const toggleMicrophone = () => 
+      localStream && 
+      setMicrophoneEnabled((prev) => {
+         localStream.getAudioTracks()[0].enabled = !prev;
+         return !prev;
+      });
 
-   // const toggleVideo = () => 
-   // localStream && 
-   // setVideoEnabled((prev) => {
-   //    localStream.getVideoTracks()[0].enabled = !prev;
-   //    return !prev;
-   // });
+   const toggleVideo = () => 
+   localStream && 
+   setVideoEnabled((prev) => {
+      localStream.getVideoTracks()[0].enabled = !prev;
+      return !prev;
+   });
 
-   // const closeCall = () => {
-   //    socket.emit('videoCallHangUp', { caller, receiver });
-   // };
+   const closeCall = () => {
+      socket.emit('videoCallHangUp', { caller, receiver });
+   };
 
    return (
       <ConversationCallContainer>
+         <div className="invisible"></div>
          <MediaContainer>
             {localStream && (
                <AudioContainerItem>
-                  <audio ref={localAudioRef} playsInline autoPlay />
+                  <audio ref={localAudioRef} autoPlay controls />
                </AudioContainerItem>
             )}
             {remoteStream && (
                <AudioContainerItem>
-                  <audio ref={remoteAudioRef} playsInline autoPlay />
+                  <audio ref={remoteAudioRef} autoPlay controls />
                </AudioContainerItem>
             )}
          </MediaContainer>
-         {/* <VideoContainerActionButtons>
+         <VideoContainerActionButtons>
             <div>
                {videoEnabled ? (
                   <BiVideo onClick={toggleVideo} /> 
@@ -102,7 +103,7 @@ export const ConversationAudioCall = () => {
             <div>
                <ImPhoneHangUp onClick={closeCall}/>
             </div>
-         </VideoContainerActionButtons> */}
+         </VideoContainerActionButtons>
       </ConversationCallContainer>
    );
 };

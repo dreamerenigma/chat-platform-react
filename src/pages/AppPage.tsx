@@ -39,6 +39,7 @@ import { useVideoCallAccept } from '../utils/hooks/sockets/useVideoCallAccept';
 import { useFriendRequestReceived } from "../utils/hooks/sockets/friend-request/useFriendRequestReceived";
 import { useVideoCall } from '../utils/hooks/sockets/call/useVideoCall';
 import { useVoiceCall } from "../utils/hooks/sockets/call/useVoiceCall";
+import { useVoiceCallAccepted } from "../utils/hooks/sockets/call/UseVoiceCallAccepted";
 
 export const AppPage = () => {
 	const { user } = useContext(AuthContext);
@@ -123,7 +124,9 @@ export const AppPage = () => {
 	useEffect(() => {
 		if (!peer) return;
 		peer.on('call', async (incomingCall) => {
+			console.log('Incoming Call!!!!!');
 			const constraints = { video: true, audio: true };
+			console.log(constraints);
 			const stream = await navigator.mediaDevices.getUserMedia(constraints);
 			console.log('Receiving Call & Got Local Stream', stream.id);
 			incomingCall.answer(stream);
@@ -148,6 +151,7 @@ export const AppPage = () => {
 	useVideoCallRejected();
 	useVideoCallHangUp();
 	useVoiceCall();
+	useVoiceCallAccepted();
 
 	useEffect(() => {
 		if (connection) {
