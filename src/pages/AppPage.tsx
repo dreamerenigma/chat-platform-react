@@ -47,7 +47,7 @@ export const AppPage = () => {
 	const socket = useContext(SocketContext);
 	const dispatch = useDispatch<AppDispatch>();
 	const navigate = useNavigate();
-	const { peer, call, isReceivingCall, caller, connection } = useSelector((state: RootState) => state.call);
+	const { peer, call, isReceivingCall, caller, connection, callType } = useSelector((state: RootState) => state.call);
 	const { info } = useToast({ theme: 'dark' });
 	const storageTheme = localStorage.getItem('theme') as SelectableTheme;
 	const { theme } = useSelector((state: RootState) => state.settings);
@@ -125,7 +125,8 @@ export const AppPage = () => {
 		if (!peer) return;
 		peer.on('call', async (incomingCall) => {
 			console.log('Incoming Call!!!!!');
-			const constraints = { video: true, audio: true };
+			console.log(callType);
+			const constraints = { video: callType === 'video', audio: true };
 			console.log(constraints);
 			const stream = await navigator.mediaDevices.getUserMedia(constraints);
 			console.log('Receiving Call & Got Local Stream', stream.id);
@@ -133,6 +134,9 @@ export const AppPage = () => {
 			dispatch(setLocalStream(stream));
 			dispatch(setCall(incomingCall));
 		});
+		return () => {
+			peer.off('call');
+		};
 	}, [peer, dispatch]);
 
 	useEffect(() => {

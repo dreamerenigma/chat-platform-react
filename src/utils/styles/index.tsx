@@ -261,6 +261,7 @@ export const ConversationCallContainer = styled.div`
 	justify-content: space-between;
 	align-items: center;
 	flex-direction: column;
+	padding: 18px 0;
 `;
 
 export const MediaContainer = styled.div`
@@ -272,8 +273,8 @@ export const VideoContainerItem = styled.div`
 	width: 400px;
 	heigth: 400px;
 	& video {
-		width: 100%;
-		heigth: 100%;
+		width: 400px;
+		heigth: 400px;
 		pointer-events: none;
 	}
 `;

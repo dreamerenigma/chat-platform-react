@@ -39,7 +39,7 @@ export const ConversationAudioCall = () => {
          console.log('AUDIO: updating local video ref');
          console.log(`AUDIO: Updating local stream ${localStream.id}`);
          localAudioRef.current.srcObject = localStream;
-         // localAudioRef.current.muted = true;
+         localAudioRef.current.muted = true;
       }
    }, [localStream]);
    useEffect(() => {
@@ -72,6 +72,7 @@ export const ConversationAudioCall = () => {
 
    return (
       <ConversationCallContainer>
+         <div>Audio</div>
          <div className="invisible"></div>
          <MediaContainer>
             {localStream && (

@@ -104,7 +104,6 @@ export const MessagePanel: FC<Props> = ({
 		<>
 			<MessagePanelStyle>
 				<MessagePanelHeader />
-				
 				<MessagePanelBody>
 					<MessageContainer />
 				</MessagePanelBody>

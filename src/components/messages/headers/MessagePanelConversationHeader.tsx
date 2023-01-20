@@ -7,11 +7,11 @@ import { selectConversationById } from "../../../store/conversationSlice"
 import { AppDispatch, RootState } from "../../../store"
 import { getRecipientFromConversation } from "../../../utils/helpers"
 import { SenderEvents } from "../../../utils/constants"
-import { initiateCallState, setActiveConversationId, setCaller, setIsCalling, setLocalStream, setReceiver } from "../../../store/call/callSlice"
-import { SocketContext, socket } from "../../../utils/context/SocketContext"
+import { initiateCallState } from "../../../store/call/callSlice"
+import { SocketContext } from "../../../utils/context/SocketContext"
 import { 
    MessagePanelHeaderStyle,  
-   MessagePanelHeaderIcons, 
+   MessagePanelHeaderIcons,
 } from "../../../utils/styles"
 import { CallInitiatePayload, CallType } from "../../../utils/types"
 
