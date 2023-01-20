@@ -1,10 +1,8 @@
 import { useContext, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { FaPhoneAlt, FaVideo } from 'react-icons/fa';
-import { PersonAdd, PeopleGroup } from "akar-icons";
+import { PersonAdd, PeopleGroup, Edit } from "akar-icons";
 import { RootState, AppDispatch } from "../../../store";
-import { selectConversationById } from "../../../store/conversationSlice";
 import { toggleSidebar } from "../../../store/groupRecipientsSidebarSlice";
 import { selectGroupById } from "../../../store/groupSlice";
 import { selectType } from "../../../store/selectedSlice";
@@ -35,11 +33,10 @@ export const MessagePanelGroupHeader = () => {
             </div>
             <MessagePanelHeaderIcons>
                {user?.id === group?.owner?.id && (
-                  <PersonAdd
-                     cursor="pointer"
-                     size={30}
-                     onClick={() => setShowModal(true)}
-                  />
+                  <>
+                     <Edit className="icon" />
+                     <PersonAdd className="icon" onClick={() => setShowModal(true)} />
+                  </>
                )}
                <PeopleGroup
                   cursor="pointer"

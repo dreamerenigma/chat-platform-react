@@ -24,12 +24,14 @@ export interface GroupState {
 	groups: Group[];
 	showGroupContextMenu: boolean;
 	selectedGroupContextMenu?: Group;
+	showEditGroupModal: boolean;
 	points: Points;
 };
 
 const initialState: GroupState = {
 	groups: [],
 	showGroupContextMenu: false,
+	showEditGroupModal: false,
 	points: { x: 0, y: 0 },
 };
 
@@ -65,7 +67,6 @@ export const groupsSlice = createSlice({
 			state.groups.unshift(action.payload);
 		},
 		updateGroup: (state, action: PayloadAction<Group>) => {
-			console.log('Inside updateGroup');
 			const updatedGroup = action.payload; 
 			const existingGroup = state.groups.find((g) => g.id === updatedGroup.id);
 			const index = state.groups.findIndex((g) => g.id === updatedGroup.id);
@@ -89,6 +90,9 @@ export const groupsSlice = createSlice({
 		},
 		setContextMenuLocation: (state, action: PayloadAction<Points>) => {
 			state.points = action.payload;
+		},
+		setShowEditGroupModal: (state, action: PayloadAction<boolean>) => {
+			state.showEditGroupModal = action.payload;
 		},
 	},
 	extraReducers: (builder) => {
@@ -134,6 +138,7 @@ export const {
 	setSelectedGroup,
 	toggleContextMenu,
 	setContextMenuLocation,
+	setShowEditGroupModal,
 } = groupsSlice.actions;
 
 export default groupsSlice.reducer;
