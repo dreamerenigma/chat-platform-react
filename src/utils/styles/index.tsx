@@ -28,7 +28,9 @@ export const InputField = styled.input`
 	padding: 0;
 	margin: 4px 0;
 	&:disabled {
-		color: #3b3b3b;
+		background-color: #4937bc7c;
+		color: #878787a2;
+		cursor: not-allowed; 
 	}
 `;
 
@@ -91,6 +93,41 @@ export const Button = styled.button`
 		color: #878787a2;
 		cursor: not-allowed;
 	}
+`;
+
+type ButtonContainerProps = {
+	disabled: boolean;
+};
+
+export const ButtonContainer = styled.div<ButtonContainerProps>`
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-family: 'Inter';
+	font-size: 16px;
+	background-color: #2b09ff;
+	color: #fff;
+	border-radius: 10px;
+	padding: 25px 0;
+	font-weight: 500;
+	transition: 250ms background-color ease;
+	margin: 10px;
+	&:hover {
+		cursor: pointer;
+		background-color: #3415ff;
+	}
+	${({ disabled }) => 
+	disabled && 
+	css`
+		background-color: #4937bc7c;
+		color: #878787a2;
+		cursor: not-allowed;
+		&:hover {
+			background-color: #4937bc7c;
+			cursor: not-alowed;
+		}
+	`}
 `;
 
 export const Page = styled.div<PageProps>`
