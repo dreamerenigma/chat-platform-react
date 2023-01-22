@@ -151,6 +151,7 @@ export type Group = {
 	createdAt: number;
 	lastMessageSent: MessageType;
 	lastMessageSentAt: Date;
+	avatar?: string;
 };
 
 export type GroupMessageEventPayload = {
@@ -208,10 +209,6 @@ export type DragEvent = React.DragEvent<HTMLTextAreaElement>;
 export type ClipboardEvent = React.ClipboardEvent<HTMLTextAreaElement>;
 
 export type FriendRequestStatus = 'accepted' | 'pending' | 'rejected';
-
-export type FetchMessageParams = {
-	id: number;
-};
 
 export type Friend = {
 	id: number;

@@ -7,6 +7,7 @@ import { DivMouseEvent } from "../../utils/types";
 import { MdClose } from "react-icons/md";
 import { ModalContainer, ModalHeader, ModalContentBody } from ".";
 import { OverlayStyle } from "../../utils/styles";
+import { EditGroupForm } from "../forms/EditGroupForm";
 
 export const EditGroupModal = () => {
 	const ref = createRef<HTMLDivElement>();
@@ -31,7 +32,7 @@ export const EditGroupModal = () => {
                />
 				</ModalHeader>
 				<ModalContentBody>
-					{/* <SendFriendRequestForm setShowModal={setShowModal} /> */}
+					<EditGroupForm />
 				</ModalContentBody>
 			</ModalContainer>
 		</OverlayStyle>

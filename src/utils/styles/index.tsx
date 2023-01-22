@@ -120,13 +120,13 @@ export const ConversationSidebarItemStyle = styled.div<ConversationSidebarItemPr
 	padding: 20px 32px;
 	box-sizing: border-box;
 	width: 100%;
-	background-color: ${({ selected, theme }) => 
+	background-color: ${({ selected, theme }) =>
 		selected && theme.conversationSidebar.conversationItem.selected};
 	cursor: pointer;
 	transition: 100ms background-color ease;
 	&:hover {
-		background-color: ${({ theme }) => 
-			theme.conversationSidebar.conversationItem.hover.backgroundColor};
+		background-color: ${({ theme }) =>
+		theme.conversationSidebar.conversationItem.hover.backgroundColor};
 	}
 	& .title {
 		display: block;
@@ -148,15 +148,15 @@ export const ConversationSidebarItemDetails = styled.div`
 		display: block;
 		font-weight: 600;
 		font-size: 16px;
-		color: ${({ theme }) => 
-			theme.conversationSidebar.conversationItem.title.color};
+		color: ${({ theme }) =>
+		theme.conversationSidebar.conversationItem.title.color};
 	}
 	& .coversationLastMessage {
 		font-size: 15px;
 		font-weight: 500;
 		color: #868686;
-		color: ${({ theme }) => 
-			theme.conversationSidebar.conversationItem.title.lastMessageColor};
+		color: ${({ theme }) =>
+		theme.conversationSidebar.conversationItem.title.lastMessageColor};
 	}
 `;
 
@@ -318,7 +318,7 @@ export const MessageContainerStyle = styled.div`
 
 export const MessageInputContainer = styled.div<MessageInputContainerProps>`
 	box-sizing: border-box;
-	background-color: ${({ theme }) => 
+	background-color: ${({ theme }) =>
 		theme.messagePanel.inputContainer.backgroundColor};
 	border-radius: 5px;
 	width: 100%;
@@ -642,7 +642,7 @@ export const LayoutPage = styled.div`
 
 export const UserSidebarStyle = styled.div`
 	height: 100%;
-	background-color: ${({ theme }: { theme: Theme }) => 
+	background-color: ${({ theme }: { theme: Theme }) =>
 		theme.userSidebar.backgroundColor};
 	display: flex;
 	flex: 0 0 80px;
@@ -659,7 +659,7 @@ export const SidebarStyle = styled.div`
 	flex-direction: column;
 	height: 100%;
 	width: 400px;
-	background-color: ${({ theme }: { theme: Theme }) => 
+	background-color: ${({ theme }: { theme: Theme }) =>
 		theme.conversationSidebar.backgroundColor};
 	flex: 0 0 auto;
 	@media (max-width: 800px) {
@@ -827,7 +827,7 @@ export const CharacterLimit = styled.span<CharacterLimitProps>`
 	right: 36px;
 	font-size: 14px;
 	font-weight: 500;
-	color: ${({ atMaxLength }) => 
+	color: ${({ atMaxLength }) =>
 		atMaxLength ? '#ff0000' : 'rgb(129, 129, 129)'};
 `;
 
@@ -944,11 +944,63 @@ export const MiniVideo = styled.div`
 	bottom: 10px;
 	height: 300px;
 	width: 400px;
-	backround-color: black;
 	z-index: 99;
 	& video {
 		height: 100%
 		width: 100%;
-		poiter-events: none;
+		pointer-events: none;
 	}
+`;
+
+export const Form = styled.form`
+	width: 100%;
+	
+`;
+
+export const AvatarUploadContainer = styled.div<{ url?: string }>`
+	height: 150px;
+	width: 150px;
+	border-radius: 100%;
+	border: 4px solid #afafaf;
+	cursor: pointer;
+	${({ url }) =>
+		url
+			? css`
+				transition: 1s background ease;
+				background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
+					url('${url}') no-repeat center;
+				opacity: 100%;
+				transition: 300ms opacity ease;
+				background-size: cover;
+				&:hover {
+					opacity: 100%;
+				}
+			`
+			: css`
+				background-color: #404040;
+			`};
+	&::before {
+		background-color: none;
+		content: 'Change Avatar';
+		width: 100%;
+		height: 150px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		color: #f1f1f1;
+		font-size: 15px;
+		font-weight: 500;
+		opacity: 0;
+		transition: 300ms opacity ease;
+	}
+	&:hover:before {
+		opacity: 1;
+	}
+`;
+
+export const GroupAvatarContainer = styled.div`
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	margin: 10px 0;
 `;
