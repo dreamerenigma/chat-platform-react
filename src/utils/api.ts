@@ -15,7 +15,6 @@ import {
 	DeleteMessageResponse,
 	EditMessagePayload, 
 	FetchGroupMessagePayload,
-	FetchMessageParams,
 	FetchMessagePayload, 
 	Friend, 
 	FriendRequest, 
@@ -23,6 +22,7 @@ import {
 	GroupMessageType, 
 	MessageType, 
 	RemoveGroupRecipientParams, 
+	UpdateGroupDetailsPayload, 
 	UpdateGroupOwnerParams, 
 	UpdateStatusParams, 
 	User, 
@@ -154,3 +154,6 @@ export const updateUserProfile = (data: FormData) =>
 
 export const updateStatusMessage = (data: UpdateStatusParams) => 
 	axiosClient.patch('/users/presence/status', data, config);
+
+export const updateGroupDetails = ({ id, data }: UpdateGroupDetailsPayload) => 
+	axiosClient.patch<Group>(`/groups/${id}/details`, data, config);

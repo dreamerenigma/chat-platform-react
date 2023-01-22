@@ -1,16 +1,17 @@
+import { UpdateGroupDetailsPayload } from './../utils/types';
 import {
 	createAsyncThunk, 
 	createSelector,
 	createSlice, 
 	PayloadAction,
 } from "@reduxjs/toolkit";
-import { RootState } from ".";
 import { 
 	fetchGroups as fetchGroupsAPI, 
 	createGroup as createGroupAPI,
 	removeGroupRecipient as removeGroupRecipientAPI,
 	updateGroupOwner as updateGroupOwnerAPI,
 	leaveGroup as leaveGroupAPI,
+	updateGroupDetails as updateGroupDetailsAPI,
 } from "../utils/api";
 import { 
 	CreateGroupParams, 
@@ -19,6 +20,7 @@ import {
 	RemoveGroupRecipientParams,
 	UpdateGroupOwnerParams,
 } from "../utils/types";
+import { RootState } from ".";
 
 export interface GroupState {
 	groups: Group[];
@@ -58,6 +60,19 @@ export const leaveGroupThunk = createAsyncThunk('groups/leave', (id: number) =>
 	leaveGroupAPI(id)
 );
 
+export const updateGroupDetailsThunk = createAsyncThunk(
+	'groups/update/details', 
+	async (payload: UpdateGroupDetailsPayload, thunkAPI) => {
+		try {
+			const { data } = await updateGroupDetailsAPI(payload);
+			console.log('Updated Group Succesful. Disopatching updateGroup');
+			thunkAPI.dispatch(updateGroup(data));
+		} catch (err) {
+			thunkAPI.rejectWithValue(err);
+		}
+	}
+);
+
 export const groupsSlice = createSlice({
 	name: 'groups',
 	initialState,
@@ -67,6 +82,7 @@ export const groupsSlice = createSlice({
 			state.groups.unshift(action.payload);
 		},
 		updateGroup: (state, action: PayloadAction<Group>) => {
+			console.log('Inside updateGroup');
 			const updatedGroup = action.payload; 
 			const existingGroup = state.groups.find((g) => g.id === updatedGroup.id);
 			const index = state.groups.findIndex((g) => g.id === updatedGroup.id);
@@ -118,7 +134,10 @@ export const groupsSlice = createSlice({
 				console.log('updateGroupOwneThunk.fulfilled');
 			})
 			.addCase(leaveGroupThunk.fulfilled, (state, action) => {
-				console.log('updateGroupOwnerThun.fulfilled');
+				console.log('updateGroupOwnerThunk.fulfilled');
+			})
+			.addCase(updateGroupDetailsThunk.fulfilled, (state, action) => {
+				console.log('updateGroupDetailsThunk.fulfilled');
 			});
 	},
 });

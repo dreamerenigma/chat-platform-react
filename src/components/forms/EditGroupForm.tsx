@@ -9,6 +9,7 @@ import { GroupAvatarUpload } from "../avatar/GroupAvatarUpload";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store";
+import { FormEvent } from "../../utils/types";
 
 export const EditGroupForm = () => {
    const [file, setFile] = useState<File>();
@@ -16,6 +17,11 @@ export const EditGroupForm = () => {
       (state: RootState) => state.groups.selectedGroupContextMenu
       );
    const [groupName, setGroupName] = useState(group?.title || '');
+   const isStateChanged = () => file || group?.title !== groupName;
+
+   const onSubmit = (e: FormEvent) => {
+      e.preventDefault();
+   };
 
    return (
       <Form>
