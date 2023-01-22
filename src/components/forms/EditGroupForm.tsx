@@ -7,7 +7,7 @@ import {
    Button, 
 } from "../../utils/styles"
 import { GroupAvatarUpload } from "../avatar/GroupAvatarUpload";
-import { useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../store";
 import { FormEvent } from "../../utils/types";
@@ -18,6 +18,7 @@ import {
 } from "../../store/groupSlice";
 import { useToast } from "../../utils/hooks/useToast";
 import { MoonLoader } from "react-spinners";
+import { useBeforeUnload } from "../../utils/hooks";
 
 export const EditGroupForm = () => {
    const { selectedGroupContextMenu:  group, isSavingChanges } = useSelector(
@@ -29,7 +30,15 @@ export const EditGroupForm = () => {
    const [newGroupTitle, setNewGroupName] = useState(group?.title || '');
    const { success, error } = useToast({ theme: 'dark' }); 
    const [groupName, setGroupName] = useState(group?.title || '');
-   const isStateChanged = () => file || group?.title !== groupName;
+   const isStateChanged = useCallback(
+      () => file || group?.title !== newGroupTitle,
+      [file, newGroupTitle, group?.title]
+   );
+
+   useBeforeUnload(
+      (e) => isStateChanged() && (e.returnValue = 'You have unsaved changes'),
+      [isStateChanged]
+   );
 
    const onSubmit = (e: FormEvent) => {
       e.preventDefault();
