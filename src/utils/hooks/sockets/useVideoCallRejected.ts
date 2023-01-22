@@ -15,7 +15,7 @@ export function useVideoCallRejected() {
       });
 
       return () => {
-         socket.off('onVcideoCallRejected');
+         socket.off(WebsocketEvents.VIDEO_CALL_REJECTED);
       };
    }, []);
 }
