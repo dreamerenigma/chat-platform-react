@@ -1,4 +1,4 @@
-import { UpdateGroupDetailsPayload } from './../utils/types';
+import { UpdateGroupAction, UpdateGroupDetailsPayload, UpdateGroupPayload } from './../utils/types';
 import {
 	createAsyncThunk, 
 	createSelector,
@@ -68,10 +68,10 @@ export const updateGroupDetailsThunk = createAsyncThunk(
 		thunkAPI.dispatch(setIsSavingChanges(true));
 		thunkAPI.dispatch(setIsSavingChanges(true));
 		try {
-			const { data } = await updateGroupDetailsAPI(payload);
+			const { data: group } = await updateGroupDetailsAPI(payload);
 			console.log('Updated Group Succesful. Dispatching updateGroup');
-			thunkAPI.dispatch(updateGroup(data));
-			thunkAPI.fulfillWithValue(data);
+			thunkAPI.dispatch(updateGroup({ group }));
+			thunkAPI.fulfillWithValue(group);
 		} catch (err) {
 			thunkAPI.rejectWithValue(err);
 		}
@@ -86,14 +86,22 @@ export const groupsSlice = createSlice({
 			console.log(`addGroup reducer: Adding ${action.payload.id} to state`);
 			state.groups.unshift(action.payload);
 		},
-		updateGroup: (state, action: PayloadAction<Group>) => {
+		updateGroup: (state, action: PayloadAction<UpdateGroupPayload>) => {
 			console.log('Inside updateGroup');
-			const updatedGroup = action.payload; 
-			const existingGroup = state.groups.find((g) => g.id === updatedGroup.id);
-			const index = state.groups.findIndex((g) => g.id === updatedGroup.id);
-			if (existingGroup) {
-				state.groups[index] = updatedGroup;
-				console.log('Updating Group....');
+			const { type, group } = action.payload;
+			const existingGroup = state.groups.find((g) => g.id === group.id);
+			const index = state.groups.findIndex((g) => g.id === group.id);
+			if (!existingGroup) return;
+			switch (type) {
+				case UpdateGroupAction.NEW_MESSAGE: {
+					state.groups.splice(index, 1);
+					state.groups.unshift(group);
+					break;
+				}
+				default: {
+					state.groups[index] = group;
+					break;
+				}
 			}
 		},
 		removeGroup: (state, action: PayloadAction<Group>) => {

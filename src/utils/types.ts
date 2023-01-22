@@ -334,3 +334,17 @@ export type UpdateGroupDetailsPayload = {
 	id: number;
 	data: FormData;
 };
+
+export enum UpdateGroupAction {
+	NEW_MESSAGE = 'newMessage',
+};
+
+export type UpdateGroupPayload = {
+	type?: UpdateGroupAction;
+	group: Group; 
+};
+
+export type GroupParticipantLeftPayload = {
+	group: Group;
+	userId: number;
+};
