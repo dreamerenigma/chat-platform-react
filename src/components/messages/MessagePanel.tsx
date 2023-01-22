@@ -53,13 +53,13 @@ export const MessagePanel: FC<Props> = ({
 	const selectedType = useSelector(
 		(state: RootState) => state.selectedConversationType.type
 	);
-	const callState = useSelector((state: RootState) => state.call);
 	const recipient = getRecipientFromConversation(conversation, user);
 
 	useEffect(() => {
 		return () => {
 			dispatch(clearAllMessages());
-		}
+			dispatch(removeAllAttachments());
+		};
 	}, []);
 
 	const sendMessage = async () => {
@@ -93,7 +93,8 @@ export const MessagePanel: FC<Props> = ({
 					addSystemMessage({
 						id: messageCounter,
 						level: 'error',
-						content: 'The reipient is not in your friends list or they may have blocked you.',
+						content:
+							'The reipient is not in your friends list or they may have blocked you.',
 					})
 				);
 			}
