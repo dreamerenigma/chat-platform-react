@@ -58,9 +58,7 @@ export const EditMessageContainer: FC<Props> = ({ onEditMessageChange }) => {
 			</form>
 			<EditMessageActionsContainer>
 				<div>
-					<span>
-						escape to <span>cancel</span> - enter to <span>save</span>
-					</span>
+					escape to <span>cancel</span> - enter to <span>save</span>
 				</div>
 			</EditMessageActionsContainer>
 		</div>
