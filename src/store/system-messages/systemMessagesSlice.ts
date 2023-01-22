@@ -15,8 +15,7 @@ export const systemMessagesSlice = createSlice({
    name: 'systemMessages',
    initialState,
    reducers: {
-      addSystemMessage: (state, action: PayloadAction<SystemMessageType>) => 
-      {
+      addSystemMessage: (state, action: PayloadAction<SystemMessageType>) => {
          state.messageCounter++;
          state.messages.push(action.payload);
       },

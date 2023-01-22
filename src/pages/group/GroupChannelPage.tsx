@@ -19,7 +19,9 @@ export const GroupChannelPage = () => {
 	const dispatch = useDispatch<AppDispatch>();
 	const [isRecipientTyping, setIsRecipientTyping] = useState(false);
 
-	const { showEditGroupModal } = useSelector((state: RootState) => state.groups);
+	const { showEditGroupModal } = useSelector(
+		(state: RootState) => state.groups
+	);
 	const showSidebar = useSelector(
 		(state: RootState) => state.groupSidebar.showSidebar
 	);

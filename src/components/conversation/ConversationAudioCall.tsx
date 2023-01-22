@@ -1,12 +1,6 @@
-import { 
-   useCallback, 
-   useContext, 
-   useEffect,
-   useRef, 
-   useState,
-} from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "../../store";
+import { useContext, useEffect,useRef, useState } from "react";
+import { useSelector } from "react-redux";
+import { RootState } from "../../store";
 import { 
    AudioContainerItem,
    ConversationCallContainer,
@@ -32,7 +26,6 @@ export const ConversationAudioCall = () => {
    const { localStream, remoteStream, caller, receiver } = useSelector(
       (state: RootState) => state.call
    );
-
    useEffect(() => {
       console.log('local stream was updated...');
       console.log(localStream);
@@ -73,7 +66,6 @@ export const ConversationAudioCall = () => {
 
    return (
       <ConversationCallContainer>
-         <div>Audio</div>
          <div className="invisible"></div>
          <MediaContainer>
             {localStream && (

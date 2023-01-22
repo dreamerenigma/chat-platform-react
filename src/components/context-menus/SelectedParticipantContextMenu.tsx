@@ -2,10 +2,10 @@ import { FC, useContext } from "react"
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { AppDispatch, RootState } from "../../store";
-import { 
-	removeGroupRecipientThunk, 
-	selectGroupById, 
-	updateGroupOwnerThunk, 
+import {
+	removeGroupRecipientThunk,
+	selectGroupById,
+	updateGroupOwnerThunk,
 } from "../../store/groupSlice";
 import { AuthContext } from "../../utils/context/AuthContext";
 import { getUserContextMenuIcon, isGroupOwner } from "../../utils/helpers";
@@ -22,7 +22,7 @@ type CustomIconProps = {
 };
 
 export const CustomIcon: FC<CustomIconProps> = ({ type }) => {
-	const { icon: MyIcon, color }  = getUserContextMenuIcon(type);
+	const { icon: MyIcon, color } = getUserContextMenuIcon(type);
 	return <MyIcon size={20} color={color} />;
 };
 
@@ -33,10 +33,10 @@ export const SelectedParticipantContextMenu: FC<Props> = ({ points }) => {
 	const selectedUser = useSelector(
 		(state: RootState) => state.groupSidebar.selectedUser
 	);
-	const group = useSelector((state: RootState) => 
+	const group = useSelector((state: RootState) =>
 		selectGroupById(state, parseInt(id!))
 	);
-	
+
 	const kickUser = () => {
 		console.log(`Kicking User: ${selectedUser?.id}`);
 		console.log(selectedUser);
@@ -58,7 +58,7 @@ export const SelectedParticipantContextMenu: FC<Props> = ({ points }) => {
 	};
 
 	const isOwner = isGroupOwner(user, group);
-	
+
 	return (
 		<ContextMenu top={points.y} left={points.x}>
 			<ContextMenuItem>

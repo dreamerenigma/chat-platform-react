@@ -1,4 +1,4 @@
-import { useContext, useEffect,useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store";
 import { 
@@ -25,7 +25,6 @@ export const ConversationVideoCall = () => {
    const { localStream, remoteStream, caller, receiver } = useSelector(
       (state: RootState) => state.call
    );
-
    useEffect(() => {
       console.log('local stream was updated...');
       console.log(localStream);

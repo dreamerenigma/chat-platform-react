@@ -15,7 +15,7 @@ const getSystemIcon = (type: SystemMessageLevel) => {
          case 'error':
             return RiAlertFill;
    }
-}
+};
 
 export const SystemMessage: FC<Props> = ({ message }) => {
    const { content, level } = message;

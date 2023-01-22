@@ -25,7 +25,7 @@ export const ConversationSelected = () => {
 			{chatTypes.map((chat) => (
 				<ConversationSelectedItem
 					selected={chat.type === selectedType}
-					key ={chat.type}
+					key={chat.type}
 					onClick={() => onSelectType(chat)}
 				>
 					{chat.label}

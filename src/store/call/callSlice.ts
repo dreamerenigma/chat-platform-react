@@ -1,6 +1,5 @@
-import { CallInitiatePayload, CallType } from './../../utils/types';
+import { CallInitiatePayload, CallType, User } from './../../utils/types';
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { User } from "../../utils/types";
 import { DataConnection, MediaConnection , Peer} from "peerjs";
 
 export interface CallState {
