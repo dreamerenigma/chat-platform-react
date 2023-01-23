@@ -20,7 +20,7 @@ export const MessagePanelConversationHeader = () => {
    const { id } = useParams();
    const socket = useContext(SocketContext);
 
-   const dispatch = useDispatch<AppDispatch>();
+   const dispatch = useDispatch();
    const conversation = useSelector((state: RootState) =>
       selectConversationById(state, parseInt(id!))
    );
