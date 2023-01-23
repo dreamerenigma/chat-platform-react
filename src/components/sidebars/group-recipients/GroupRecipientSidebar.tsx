@@ -45,8 +45,6 @@ export const GroupRecipientsSidebar = () => {
 			socket.emit('getOnlineGroupUsers', { groupId });
 		}, 5000);
 		socket.on('onlineGroupUsersReceived', (payload) => {
-			console.log('received onlinegroupUSersReceived event');
-			console.log(payload);
 			setOnlineUsers(payload.onlineUsers);
 		});
 		return () => {

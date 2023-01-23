@@ -5,16 +5,17 @@ import { PersonAdd, PeopleGroup, Edit } from "akar-icons";
 import { RootState, AppDispatch } from "../../../store";
 import { toggleSidebar } from "../../../store/groupRecipientsSidebarSlice";
 import { selectGroupById } from "../../../store/groupSlice";
-import { selectType } from "../../../store/selectedSlice";
 import { AuthContext } from "../../../utils/context/AuthContext";
-import { MessagePanelHeaderIcons, MessagePanelHeaderStyle } from "../../../utils/styles";
+import {
+   MessagePanelHeaderIcons,
+   MessagePanelHeaderStyle,
+} from "../../../utils/styles";
 import { AddGroupRecipientModal } from "../../modals/AddGroupRecipientModal";
 
 export const MessagePanelGroupHeader = () => {
    const [showModal, setShowModal] = useState(false);
    const user = useContext(AuthContext).user!;
    const { id } = useParams();
-   const type = useSelector(selectType);
    const group = useSelector((state: RootState) =>
       selectGroupById(state, parseInt(id!))
    );
@@ -33,10 +34,11 @@ export const MessagePanelGroupHeader = () => {
             </div>
             <MessagePanelHeaderIcons>
                {user?.id === group?.owner?.id && (
-                  <>
-                     <Edit className="icon" />
-                     <PersonAdd className="icon" onClick={() => setShowModal(true)} />
-                  </>
+                  <PersonAdd
+                     cursor="pointer"
+                     size={30}
+                     onClick={() => setShowModal(true)} />
+
                )}
                <PeopleGroup
                   cursor="pointer"
