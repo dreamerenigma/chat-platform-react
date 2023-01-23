@@ -715,6 +715,14 @@ export const SidebarHeader = styled.div`
 	gap: 20px;
 `;
 
+export const UserSidebarHeader = styled.header`
+	height: 90px
+	display: flex;
+	flex-shrink: 0;
+	align-items: center;
+	border-bottom: 1px solid #49494925;
+`;
+
 export const ScrollableContainer = styled.div`
 	flex: 1 1 auto;
 	overflow-y: auto;
@@ -722,6 +730,18 @@ export const ScrollableContainer = styled.div`
 	&::-webkit-scrollbar {
 		display: none;
 	}
+`;
+
+export const UserSidebarScrollableContainer = styled(ScrollableContainer)`
+	width: 100%;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+`;
+
+export const UserSidebarFooter = styled.footer`
+	padding: 18px 0;
 `;
 
 export const ConversationSearchbar = styled.input`
