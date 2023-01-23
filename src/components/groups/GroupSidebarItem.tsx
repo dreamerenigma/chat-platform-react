@@ -47,7 +47,9 @@ export const GroupSidebarItem: React.FC<Props> = ({ group, onContextMenu }) => {
 					className={styles.groupAvatar} 
 				/>
 			) : (
-				<PeopleGroup />
+				<div className={styles.defaultGroupAvatar}>		
+					<PeopleGroup size={28} />
+				</div>
 			)}
 			<div>
 				<span className="title">{getTransformedTitle()}</span>
