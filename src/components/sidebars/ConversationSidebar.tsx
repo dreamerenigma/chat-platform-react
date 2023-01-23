@@ -13,9 +13,9 @@ import { SidebarContainerStyle } from '../../utils/styles';
 import { ContextMenuEvent, Group } from "../../utils/types";
 import { GroupSidebarContextMenu } from "../context-menus/GroupSidebarContextMenu";
 import { ConversationSidebarItem } from "../conversation/ConversationSidebarItem";
-import { 
-	setContextMenuLocation, 
-	setSelectedGroup, 
+import {
+	setContextMenuLocation,
+	setSelectedGroup,
 	toggleContextMenu,
 } from "../../store/groupSlice";
 import { ConversationTab } from "../conversation/ConversationTab";
@@ -54,7 +54,7 @@ export const ConversationSidebar = () => {
 
 	useEffect(() => {
 		const handleClick = () => dispatch(toggleContextMenu(false));
-		window.addEventListener('resize', handleClick);
+		window.addEventListener('click', handleClick);
 		return () => window.removeEventListener('click', handleClick);
 	}, []);
 
@@ -93,10 +93,10 @@ export const ConversationSidebar = () => {
 									conversation={conversation}
 								/>
 							))
-						: groups.map((group) => (
-								<GroupSidebarItem 
-									key={group.id} 
-									group={group} 
+							: groups.map((group) => (
+								<GroupSidebarItem
+									key={group.id}
+									group={group}
 									onContextMenu={onGroupContextMenu}
 								/>
 							))}

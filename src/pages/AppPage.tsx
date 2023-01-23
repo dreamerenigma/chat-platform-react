@@ -3,10 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { UserSidebar } from "../components/sidebars/UserSidebar"
 import { AppDispatch, RootState } from "../store";
-import { 
-	addFriendRequest, 
-	removeFriendRequest, 
-} from "../store/friends/friendsSlice";
+import { removeFriendRequest } from "../store/friends/friendsSlice";
 import { SocketContext } from "../utils/context/SocketContext";
 import { useToast } from "../utils/hooks/useToast";
 import { LayoutPage } from "../utils/styles";
@@ -14,9 +11,7 @@ import {
 	AcceptFriendRequestResponse,
 	FriendRequest,
 	SelectableTheme,
-	CallPayload,
 } from "../utils/types";
-import { IoMdPersonAdd } from "react-icons/io";
 import { BsFillPersonCheckFill } from 'react-icons/bs';
 import { fetchFriendRequestThunk } from "../store/friends/friendsThunk";
 import { ThemeProvider } from "styled-components";
@@ -25,11 +20,8 @@ import Peer from "peerjs";
 import { AuthContext } from "../utils/context/AuthContext";
 import {
 	setCall,
-	setCaller,
-	setIsReceivingCall,
 	setLocalStream,
 	setPeer,
-	setReceiver,
 	setRemoteStream,
 } from "../store/call/callSlice";
 import { CallReceiveDialog } from "../components/calls/CallReceiveDialog";
@@ -45,15 +37,15 @@ import { useVoiceCallRejected } from "../utils/hooks/sockets/call/useVoiceCallRe
 
 export const AppPage = () => {
 	const { user } = useContext(AuthContext);
-	const { pathname } = useLocation();
 	const socket = useContext(SocketContext);
 	const dispatch = useDispatch<AppDispatch>();
 	const navigate = useNavigate();
-	const { peer, call, isReceivingCall, caller, connection, callType } = useSelector((state: RootState) => state.call);
+	const location = useLocation();
+	const { peer, call, isReceivingCall, caller, connection, callType } = 
+		useSelector((state: RootState) => state.call);
 	const { info } = useToast({ theme: 'dark' });
-	const storageTheme = localStorage.getItem('theme') as SelectableTheme;
 	const { theme } = useSelector((state: RootState) => state.settings);
-	const remoteVideoRef = useRef<HTMLVideoElement>(null);
+	const storageTheme = localStorage.getItem('theme') as SelectableTheme;
 	useEffect(() => {
 		dispatch(fetchFriendRequestThunk());
 	}, [dispatch]);
@@ -85,7 +77,6 @@ export const AppPage = () => {
 			console.log(payload);
 			dispatch(removeFriendRequest(payload));
 		});
-
 		socket.on(
 			'onFriendRequestAccepted',
 			(payload: AcceptFriendRequestResponse) => {
@@ -131,7 +122,7 @@ export const AppPage = () => {
 			const constraints = { video: callType === 'video', audio: true };
 			console.log(constraints);
 			const stream = await navigator.mediaDevices.getUserMedia(constraints);
-			console.log('Receiving Call & Got Local Stream', stream.id);
+			console.log('Receiving Call & Got Local Stream:', stream.id);
 			incomingCall.answer(stream);
 			dispatch(setLocalStream(stream));
 			dispatch(setCall(incomingCall));
@@ -139,7 +130,7 @@ export const AppPage = () => {
 		return () => {
 			peer.off('call');
 		};
-	}, [peer, dispatch]);
+	}, [peer, callType, dispatch]);
 
 	useEffect(() => {
 		if (!call) return;
@@ -166,7 +157,7 @@ export const AppPage = () => {
 			console.log('connection is defined...');
 			if (connection) {
 				console.log('connection is defined...');
-				connection?.on('open', () => {
+				connection.on('open', () => {
 					console.log('connection was opened')
 				});
 				connection.on('error', () => {

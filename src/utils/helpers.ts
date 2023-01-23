@@ -23,8 +23,7 @@ import {
 	Group,
 	SettingsSidebarRouteType,
 	User, 
-	UserContextMenuActionType,
-	UserSidebarRouteType, 
+	UserContextMenuActionType, 
 } from "./types";
 import { IoMdInfinite } from "react-icons/io";
 
@@ -89,8 +88,8 @@ export const getFriendRequestDetails = (
 ): FriendRequestDetailsType => 
 	user?.id === receiver.id
 		?	{
-				status: 'incoming Friend Request',
-				displayName: `{sender.firstName} {sender.lastName}`,
+				status: 'Incoming Friend Request',
+				displayName: `${sender.firstName} ${sender.lastName}`,
 				user: sender,
 				incoming: true,
 			}
