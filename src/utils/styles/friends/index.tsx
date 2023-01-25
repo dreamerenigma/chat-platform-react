@@ -5,7 +5,7 @@ import {
 } from "../styleTypes";
 
 export const FriendsPageStyle = styled.div`
-	backgrouound-color: #101010;
+	background-color: #101010;
 	height: 100%;
 	width: 100%;
 `;
@@ -103,6 +103,7 @@ export const FriendRequestItemContainer = styled.div`
 		align-items: center;
 		gap: 10px;
 	}
+	
 	:last-child {
 		border-bottom: unset;
 	}
