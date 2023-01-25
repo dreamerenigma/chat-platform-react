@@ -1,8 +1,8 @@
 import { FC, useContext } from "react";
-import { Friend } from "../../utils/types";
 import { AuthContext } from "../../utils/context/AuthContext";
 import { getUserFriendInstance } from "../../utils/helpers";
 import { CallSidebarItemContainer } from "../../utils/styles";
+import { Friend } from "../../utils/types";
 import { UserAvatar } from "../users/UserAvatar";
 import { IoMdCall, IoMdVideocam } from "react-icons/io";
 

@@ -1,4 +1,7 @@
-import { Dispatch, FC,  SetStateAction, useState } from "react";
+import React, { Dispatch, FC,  SetStateAction, useState } from "react";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../../store";
+import { createFriendRequestThunk } from "../../store/friends/friendsThunk";
 import { useToast } from "../../utils/hooks/useToast";
 import { 
 	Button, 
@@ -6,10 +9,7 @@ import {
 	InputField,
 	InputLabel, 
 } from "../../utils/styles";
-import { AppDispatch } from "../../store";
-import { useDispatch } from "react-redux";
 import styles from './index.module.scss';
-import { createFriendRequestThunk } from "../../store/friends/friendsThunk";
 
 type Props = {
 	setShowModal: Dispatch<SetStateAction<boolean>>;

@@ -4,19 +4,19 @@ import { getConversationById } from "../api";
 
 export function useConversationGuard() {
 	const { id } = useParams();
-	const [loading, setLoading] = useState(true);
+	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState();
 	const controller = new AbortController();
 
 	useEffect(() => {
-		console.log('Fetching Conversation:', id);
+		console.log('Fetching Conversation');
 		setLoading(true);
 		getConversationById(parseInt(id!))
 			.catch((err) => {
 				console.log(err);
 				setError(err);
 			})
-			.finally(() => setTimeout(() => setLoading(false), 3000));
+			.finally(() => setLoading(false));
 		return () => {
 			controller.abort();
 		};

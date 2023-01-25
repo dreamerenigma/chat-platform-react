@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { useLocation, Navigate, useParams } from "react-router-dom";
+import { useLocation, Navigate } from "react-router-dom";
 import { useConversationGuard } from "../utils/hooks/useConversationGuard";
 
 export const ConversationPageGuard: FC<React.PropsWithChildren> = ({

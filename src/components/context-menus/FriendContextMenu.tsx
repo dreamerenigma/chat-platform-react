@@ -5,10 +5,10 @@ import { useNavigate } from "react-router-dom";
 import { AppDispatch, RootState } from "../../store";
 import { toggleContextMenu } from "../../store/friends/friendsSlice";
 import { removeFriendThunk } from "../../store/friends/friendsThunk";
-import { AuthContext } from "../../utils/context/AuthContext";
-import { ContextMenu, ContextMenuItem } from "../../utils/styles";
-import { SocketContext } from "../../utils/context/SocketContext";
 import { checkConversationOrCreate } from "../../utils/api";
+import { AuthContext } from "../../utils/context/AuthContext";
+import { SocketContext } from "../../utils/context/SocketContext";
+import { ContextMenu, ContextMenuItem } from "../../utils/styles";
 
 export const FriendContextMenu = () => {
 	const { user } = useContext(AuthContext);
@@ -28,7 +28,7 @@ export const FriendContextMenu = () => {
 		if (!selectedFriendContextMenu) return;
 		dispatch(toggleContextMenu(false));
 		dispatch(removeFriendThunk(selectedFriendContextMenu.id)).then(() =>
-			socket.emit("getOnlineFriends")
+			socket.emit('getOnlineFriends')
 		);
 	};
 

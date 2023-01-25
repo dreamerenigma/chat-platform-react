@@ -1,11 +1,11 @@
+import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { RootState } from "../../store";
-import { useSelector } from "react-redux";
 import { selectType } from "../../store/selectedSlice";
+import { ConversationAudioCall } from "../conversation/ConversationAudioCall";
+import { ConversationVideoCall } from "../conversation/ConversationVideoCall";
 import { MessagePanelConversationHeader } from "./headers/MessagePanelConversationHeader";
 import { MessagePanelGroupHeader } from "./headers/MessagePanelGroupHeader";
-import { ConversationVideoCall } from "../conversation/ConversationVideoCall";
-import { ConversationAudioCall } from "../conversation/ConversationAudioCall";
 
 export const MessagePanelHeader = () => {
 	const { id: routeId } = useParams();

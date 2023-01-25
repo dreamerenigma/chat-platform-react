@@ -1,15 +1,15 @@
 import { useContext, useEffect } from "react";
-import { fetchFriendsThunk } from "../../store/friends/friendsThunk";
-import { AppDispatch } from '../../store';
 import { useDispatch } from "react-redux";
 import { FriendList } from "../../components/friends/FriendList";
-import { SocketContext } from "../../utils/context/SocketContext";
-import { Friend } from "../../utils/types";
+import { AppDispatch } from '../../store';
 import {
 	removeFriend,
 	setOfflineFriends,
 	setOnlineFriends,
 } from "../../store/friends/friendsSlice";
+import { fetchFriendsThunk } from "../../store/friends/friendsThunk";
+import { SocketContext } from "../../utils/context/SocketContext";
+import { Friend } from "../../utils/types";
 
 export const FriendsPage = () => {
 	const dispatch = useDispatch<AppDispatch>();

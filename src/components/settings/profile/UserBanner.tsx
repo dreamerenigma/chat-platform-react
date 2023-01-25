@@ -1,4 +1,4 @@
-import { FC, useRef, Dispatch, SetStateAction, useState } from 'react';
+import { FC, useRef, Dispatch, SetStateAction } from 'react';
 import { FileInput } from '../../../utils/styles/inputs/Textarea';
 import { SettingsProfileBanner } from '../../../utils/styles/settings';
 import { DivMouseEvent, InputChangeEvent } from '../../../utils/types';

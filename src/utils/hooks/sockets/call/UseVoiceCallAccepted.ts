@@ -1,5 +1,6 @@
-import { AcceptedCallPayload } from './../../../types';
 import { useContext, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../../../store";
 import { 
    setActiveConversationId, 
    setCall, 
@@ -7,11 +8,10 @@ import {
    setIsCallInProgress,
    setIsReceivingCall, 
 } from '../../../../store/call/callSlice';
-import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "../../../../store";
+import { WebsocketEvents } from "../../../constants";
 import { AuthContext } from "../../../context/AuthContext";
 import { SocketContext } from "../../../context/SocketContext";
-import { WebsocketEvents } from "../../../constants";
+import { AcceptedCallPayload } from './../../../types';
 
 export function useVoiceCallAccepted() {
    const { user } = useContext(AuthContext);

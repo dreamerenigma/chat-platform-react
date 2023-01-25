@@ -1,7 +1,7 @@
 import { Dispatch, FC, SetStateAction, useState } from "react";
 import { CharacterLimit, MessageInputContainer } from "../../utils/styles";
-import { FaceVeryHappy } from "akar-icons";
 import { MessageTextField } from "../inputs/MessageTextField";
+import { FaceVeryHappy } from "akar-icons";
 import styles from "./index.module.scss";
 import { MessageAttachmentActionIcon } from "./MessageAttachmentActionIcon";
 

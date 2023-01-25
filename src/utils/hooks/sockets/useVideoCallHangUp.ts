@@ -1,8 +1,8 @@
 import { useContext, useEffect } from "react";
-import { SocketContext } from "../../context/SocketContext";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../../store";
 import { resetState } from "../../../store/call/callSlice";
+import { SocketContext } from "../../context/SocketContext";
 
 export function useVideoCallHangUp() {
    const socket = useContext(SocketContext);
@@ -22,7 +22,7 @@ export function useVideoCallHangUp() {
          console.log(remoteStream);
          remoteStream && 
             remoteStream.getTracks().forEach((track) => {
-               console.log(remoteStream);
+               console.log(remoteStream.id);
                console.log('stopping remote track', track);
                track.stop();
             });

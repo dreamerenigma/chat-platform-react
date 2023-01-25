@@ -1,10 +1,10 @@
 import { FC } from "react";
+import { useSelector } from "react-redux";
+import { RootState } from "../../store";
 import { MessageItemContent } from "../../utils/styles";
 import { GroupMessageType, MessageType } from "../../utils/types";
-import { EditMessageContainer } from "./EditMessageContainer";
 import { MessageItemAttachmentContainer } from "./attachments/MessageItemAttachmentContainer";
-import { RootState } from "../../store";
-import { useSelector } from "react-redux";
+import { EditMessageContainer } from "./EditMessageContainer";
 
 type Props = {
    message: MessageType | GroupMessageType;

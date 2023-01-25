@@ -1,9 +1,9 @@
 import { FC, useState } from 'react';
+import { MdClose } from 'react-icons/md';
 import { CDN_URL } from '../../../utils/constants';
 import { useKeydown } from '../../../utils/hooks';
 import { OverlayStyle } from '../../../utils/styles';
 import { GroupMessageType, MessageType } from '../../../utils/types';
-import { MdClose } from 'react-icons/md';
 import styles from './index.module.scss';
 
 type Props = {

@@ -42,10 +42,10 @@ form {
 }
 .radio {
 	display: none;
-	&:hover+.radioLabel::before {
+	&:hover + .radioLabel::before {
 		background-color: #000;
 	}
-	&:checked+.radioLabel::before {
+	&:checked + .radioLabel::before {
 		content: '\2714';
 		color: rgb(193, 193, 193);
 		background-color: #2b09ff;

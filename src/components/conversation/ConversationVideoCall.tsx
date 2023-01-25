@@ -93,7 +93,7 @@ export const ConversationVideoCall = () => {
                )}
             </div>
             <div>
-               <ImPhoneHangUp onClick={closeCall}/>
+               <ImPhoneHangUp onClick={closeCall} />
             </div>
          </VideoContainerActionButtons>
       </ConversationCallContainer>

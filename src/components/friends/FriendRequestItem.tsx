@@ -1,7 +1,7 @@
 import { FC, useContext } from "react";
 import { AuthContext } from "../../utils/context/AuthContext";
+import { FriendRequestItemContainer } from "../../utils/styles/friends";
 import { FriendRequest, HandleFriendRequestAction } from "../../utils/types";
-import { FriendRequestItemContainer, FriendRequestItemIcon } from "../../utils/styles/friends";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../store";
 import {

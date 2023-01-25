@@ -1,9 +1,9 @@
 import { useContext, useEffect } from "react";
-import { SocketContext } from "../../context/SocketContext";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../../store";
 import { resetState } from "../../../store/call/callSlice";
 import { WebsocketEvents } from "../../constants";
+import { SocketContext } from "../../context/SocketContext";
 
 export function useVideoCallRejected() {
    const socket = useContext(SocketContext);

@@ -2,9 +2,9 @@ import { FC } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate, useLocation } from "react-router-dom";
 import { RootState } from "../../../store";
+import { getUserSidebarIcon } from "../../../utils/helpers";
 import { IconBadge, UserSidebarItemStyle } from "../../../utils/styles";
 import { UserSidebarItemType } from "../../../utils/types";
-import { getUserSidebarIcon } from "../../../utils/helpers";
 
 type Props = {
 	item: UserSidebarItemType;
@@ -21,7 +21,7 @@ export const UserSidebarItem: FC<Props> = ({ item }) => {
 	const STROKE_WIDTH = 2;
 
 	const isActive = () => {
-		if (pathname.includes("/groups") && item.id === 'conversations')
+		if (pathname.includes('/groups') && item.id === 'conversations')
 			return true;
 		return pathname.includes(item.pathname);
 	};

@@ -2,7 +2,6 @@ import { FC, createRef, useEffect, Dispatch } from "react";
 import { MdClose } from "react-icons/md";
 import { ModalContainer, ModalHeader, ModalContentBody } from ".";
 import { OverlayStyle } from "../../utils/styles";
-import { CreateConversationForm } from "../forms/CreateConversationForm";
 import { GroupRecipientAddForm } from "../forms/GroupRecipientAddForm";
 
 type Props = {

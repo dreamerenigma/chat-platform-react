@@ -2,15 +2,15 @@ import { useContext } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { AppDispatch, RootState } from "../../store";
-import {
-	setMessageBeingEdited,
-	setIsEditing,
-} from "../../store/messageContainerSlice";
-import { ContextMenu, ContextMenuItem } from "../../utils/styles";
-import { AuthContext } from "../../utils/context/AuthContext";
-import { selectType } from "../../store/selectedSlice";
 import { deleteGroupMessageThunk } from "../../store/groupMessageSlice";
+import {
+	setIsEditing,
+	setMessageBeingEdited,
+} from "../../store/messageContainerSlice";
 import { deleteMessageThunk } from "../../store/messages/messageThunk";
+import { selectType } from "../../store/selectedSlice";
+import { AuthContext } from "../../utils/context/AuthContext";
+import { ContextMenu, ContextMenuItem } from "../../utils/styles";
 
 export const SelectedMessageContextMenu = () => {
 	const { id: routeId } = useParams();

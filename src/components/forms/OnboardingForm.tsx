@@ -15,12 +15,12 @@ import { completeUserProfile } from "../../utils/api";
 
 export const OnboardingForm = () => {
 	const [file, setFile] = useState<File>();
-	const [source, setSource] = useState("");
+	const [source, setSource] = useState('');
 	const fileInputRef = useRef<HTMLInputElement>(null);
 	const imageContainerRef = useRef<HTMLDivElement>(null);
 	const labelRef = useRef<HTMLLabelElement>(null);
-	const [username, setUsername] = useState("");
-	const [about, setAbout] = useState("");
+	const [username, setUsername] = useState('');
+	const [about, setAbout] = useState('');
 
 	const onFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const { files } = e.target;

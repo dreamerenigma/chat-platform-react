@@ -10,7 +10,7 @@ type Props = {
 
 export const ConversationTypeForm: FC<Props> = ({ type, setType }) => {
 	return (
-		<form className={styles.conversationTypeForm} >
+		<form className={styles.conversationTypeForm}>
 			{chatTypes.map((chatType) => (
 				<div>
 					<input

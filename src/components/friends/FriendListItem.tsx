@@ -1,7 +1,7 @@
 import { FC, useContext } from "react";
+import { AuthContext } from "../../utils/context/AuthContext";
 import { FriendListItemContainer } from "../../utils/styles/friends"
 import { ContextMenuEvent, Friend } from "../../utils/types";
-import { AuthContext } from "../../utils/context/AuthContext";
 import { UserAvatar } from "../users/UserAvatar";
 
 type Props = {

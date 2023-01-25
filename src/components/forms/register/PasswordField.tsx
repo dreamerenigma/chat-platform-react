@@ -14,7 +14,7 @@ export const PasswordField: FC<RegisterFormFieldProps> = ({
 	register,
 	errors,
 }) => {
-	const [showPassword, setShowPassword] = useState(false)
+	const [showPassword, setShowPassword] = useState(false);
 
 	return (
 		<InputContainer>
@@ -44,7 +44,6 @@ export const PasswordField: FC<RegisterFormFieldProps> = ({
 						onClick={() => setShowPassword(false)} 
 						cursor="pointer"
 					/>
-					
 				) : (
 					<AiFillEye 
 						size={24} 

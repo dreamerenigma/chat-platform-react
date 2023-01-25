@@ -1,7 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { 
-	fetchFriends as fetchFriendsAPI,
 	fetchFriendRequests as fetchFriendRequestsAPI,
+	fetchFriends as fetchFriendsAPI,
 	createFriendRequest as createFriendRequestAPI,
 	cancelFriendRequest as cancelFriendRequestAPI,
 	acceptFriendRequest as acceptFriendRequestAPI,

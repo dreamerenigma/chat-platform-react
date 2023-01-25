@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSelector, createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
-import { Conversation, CreateConversationParams, Points } from '../utils/types';
+import { Conversation, CreateConversationParams } from '../utils/types';
 import { getConversations, postNewConversation } from '../utils/api';
 import { RootState } from '.';
 

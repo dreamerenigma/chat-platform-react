@@ -24,5 +24,5 @@ export function useAuth() {
 		}
 	}, []);
 	
-	return { user, loading};
+	return { user, loading };
 }

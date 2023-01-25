@@ -20,10 +20,10 @@ import { UserAvatar } from '../../components/settings/profile/UserAvatar';
 export const SettingsProfilePage = () => {
    const { user, updateAuthUser } = useContext(AuthContext);
 
+   const [avatarFile, setAvatarFile] = useState<File>();
    const [avatarSource, setAvatarSource] = useState(
       CDN_URL.BASE.concat(user?.profile?.avatar || '')
    );
-   const [avatarFile, setAvatarFile] = useState<File>();
    const [avatarSourceCopy, setAvatarSourceCopy] = useState(avatarSource);
 
    const [bannerSource, setBannerSource] = useState(

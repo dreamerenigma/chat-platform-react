@@ -1,12 +1,12 @@
 import { createRef } from "react";
+import { MdClose } from "react-icons/md";
+import { useDispatch, useSelector } from "react-redux";
+import { ModalContainer, ModalHeader, ModalContentBody } from ".";
+import { AppDispatch, RootState } from "../../store";
 import { setShowEditGroupModal } from "../../store/groupSlice";
 import { useKeydown } from "../../utils/hooks";
-import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "../../store";
-import { DivMouseEvent } from "../../utils/types";
-import { MdClose } from "react-icons/md";
-import { ModalContainer, ModalHeader, ModalContentBody } from ".";
 import { OverlayStyle } from "../../utils/styles";
+import { DivMouseEvent } from "../../utils/types";
 import { EditGroupForm } from "../forms/EditGroupForm";
 
 export const EditGroupModal = () => {

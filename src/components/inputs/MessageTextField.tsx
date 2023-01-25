@@ -1,11 +1,11 @@
-import { FC, useRef, Dispatch, SetStateAction } from "react";
 import { MessageTextarea } from "../../utils/styles/inputs/Textarea";
+import { FC, useRef, Dispatch, SetStateAction } from "react";
 import { ClipboardEvent, DragEvent } from '../../utils/types';
+import { useDispatch, useSelector } from "react-redux";
 import {
 	addAttachment, 
 	incrementAttachmentCounter,
 } from "../../store/message-panel/messagePanelSlice";
-import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store";
 import { useToast } from "../../utils/hooks/useToast";
 

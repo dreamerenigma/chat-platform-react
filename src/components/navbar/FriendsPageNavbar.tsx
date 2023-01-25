@@ -1,9 +1,9 @@
-import { AiOutlineUserAdd } from "react-icons/ai";
-import { friendsNavbarItems } from "../../utils/constants";
-import { FriendsNavbar, FriendsNavbarItem } from "../../utils/styles/friends";
-import { useLocation, useNavigate } from "react-router-dom";
-import { Button } from "../../utils/styles/button";
 import { useState } from "react";
+import { AiOutlineUserAdd } from "react-icons/ai";
+import { useLocation, useNavigate } from "react-router-dom";
+import { friendsNavbarItems } from "../../utils/constants";
+import { Button } from "../../utils/styles/button";
+import { FriendsNavbar, FriendsNavbarItem } from "../../utils/styles/friends";
 import { CreateFriendRequestModal } from "../modals/CreateFriendRequestModal";
 
 export const FriendPageNavbar = () => {
