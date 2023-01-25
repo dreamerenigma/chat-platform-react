@@ -77,7 +77,7 @@ export const getSettingsSidebarIcon = (id: SettingsSidebarRouteType) => {
 			return IoIosNotifications;	
 		case 'integrations':
 			return IoMdInfinite;
-		case 'apperance':
+		case 'appearance':
 			return IoMdColorPalette;
 	}
 };

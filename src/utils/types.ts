@@ -53,7 +53,7 @@ export type CreateConversationParams = {
 
 export type MessageAttachment = {
 	key: string;
-}
+};
 
 export type MessageType = {
 	id: number;
@@ -151,7 +151,7 @@ export type Group = {
 	lastMessageSent: MessageType;
 	lastMessageSentAt: Date;
 	avatar?: string;
-};
+}
 
 export type GroupMessageEventPayload = {
 	message: GroupMessageType;
@@ -227,7 +227,6 @@ export type FriendRequest = {
 
 export type HandleFriendRequestAction = 'accept' | 'reject' | 'cancel';
 
-
 export type CancelFriendRequestResponse = {
 	id: number;
 };
@@ -237,9 +236,9 @@ export type AcceptFriendRequestResponse = {
 	friendRequest: FriendRequest;
 };
 
-export type UserSidebarRouteType = 
-	| 'conversations' 
-	| 'friends' 
+export type UserSidebarRouteType =
+	| 'conversations'
+	| 'friends'
 	| 'connections'
 	| 'settings'
 	| 'calls';
@@ -249,12 +248,12 @@ export type UserSidebarItemType = {
 	pathname: string;
 };
 
-export type SettingsSidebarRouteType = 
-	| 'profile' 
-	| 'security' 
+export type SettingsSidebarRouteType =
+	| 'profile'
+	| 'security'
 	| 'notifications'
 	| 'integrations'
-	| 'apperance';
+	| 'appearance';
 
 export type SettingsItemType = {
 	id: SettingsSidebarRouteType;
@@ -315,8 +314,8 @@ export type AcceptedCallPayload = {
 };
 
 export type SetVideoRefPayload = {
-   localVideoRef?: React.RefObject<HTMLVideoElement>;
-   remoteVideoRef?: React.RefObject<HTMLVideoElement>;
+	localVideoRef?: React.RefObject<HTMLVideoElement>;
+	remoteVideoRef?: React.RefObject<HTMLVideoElement>;
 };
 
 export type CallInitiatePayload = {
@@ -337,11 +336,11 @@ export type UpdateGroupDetailsPayload = {
 
 export enum UpdateGroupAction {
 	NEW_MESSAGE = 'newMessage',
-};
+}
 
 export type UpdateGroupPayload = {
 	type?: UpdateGroupAction;
-	group: Group; 
+	group: Group;
 };
 
 export type GroupParticipantLeftPayload = {

@@ -100,7 +100,7 @@ export const settingsItems: SettingsItemType[] = [
 		pathname: '/settings/integrations',
 	},
 	{
-		id: 'apperance',
+		id: 'appearance',
 		label: 'Apperance',
 		pathname: '/settings/apperance',
 	},
