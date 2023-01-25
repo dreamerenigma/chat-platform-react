@@ -14,7 +14,7 @@ export const NameField: FC<RegisterFormFieldProps> = ({ register, errors }) => {
 		<section className={styles.nameFieldRow}>
 			<InputContainer>
 				<InputContainerHeader>
-					<InputLabel htmlFor="firstName" >First Name</InputLabel>
+					<InputLabel htmlFor="firstName">First Name</InputLabel>
 					{errors.firstName && (
 						<InputError>{errors.firstName.message}</InputError>
 					)}
@@ -31,9 +31,9 @@ export const NameField: FC<RegisterFormFieldProps> = ({ register, errors }) => {
 			</InputContainer>
 			<InputContainer>
 				<InputContainerHeader>
-					<InputLabel htmlFor="lastName" >First Name</InputLabel>
+					<InputLabel htmlFor="lastName">Last Name</InputLabel>
 					{errors.lastName && (
-						<InputError>{errors.lastName?.message}</InputError>
+						<InputError>{errors.lastName.message}</InputError>
 					)}
 				</InputContainerHeader>
 				<InputField

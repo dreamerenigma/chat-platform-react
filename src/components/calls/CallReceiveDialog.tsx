@@ -19,7 +19,7 @@ export const CallReceiveDialog = () => {
                ? socket.emit('videoCallAccepted', payload)
                : socket.emit(SenderEvents.VOICE_CALL_ACCEPT, payload);
          case 'reject':
-            return callType 
+            return callType === 'video'
                ? socket.emit(WebsocketEvents.VIDEO_CALL_REJECTED, payload)
                : socket.emit(WebsocketEvents.VOICE_CALL_REJECTED, payload);
       }

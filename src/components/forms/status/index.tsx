@@ -1,5 +1,7 @@
 import { useState, useContext, SetStateAction, Dispatch, FC } from 'react';
+import { updateStatusMessage } from '../../../utils/api';
 import { AuthContext } from '../../../utils/context/AuthContext';
+import { useToast } from '../../../utils/hooks/useToast';
 import {
    InputContainer,
    InputContainerHeader,
@@ -8,8 +10,6 @@ import {
 } from '../../../utils/styles';
 import { Button } from '../../../utils/styles/button';
 import styles from '../index.module.scss';
-import { updateStatusMessage } from '../../../utils/api';
-import { useToast } from '../../../utils/hooks/useToast';
 
 type Props = {
    setShowModal: Dispatch<SetStateAction<boolean>>;
@@ -24,7 +24,7 @@ export const UpdateUserStatusForm: FC<Props> = ({ setShowModal }) => {
    
    const saveStatus = (e:React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
-      console.log('Updating Status');
+      console.log('Updating Status...');
       updateStatusMessage({ statusMessage })
          .then(() => {
             success('Updated Status!');

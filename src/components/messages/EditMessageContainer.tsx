@@ -1,16 +1,16 @@
-import { FC } from "react";
+import React, { FC } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { AppDispatch, RootState } from "../../store";
 import { editGroupMessageThunk } from "../../store/groupMessageSlice";
 import { setIsEditing } from "../../store/messageContainerSlice";
+import { editMessageThunk } from "../../store/messages/messageThunk";
 import { selectType } from "../../store/selectedSlice";
 import { 
 	EditMessageActionsContainer, 
 	EditMessageInputField, 
 } from "../../utils/styles"
 import { EditMessagePayload } from "../../utils/types";
-import { editMessageThunk } from "../../store/messages/messageThunk";
 
 type Props = {
 	onEditMessageChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -29,7 +29,7 @@ export const EditMessageContainer: FC<Props> = ({ onEditMessageChange }) => {
 		console.log(messageBeingEdited);
 		console.log('Submitting Edit');
 		if (!messageBeingEdited) {
-			console.log('messageBeingEdited is undefined.. Returning');
+			console.log('messageBeingEdited is undefined... Returning');
 			return;
 		}
 		const params: EditMessagePayload = {

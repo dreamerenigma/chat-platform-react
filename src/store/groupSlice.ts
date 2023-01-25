@@ -1,10 +1,10 @@
-import { UpdateGroupAction, UpdateGroupDetailsPayload, UpdateGroupPayload } from './../utils/types';
 import {
 	createAsyncThunk, 
 	createSelector,
 	createSlice, 
 	PayloadAction,
 } from "@reduxjs/toolkit";
+import { RootState } from ".";
 import { 
 	fetchGroups as fetchGroupsAPI, 
 	createGroup as createGroupAPI,
@@ -18,9 +18,11 @@ import {
 	Group, 
 	Points, 
 	RemoveGroupRecipientParams,
+	UpdateGroupAction,
+	UpdateGroupDetailsPayload,
 	UpdateGroupOwnerParams,
+	UpdateGroupPayload,
 } from "../utils/types";
-import { RootState } from ".";
 
 export interface GroupState {
 	groups: Group[];
@@ -65,8 +67,6 @@ export const leaveGroupThunk = createAsyncThunk('groups/leave', (id: number) =>
 export const updateGroupDetailsThunk = createAsyncThunk(
 	'groups/update/details', 
 	async (payload: UpdateGroupDetailsPayload, thunkAPI) => {
-		thunkAPI.dispatch(setIsSavingChanges(true));
-		thunkAPI.dispatch(setIsSavingChanges(true));
 		try {
 			const { data: group } = await updateGroupDetailsAPI(payload);
 			console.log('Updated Group Succesful. Dispatching updateGroup');
@@ -94,11 +94,13 @@ export const groupsSlice = createSlice({
 			if (!existingGroup) return;
 			switch (type) {
 				case UpdateGroupAction.NEW_MESSAGE: {
+					console.log('Inside UpdateGroupAction.NEW_MESSAGE');
 					state.groups.splice(index, 1);
 					state.groups.unshift(group);
 					break;
 				}
 				default: {
+					console.log('Default Case for updateGroup');
 					state.groups[index] = group;
 					break;
 				}
@@ -147,10 +149,10 @@ export const groupsSlice = createSlice({
 				}
 			})
 			.addCase(updateGroupOwnerThunk.fulfilled, (state, action) => {
-				console.log('updateGroupOwneThunk.fulfilled');
+				console.log('updateGroupOwnerThunk.fulfilled');
 			})
 			.addCase(leaveGroupThunk.fulfilled, (state, action) => {
-				console.log('updateGroupOwnerThunk.fulfilled');
+				console.log('leaveGroupThunk.fulfilled');
 			})
 			.addCase(updateGroupDetailsThunk.fulfilled, (state, action) => {
 				console.log('updateGroupDetailsThunk.fulfilled');

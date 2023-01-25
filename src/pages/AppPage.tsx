@@ -1,4 +1,4 @@
-import { useContext, useEffect, useRef } from "react";
+import { useContext, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { UserSidebar } from "../components/sidebars/UserSidebar"
@@ -40,7 +40,6 @@ export const AppPage = () => {
 	const socket = useContext(SocketContext);
 	const dispatch = useDispatch<AppDispatch>();
 	const navigate = useNavigate();
-	const location = useLocation();
 	const { peer, call, isReceivingCall, caller, connection, callType } = 
 		useSelector((state: RootState) => state.call);
 	const { info } = useToast({ theme: 'dark' });
@@ -182,12 +181,12 @@ export const AppPage = () => {
 		<ThemeProvider
 			theme={
 				storageTheme
-					? (theme === 'dark'
-						? DarkTheme
-						: LightTheme)
-					: theme === 'dark'
+					? storageTheme === 'dark'
 						? DarkTheme
 						: LightTheme
+					: theme === 'dark'
+					? DarkTheme
+					: LightTheme
 			}
 		>
 			{isReceivingCall && caller && <CallReceiveDialog />}

@@ -1,11 +1,14 @@
+import { Dispatch, FC, SetStateAction, useRef, useState } from "react";
 import { useSelector } from "react-redux"
 import { RootState } from "../../store"
 import { CDN_URL } from "../../utils/constants";
-import defaultAvatar from '../../__assets__/default_avatar.jpg';
+import {
+   AvatarUploadContainer,
+   GroupAvatarUploadContainer,
+} from "../../utils/styles";
 import { FileInput } from "../../utils/styles/inputs/Textarea";
-import { Dispatch, FC, SetStateAction, useRef, useState } from "react";
 import { InputChangeEvent } from "../../utils/types";
-import { AvatarUploadContainer } from "../../utils/styles";
+import defaultAvatar from '../../__assets__/default_avatar.jpg';
 
 type Props = {
    setFile: Dispatch<SetStateAction<File | undefined>>
@@ -13,7 +16,7 @@ type Props = {
 
 export const GroupAvatarUpload: FC<Props> = ({ setFile }) => {
    const fileInputRef = useRef<HTMLInputElement>(null);
-   const [source, setSource] = useState(''); 
+   const [source, setSource] = useState('');
    const { selectedGroupContextMenu } = useSelector(
       (state: RootState) => state.groups
    );
@@ -30,22 +33,22 @@ export const GroupAvatarUpload: FC<Props> = ({ setFile }) => {
          setSource(URL.createObjectURL(file));
          setFile(file);
       }
-   }; 
+   };
 
    const onAvatarClick = () => fileInputRef.current?.click();
 
    return (
-      <>
-         <AvatarUploadContainer 
+      <GroupAvatarUploadContainer>
+         <AvatarUploadContainer
             onClick={onAvatarClick}
             url={source || getGroupAvatar()}
          ></AvatarUploadContainer>
-         <FileInput 
+         <FileInput
             type="file"
             ref={fileInputRef}
             accept="image/*"
             onChange={onFileChange}
          />
-      </>
+      </GroupAvatarUploadContainer>
    );
 };

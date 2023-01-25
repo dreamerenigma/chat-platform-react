@@ -1,35 +1,32 @@
-import { Form } from "react-router-dom"
+import { useCallback, useRef, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../store";
 import { 
    InputContainer, 
    InputLabel, 
    InputField,
-   ButtonContainer,
+   Form,
    Button, 
-} from "../../utils/styles"
-import { GroupAvatarUpload } from "../avatar/GroupAvatarUpload";
-import { useCallback, useEffect, useRef, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "../../store";
-import { FormEvent } from "../../utils/types";
+} from "../../utils/styles";
+import { useBeforeUnload } from "../../utils/hooks";
+import { useToast } from "../../utils/hooks/useToast";
 import { 
    setIsSavingChanges, 
    setShowEditGroupModal, 
    updateGroupDetailsThunk, 
 } from "../../store/groupSlice";
-import { useToast } from "../../utils/hooks/useToast";
-import { MoonLoader } from "react-spinners";
-import { useBeforeUnload } from "../../utils/hooks";
+import { FormEvent } from "../../utils/types";
+import { GroupAvatarUpload } from "../avatar/GroupAvatarUpload";
 
 export const EditGroupForm = () => {
    const { selectedGroupContextMenu:  group, isSavingChanges } = useSelector(
       (state: RootState) => state.groups
    );
    const dispatch = useDispatch<AppDispatch>();
-   const formRef = useRef<HTMLDivElement>(null);
+   const formRef = useRef<HTMLFormElement>(null);
    const [file, setFile] = useState<File>();
    const [newGroupTitle, setNewGroupName] = useState(group?.title || '');
    const { success, error } = useToast({ theme: 'dark' }); 
-   const [groupName, setGroupName] = useState(group?.title || '');
    const isStateChanged = useCallback(
       () => file || group?.title !== newGroupTitle,
       [file, newGroupTitle, group?.title]
@@ -62,14 +59,14 @@ export const EditGroupForm = () => {
    };
 
    return (
-      <Form onSubmit={onSubmit}>
+      <Form onSubmit={onSubmit} ref={formRef}>
          <GroupAvatarUpload setFile={setFile} />
          <InputContainer backgroundColor="#161616">
             <InputLabel htmlFor="groupName">Group Name</InputLabel>
             <InputField 
                id="groupName" 
-               value={groupName}
-               onChange={(e) => setGroupName(e.target.value)}
+               value={newGroupTitle}
+               onChange={(e) => setNewGroupName(e.target.value)}
                disabled={isSavingChanges}
             />
          </InputContainer>

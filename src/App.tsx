@@ -24,7 +24,7 @@ import { FriendRequestPage } from './pages/friends/FriendRequestPage';
 import { SettingsPage } from './pages/settings/SettingsPage';
 import { SettingsProfilePage } from './pages/settings/SettingsProfilePage';
 import { SettingsApperancePage } from './pages/settings/SettingsApperancePage';
-import { CallsPage } from './pages/calls/CallPage';
+import { CallsPage } from './pages/calls/CallsPage';
 import { CurrentCallPage } from './pages/calls/CurrentCallPage.tsx';
 
 enableMapSet();

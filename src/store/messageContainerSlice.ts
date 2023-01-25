@@ -16,7 +16,7 @@ const initialState: MessageContainerState = {
 };
 
 export const messageContainerSlice = createSlice({
-	name: 'MessageContainer',
+	name: 'messageContainer',
 	initialState,
 	reducers: {
 		setSelectedMessage: (state, action) => {

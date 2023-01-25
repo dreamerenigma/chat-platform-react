@@ -9,10 +9,10 @@ import {
 	toggleContextMenu, 
 } from "../../store/groupSlice";
 import { AuthContext } from "../../utils/context/AuthContext";
+import { isGroupOwner } from "../../utils/helpers";
 import { ContextMenu, ContextMenuItem } from "../../utils/styles";
 import { IoMdExit, IoIosArchive } from 'react-icons/io';
 import { Edit } from 'akar-icons';
-import { isGroupOwner } from "../../utils/helpers";
 
 export const GroupSidebarContextMenu: FC = () => {
 	const { id } = useParams();
@@ -48,7 +48,7 @@ export const GroupSidebarContextMenu: FC = () => {
 				</ContextMenuItem>
 			)}
 			<ContextMenuItem>
-				<IoIosArchive size={20} color="#ff0000" />
+				<IoIosArchive size={20} color="#fff" />
 				<span style={{ color: '#fff' }}>Archive Group</span>
 			</ContextMenuItem>
 		</ContextMenu>

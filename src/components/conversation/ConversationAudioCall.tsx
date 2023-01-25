@@ -1,4 +1,4 @@
-import { useContext, useEffect,useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store";
 import { 
@@ -27,7 +27,7 @@ export const ConversationAudioCall = () => {
       (state: RootState) => state.call
    );
    useEffect(() => {
-      console.log('local stream was updated...');
+      console.log('AUDIO: local stream was updated...');
       console.log(localStream);
       if (localAudioRef.current && localStream) {
          console.log('AUDIO: updating local video ref');
@@ -95,7 +95,7 @@ export const ConversationAudioCall = () => {
                )}
             </div>
             <div>
-               <ImPhoneHangUp onClick={closeCall}/>
+               <ImPhoneHangUp onClick={closeCall} />
             </div>
          </VideoContainerActionButtons>
       </ConversationCallContainer>

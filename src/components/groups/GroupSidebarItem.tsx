@@ -1,8 +1,8 @@
 import { useNavigate, useParams } from "react-router-dom";
+import { CDN_URL } from "../../utils/constants";
 import { ConversationSidebarItemStyle } from "../../utils/styles"
 import { ContextMenuEvent, Group } from "../../utils/types";
 import styles from './index.module.scss';
-import { CDN_URL } from "../../utils/constants";
 import { PeopleGroup } from 'akar-icons';
 
 type Props = {
@@ -30,16 +30,12 @@ export const GroupSidebarItem: React.FC<Props> = ({ group, onContextMenu }) => {
 				: group.title;
 	};
 
-	const getProfilePicture = () => 
-		group.avatar && CDN_URL.BASE.concat(group.avatar);
-
 	return (
 		<ConversationSidebarItemStyle
 			onClick={() => navigate(`/groups/${group.id}`)}
 			onContextMenu={(e) => onContextMenu(e, group)}
 			selected={parseInt(id!) === group.id}
 		>
-			<div className={styles.groupAvatar}></div>
 			{group.avatar ? (
 				<img 
 					src={CDN_URL.BASE.concat(group.avatar)} 

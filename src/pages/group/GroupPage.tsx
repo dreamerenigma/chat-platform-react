@@ -12,15 +12,15 @@ import {
 	updateGroup,
 } from "../../store/groupSlice";
 import { updateType } from "../../store/selectedSlice";
-import { SocketContext } from "../../utils/context/SocketContext";
 import { AuthContext } from "../../utils/context/AuthContext";
+import { SocketContext } from "../../utils/context/SocketContext";
 import {
-	AddGroupUserMessagePayload,
 	Group,
+	AddGroupUserMessagePayload,
 	GroupMessageEventPayload,
-	GroupParticipantLeftPayload,
 	RemoveGroupUserMessagePayload,
 	UpdateGroupAction,
+	GroupParticipantLeftPayload,
 } from "../../utils/types";
 
 export const GroupPage = () => {
@@ -61,7 +61,7 @@ export const GroupPage = () => {
 		 * Adds the group for yhe user being added
 		 * to the group.
 		 */
-		socket.on('onGroupUserAdd', (payload) => {
+		socket.on('onGroupUserAdd', (payload: AddGroupUserMessagePayload) => {
 			console.log('onGroupUserAdd');
 			console.log(payload);
 			dispatch(addGroup(payload.group));
@@ -80,7 +80,7 @@ export const GroupPage = () => {
 		);
 
 		socket.on(
-			'onGrupRecipientRemoved',
+			'onGroupRecipientRemoved',
 			({ group }: RemoveGroupUserMessagePayload) => {
 				console.log('onGroupRecipientRemoved');
 				dispatch(updateGroup({ group }));

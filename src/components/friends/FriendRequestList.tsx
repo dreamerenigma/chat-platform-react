@@ -1,6 +1,6 @@
-import { FriendListContainer } from "../../utils/styles/friends"
-import { RootState } from "../../store";
 import { useSelector } from "react-redux";
+import { RootState } from "../../store";
+import { FriendListContainer } from "../../utils/styles/friends"
 import { FriendRequestItem } from "./FriendRequestItem";
 
 export const FriendRequestList = () => {
@@ -9,7 +9,7 @@ export const FriendRequestList = () => {
 	);
 	return (
 		<FriendListContainer>
-			{friendRequests.length === 0 && <div>No Friend Request :(</div>}
+			{friendRequests.length === 0 && <div>No Friend Requests :(</div>}
 			{friendRequests.map((friendRequest) => (
 				<FriendRequestItem 
 					key={friendRequest.id} 

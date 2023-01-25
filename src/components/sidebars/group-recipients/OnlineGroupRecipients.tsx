@@ -1,7 +1,7 @@
-import { FC } from "react";
-import { ContextMenuEvent, Group, User } from "../../../utils/types";
-import { GroupRecipientSidebarItem } from "../../../utils/styles";
 import { Crown } from "akar-icons";
+import { FC } from "react";
+import { GroupRecipientSidebarItem } from "../../../utils/styles";
+import { ContextMenuEvent, Group, User } from "../../../utils/types";
 import { UserAvatar } from "../../users/UserAvatar";
 
 type Props = {
@@ -34,7 +34,7 @@ export const OnlineGroupRecipients: FC<Props> = ({
                <UserAvatar user={user} />
                <div className="recipientDetails">
                   <span>{user.firstName}</span>
-                  <span className="status">{user.presence?.statusMessage}</span>
+                  <span className="status">{formatStatusMessage(user)}</span>
                </div>
             </div>
             {user.id === group?.owner.id && <Crown color="#ffbf00" />}

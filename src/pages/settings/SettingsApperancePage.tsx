@@ -1,6 +1,6 @@
 import { useDispatch } from "react-redux";
-import { Page } from "../../utils/styles"
 import { setTheme } from "../../store/settings/settingsSlice";
+import { Page } from "../../utils/styles"
 import { SelectableTheme } from "../../utils/types";
 
 export const SettingsApperancePage = () => {
@@ -20,14 +20,14 @@ export const SettingsApperancePage = () => {
                   type="radio"
                   id="dark"
                   name="theme"
-                  onChange={(e) => dispath(setTheme('dark'))}
+                  onChange={(e) => handleThemeChange('dark')}
                />
                <label htmlFor="dark">Dark</label>
                <input
                   type="radio"
                   id="light"
                   name="theme"
-                  onChange={(e) => dispath(setTheme('light'))}
+                  onChange={(e) => handleThemeChange('light')}
                />
                <label htmlFor="light">Light</label>
             </form>

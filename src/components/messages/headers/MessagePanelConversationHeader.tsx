@@ -1,14 +1,14 @@
-import { FaPhoneAlt, FaVideo } from "react-icons/fa"
 import { useContext } from "react"
-import { useParams } from "react-router-dom"
-import { AuthContext } from "../../../utils/context/AuthContext"
+import { FaPhoneAlt, FaVideo } from "react-icons/fa"
 import { useDispatch, useSelector } from "react-redux"
-import { selectConversationById } from "../../../store/conversationSlice"
-import { AppDispatch, RootState } from "../../../store"
-import { getRecipientFromConversation } from "../../../utils/helpers"
-import { SenderEvents } from "../../../utils/constants"
+import { useParams } from "react-router-dom"
+import { RootState } from "../../../store"
 import { initiateCallState } from "../../../store/call/callSlice"
+import { selectConversationById } from "../../../store/conversationSlice"
+import { SenderEvents } from "../../../utils/constants"
+import { AuthContext } from "../../../utils/context/AuthContext"
 import { SocketContext } from "../../../utils/context/SocketContext"
+import { getRecipientFromConversation } from "../../../utils/helpers"
 import { 
    MessagePanelHeaderStyle,  
    MessagePanelHeaderIcons,
@@ -41,13 +41,13 @@ export const MessagePanelConversationHeader = () => {
 
    const videoCallUser = async () => {
 		if (!recipient) return console.log('Recipient undefined'); 
-		socket.emit(SenderEvents.VOICE_CALL_INITIATE, {
+		socket.emit(SenderEvents.VIDEO_CALL_INITIATE, {
 			conversationId: conversation!.id,
 			recipienId: recipient.id,
 		});
-      const constraints = { video: false, audio: true };
+      const constraints = { video: true, audio: true };
 		const stream = await navigator.mediaDevices.getUserMedia(constraints);
-      const payload = buildCallPayloadParams(stream, 'audio');
+      const payload = buildCallPayloadParams(stream, 'video');
       if (!payload) throw new Error('Video Call Payload is undefined.');
 		dispatch(initiateCallState(payload));
    };

@@ -1,10 +1,10 @@
 import {
-	GroupRecipientSidebarHeader,
+	GroupRecipientsSidebarHeader,
 	GroupRecipientSidebarItemContainer,
-	GroupRecipientSidebarStyle,
+	GroupRecipientsSidebarStyle,
 } from "../../../utils/styles";
-import { AppDispatch, RootState } from "../../../store";
 import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../../store";
 import { selectGroupById } from "../../../store/groupSlice";
 import { useParams } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
@@ -45,6 +45,8 @@ export const GroupRecipientsSidebar = () => {
 			socket.emit('getOnlineGroupUsers', { groupId });
 		}, 5000);
 		socket.on('onlineGroupUsersReceived', (payload) => {
+			console.log('received onlineGroupUsersReceived event');
+      	console.log(payload);
 			setOnlineUsers(payload.onlineUsers);
 		});
 		return () => {
@@ -71,10 +73,10 @@ export const GroupRecipientsSidebar = () => {
 	};
 
 	return (
-		<GroupRecipientSidebarStyle>
-			<GroupRecipientSidebarHeader>
+		<GroupRecipientsSidebarStyle>
+			<GroupRecipientsSidebarHeader>
 				<span>Participants</span>
-			</GroupRecipientSidebarHeader>
+			</GroupRecipientsSidebarHeader>
 			<GroupRecipientSidebarItemContainer>
 				<span>Online Users</span>
 				<OnlineGroupRecipients 
@@ -92,6 +94,6 @@ export const GroupRecipientsSidebar = () => {
 					<SelectedParticipantContextMenu points={groupSidebarState.points} />
 				)}
 			</GroupRecipientSidebarItemContainer>
-		</GroupRecipientSidebarStyle>
+		</GroupRecipientsSidebarStyle>
 	);
 };
